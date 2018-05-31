@@ -10,7 +10,7 @@
 #' color of the icon.
 #' @return a character object that is the styled
 #' FontAwesome icon within \code{svg} tags.
-#' #' @examples
+#' @examples
 #' # Emit a FontAwesome icon (`r-project`) as
 #' # SVG within `svg` tags
 #' fa_svg(name = "r-project")
@@ -18,9 +18,9 @@
 #' @importFrom dplyr filter pull rename
 #' @importFrom stringr str_replace
 #' @export
-fa_svg <- function(name,
-                   height = 30,
-                   fill = NULL) {
+fa <- function(name,
+               height = NULL,
+               fill = NULL) {
 
   fa_tbl <- fontawesome:::fa_tbl
 
@@ -37,9 +37,20 @@ fa_svg <- function(name,
       (fa_tbl %>%
          dplyr::filter(name %in% rlang::UQ(rlang::enquo(name))) %>%
          dplyr::pull(svg))[1]
+  } else {
+
+    return("")
   }
 
-  style <- glue::glue("style=\"height:{height};")
+  # Construct `style` attributes --------------------------------------------
+
+  style <- "style=\""
+
+  if (is.null(height)) {
+    style <- glue::glue("{style}height:0.8em;top:.04em;position:relative;")
+  } else {
+    style <- glue::glue("{style}height:{height};")
+  }
 
   if (!is.null(fill)) {
     style <- glue::glue("{style}fill:{fill};")
@@ -47,9 +58,14 @@ fa_svg <- function(name,
 
   style <- glue::glue("{style}\"")
 
-  stringr::str_replace(
-    string = svg,
-    pattern = "^<svg",
-    replacement = glue::glue("<svg {style}")) %>%
-    as.character()
+  if (!grepl(style, pattern = "style=\"\"")) {
+
+    svg <- svg %>%
+      stringr::str_replace(
+        pattern = "^<svg",
+        replacement = glue::glue("<svg {style}")) %>%
+      as.character()
+  }
+
+  svg
 }
