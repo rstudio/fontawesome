@@ -14,7 +14,6 @@
 #' @importFrom glue glue
 #' @importFrom dplyr filter pull rename
 #' @importFrom stringr str_replace
-#' @importFrom htmltools htmlDependency htmlDependencies
 #' @export
 fai <- function(name) {
 
@@ -37,29 +36,8 @@ fai <- function(name) {
            dplyr::filter(name %in% rlang::UQ(rlang::enquo(name))) %>%
            dplyr::pull(full_name))[1],
         "\"></i>") %>% as.character()
-  }
-
-  # Construct `style` attributes --------------------------------------------
-
-  style <- "style=\""
-
-  if (!is.null(height)) {
-    style <- glue::glue("{style}height:{height};")
-  }
-
-  if (!is.null(fill)) {
-    style <- glue::glue("{style}fill:{fill};")
-  }
-
-  style <- glue::glue("{style}\"")
-
-  if (!grepl(style, pattern = "style=\"\"")) {
-
-    tag <- tag %>%
-      stringr::str_replace(
-        pattern = "^<i",
-        replacement = glue::glue("<i {style}")) %>%
-      as.character()
+  } else {
+    return("")
   }
 
   tag

@@ -38,7 +38,6 @@ fa <- function(name,
          dplyr::filter(name %in% rlang::UQ(rlang::enquo(name))) %>%
          dplyr::pull(svg))[1]
   } else {
-
     return("")
   }
 
