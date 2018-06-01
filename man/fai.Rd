@@ -23,5 +23,5 @@ We can optionally set certain style attributes.
 \examples{
 # Emit a FontAwesome icon (`r-project`) as
 # SVG within `i` tags
-fa(name = "r-project")
+fai(name = "r-project")
 }

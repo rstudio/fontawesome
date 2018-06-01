@@ -22,10 +22,13 @@ FontAwesome icon within \code{svg} tags.
 \description{
 Add a FontAwesome icon as SVG contained within
 \code{<svg>...</svg>}. We can optionally set
-certain style attributes.
+certain style attributes. The \code{fa()} function
+can be used directly within inline evaluations
+of R code (e.g., as \code{`r fa(...)`}) in R
+Markdown documents.
 }
 \examples{
 # Emit a FontAwesome icon (`r-project`) as
 # SVG within `svg` tags
-fa_svg(name = "r-project")
+fa(name = "r-project")
 }
