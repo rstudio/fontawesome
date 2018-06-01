@@ -2,7 +2,10 @@
 #'
 #' Add a FontAwesome icon as SVG contained within
 #' \code{<svg>...</svg>}. We can optionally set
-#' certain style attributes.
+#' certain style attributes. The \code{fa()} function
+#' can be used directly within inline evaluations
+#' of R code (e.g., as \code{`r fa(...)`}) in R
+#' Markdown documents.
 #' @param name the name of the FontAwesome icon.
 #' @param height the absolute height (px)
 #' of the rendered SVG.
@@ -13,7 +16,7 @@
 #' @examples
 #' # Emit a FontAwesome icon (`r-project`) as
 #' # SVG within `svg` tags
-#' fa_svg(name = "r-project")
+#' fa(name = "r-project")
 #' @importFrom glue glue
 #' @importFrom dplyr filter pull rename
 #' @importFrom stringr str_replace
