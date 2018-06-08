@@ -20,6 +20,7 @@
 #' @importFrom glue glue
 #' @importFrom dplyr filter pull rename
 #' @importFrom stringr str_replace
+#' @importFrom htmltools HTML
 #' @export
 fa <- function(name,
                height = NULL,
@@ -69,5 +70,5 @@ fa <- function(name,
       as.character()
   }
 
-  svg
+  htmltools::HTML(svg)
 }
