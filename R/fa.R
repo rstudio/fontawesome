@@ -70,5 +70,8 @@ fa <- function(name,
       as.character()
   }
 
-  htmltools::HTML(svg)
+  svg <- htmltools::HTML(svg)
+
+  class(svg) <- c("fontawesome", class(svg))
+  svg
 }
