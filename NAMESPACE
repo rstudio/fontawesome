@@ -3,7 +3,6 @@
 export("%>%")
 export(fa)
 export(fai)
-export(sfa)
 importFrom(dplyr,filter)
 importFrom(dplyr,pull)
 importFrom(dplyr,rename)
