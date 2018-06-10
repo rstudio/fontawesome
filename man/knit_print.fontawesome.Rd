@@ -2,7 +2,7 @@
 % Please edit documentation in R/knit_print.R
 \name{knit_print.fontawesome}
 \alias{knit_print.fontawesome}
-\title{Knit the FontAwesome icon}
+\title{Safely print any FontAwesome in R Markdown}
 \usage{
 \method{knit_print}{fontawesome}(x, ...)
 }
