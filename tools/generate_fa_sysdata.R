@@ -16,7 +16,7 @@ fa_list <-
   jsonlite::fromJSON(
     txt = "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/advanced-options/metadata/icons.json")
 
-# Generate empty table
+# Generate an empty table
 fa_tbl <-
   dplyr::tibble(
     name = NA_character_,
@@ -90,5 +90,5 @@ for (i in seq(fa_list)) {
   }
 }
 
-# Create sysdata.rda
+# Create `sysdata.rda`
 usethis::use_data(fa_tbl, internal = TRUE, overwrite = TRUE)
