@@ -1,10 +1,10 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# fontawesome
+# The fontawesome package
 
-The goal of the **fontawesome** R package is to make it easy to insert
-**FontAwesome** icons wherever that is necessary.
+The **fontawesome** package makes it very easy to insert **FontAwesome**
+icons within R Markdown documents and Shiny apps.
 
 ## Example
 
