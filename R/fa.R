@@ -21,12 +21,14 @@
 #' @importFrom dplyr filter pull rename
 #' @importFrom stringr str_replace
 #' @importFrom htmltools HTML
+#' @importFrom rlang UQ enquo
 #' @export
 fa <- function(name,
                height = NULL,
                fill = NULL) {
 
-  fa_tbl <- fontawesome:::fa_tbl
+  # Create bindings for global variables
+  full_name <- NULL
 
   if (name %in% (fa_tbl %>% dplyr::pull(full_name))) {
 
