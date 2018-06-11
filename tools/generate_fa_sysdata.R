@@ -88,6 +88,8 @@ for (i in seq(fa_list)) {
           svg = svg
         ))
   }
+
+  fa_tbl <- fa_tbl %>% as.data.frame()
 }
 
 # Create `sysdata.rda`
