@@ -34,3 +34,58 @@ As can be seen, what we really get from the function is a character object provi
 ```{r eval=FALSE}
 {text} `r fa(...)` {text}
 ```
+
+Here is an example R Markdown document that includes FontAwesome icons:
+
+````
+---
+title: "FontAwesome in R Markdown"
+output: html_document
+---
+
+```{r load_packages, message=FALSE, warning=FALSE, include=FALSE} `r ''`
+library(fontawesome)
+```
+
+# Just a few tests with `r "\u0060r fa(\"font-awesome-logo-full\", fill = \"forestgreen\")\u0060"`
+
+It works well in headings...
+
+# `r "\u0060r fa(\"r-project\", fill = \"steelblue\")\u0060"` H1 Heading
+
+## `r "\u0060r fa(\"r-project\", fill = \"steelblue\")\u0060"` H2 Heading
+
+### `r "\u0060r fa(\"r-project\", fill = \"steelblue\")\u0060"` H3 Heading
+
+#### `r "\u0060r fa(\"r-project\", fill = \"steelblue\")\u0060"` H4 Heading
+
+##### `r "\u0060r fa(\"r-project\", fill = \"steelblue\")\u0060"` H5 Heading
+
+...and works equally well within inline text: `r  "\u0060r fa(\"r-project\", fill = \"steelblue\")\u0060"`.
+````
+
+This will appear, when knit, as:
+
+# Just a few tests with `r fa("font-awesome-logo-full", fill = "forestgreen")`
+
+It works well in headings...
+
+# `r fa("r-project", fill = "steelblue")` H1 Heading
+
+## `r fa("r-project", fill = "steelblue")` H2 Heading
+
+### `r fa("r-project", fill = "steelblue")` H3 Heading
+
+#### `r fa("r-project", fill = "steelblue")` H4 Heading
+
+##### `r fa("r-project", fill = "steelblue")` H5 Heading
+
+...and works equally well within inline text: `r fa("r-project", fill = "steelblue")`.
+
+## Code of Conduct
+
+Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+
+## License
+
+MIT &copy; RStudio
