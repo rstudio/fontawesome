@@ -4,7 +4,7 @@
 \alias{knit_print.fontawesome}
 \title{Safely print any FontAwesome in R Markdown}
 \usage{
-\method{knit_print}{fontawesome}(x, ...)
+knit_print.fontawesome(x, ...)
 }
 \arguments{
 \item{x}{an object containing the class
