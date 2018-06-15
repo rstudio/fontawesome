@@ -17,11 +17,7 @@
 #' # Emit a FontAwesome icon (`r-project`) as
 #' # SVG within `svg` tags
 #' fa(name = "r-project")
-#' @importFrom glue glue
-#' @importFrom dplyr filter pull rename
-#' @importFrom stringr str_replace
 #' @importFrom htmltools HTML
-#' @importFrom rlang UQ enquo
 #' @export
 fa <- function(name,
                height = NULL,
@@ -30,19 +26,18 @@ fa <- function(name,
   # Create bindings for global variables
   full_name <- NULL
 
-  if (name %in% (fa_tbl %>% dplyr::pull(full_name))) {
+  if (name %in% fontawesome:::fa_tbl$full_name) {
 
     svg <-
-      (fa_tbl %>%
-         dplyr::filter(full_name %in% rlang::UQ(rlang::enquo(name))) %>%
-         dplyr::pull(svg))[1]
+      fontawesome:::fa_tbl[
+        which(fontawesome:::fa_tbl$full_name == name), ][1, 4]
 
-  } else if (name %in% (fa_tbl %>% dplyr::pull(name))) {
+  } else if (name %in% fontawesome:::fa_tbl$name) {
 
     svg <-
-      (fa_tbl %>%
-         dplyr::filter(name %in% rlang::UQ(rlang::enquo(name))) %>%
-         dplyr::pull(svg))[1]
+      fontawesome:::fa_tbl[
+        which(fontawesome:::fa_tbl$name == name), ][1, 4]
+
   } else {
     return("")
   }
@@ -52,24 +47,24 @@ fa <- function(name,
   style <- "style=\""
 
   if (is.null(height)) {
-    style <- glue::glue("{style}height:0.8em;top:.04em;position:relative;")
+    style <- paste0(style, "height:0.8em;top:.04em;position:relative;")
   } else {
-    style <- glue::glue("{style}height:{height};")
+    style <- paste0(style, "height:", height, ";")
   }
 
   if (!is.null(fill)) {
-    style <- glue::glue("{style}fill:{fill};")
+    style <- paste0(style, "fill:", fill, ";")
   }
 
-  style <- glue::glue("{style}\"")
+  style <- paste0(style, "\"")
 
   if (!grepl(style, pattern = "style=\"\"")) {
 
-    svg <- svg %>%
-      stringr::str_replace(
+    svg <-
+      gsub(
         pattern = "^<svg",
-        replacement = glue::glue("<svg {style}")) %>%
-      as.character()
+        replacement = paste0("<svg ", style),
+        x = svg)
   }
 
   svg <- htmltools::HTML(svg)
