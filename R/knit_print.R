@@ -8,5 +8,8 @@
 #' @export
 knit_print.fontawesome <- function(x, ...) {
 
-  knitr::knit_print(as.character(x), ...)
+  if (requireNamespace("knitr")) {
+
+    knitr::knit_print(as.character(x), ...)
+  }
 }
