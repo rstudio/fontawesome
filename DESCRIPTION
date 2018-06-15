@@ -15,7 +15,7 @@ RoxygenNote: 6.0.1
 Depends: 
     R (>= 3.2.0)
 Imports:
-    htmltools (>= 0.3.6),
-    knitr (>= 1.20)
+    htmltools (>= 0.3.6)
 Suggests: 
-    testthat
+    testthat,
+    knitr
