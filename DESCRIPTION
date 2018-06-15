@@ -1,6 +1,6 @@
 Package: fontawesome
 Version: 0.1.0
-Title: Easy Access to FontAwesome Icons
+Title: Easily Insert FontAwesome Icons into Documents
 Description: Easily and flexibly insert FontAwesome icons into R Markdown
     documents or Shiny apps. 
 Authors@R: c(
