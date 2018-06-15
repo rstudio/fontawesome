@@ -1,6 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+[![Travis build
+status](https://travis-ci.org/rstudio/fontawesome.svg?branch=master)](https://travis-ci.org/rstudio/fontawesome)
+
 # The fontawesome package
 
 The **fontawesome** package makes it very easy to insert **FontAwesome**

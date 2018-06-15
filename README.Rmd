@@ -17,6 +17,8 @@ knitr::opts_chunk$set(
 library(fontawesome)
 ```
 
+[![Travis build status](https://travis-ci.org/rstudio/fontawesome.svg?branch=master)](https://travis-ci.org/rstudio/fontawesome)
+
 # The fontawesome package
 
 The **fontawesome** package makes it very easy to insert **FontAwesome** icons within R Markdown documents and Shiny apps.
