@@ -26,17 +26,17 @@ fa <- function(name,
   # Create bindings for global variables
   full_name <- NULL
 
-  if (name %in% fontawesome:::fa_tbl$full_name) {
+  if (name %in% fa_tbl$full_name) {
 
     svg <-
-      fontawesome:::fa_tbl[
-        which(fontawesome:::fa_tbl$full_name == name), ][1, 4]
+      fa_tbl[
+        which(fa_tbl$full_name == name), ][1, 4]
 
-  } else if (name %in% fontawesome:::fa_tbl$name) {
+  } else if (name %in% fa_tbl$name) {
 
     svg <-
-      fontawesome:::fa_tbl[
-        which(fontawesome:::fa_tbl$name == name), ][1, 4]
+      fa_tbl[
+        which(fa_tbl$name == name), ][1, 4]
 
   } else {
     return("")
