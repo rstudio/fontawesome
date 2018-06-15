@@ -4,7 +4,6 @@
 #' @param x an object containing the class
 #' \code{fontawesome}.
 #' @keywords internal
-#' @importFrom knitr knit_print
 #' @export
 knit_print.fontawesome <- function(x, ...) {
 
