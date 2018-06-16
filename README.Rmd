@@ -18,6 +18,7 @@ library(fontawesome)
 ```
 
 [![Travis build status](https://travis-ci.org/rstudio/fontawesome.svg?branch=master)](https://travis-ci.org/rstudio/fontawesome)
+[![Coverage status](https://codecov.io/gh/rstudio/fontawesome/branch/master/graph/badge.svg)](https://codecov.io/github/rstudio/fontawesome?branch=master)
 
 # The fontawesome package
 
