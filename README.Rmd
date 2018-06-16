@@ -37,6 +37,8 @@ As can be seen, what we really get from the function is a character object provi
 {text} `r fa(...)` {text}
 ```
 
+## R Markdown
+
 Here is an example R Markdown document that includes FontAwesome icons:
 
 ````
@@ -69,6 +71,90 @@ It works well in headings...
 This will appear, when knit, as:
 
 <img src="man/figures/fontawesome_rmd.png">
+
+## Shiny
+
+Here's a Shiny app (from the [Shiny Gallery](http://shiny.rstudio.com/gallery/basic-datatable.html)) that's been slightly modified to incorporate FontAwesome icons in the text above the three search fields:
+
+```r
+library(ggplot2)
+library(DT)
+library(fontawesome)
+
+# Load the ggplot2 package which provides
+# the 'mpg' dataset
+ui <- fluidPage(
+  
+  titlePanel("Basic DataTable"),
+
+  # Create a new Row in the UI for selectInputs
+  fluidRow(
+
+    column(
+      width = 4,
+      selectInput(
+        inputId = "man",
+        label = tags$p(fa("car", fill = "purple"), "Manufacturer:"),
+        choices = c(
+          "All",
+          unique(as.character(mpg$manufacturer))))
+    ),
+
+    column(
+      width = 4,
+      selectInput(
+        inputId = "trans",
+        label = tags$p(fa("car", fill = "forestgreen"), "Transmission:"),
+        choices = c(
+          "All",
+          unique(as.character(mpg$trans))))
+    ),
+
+    column(
+      width = 4,
+      selectInput(
+        inputId = "cyl",
+        label = tags$p(fa("car", fill = "steelblue"), "Cylinders:"),
+        choices = c(
+          "All",
+          unique(as.character(mpg$cyl))))
+    )
+  ),
+
+  # Create a new row for the table.
+  fluidRow(
+    dataTableOutput("table")
+  )
+)
+
+# Define the server code
+# Load the ggplot2 package which provides
+# the 'mpg' dataset
+server <- function(input, output) {
+
+  # Filter data based on selections
+  output$table <- DT::renderDataTable(DT::datatable({
+    data <- mpg
+    if (input$man != "All") {
+      data <- data[data$manufacturer == input$man,]
+    }
+    if (input$cyl != "All") {
+      data <- data[data$cyl == input$cyl,]
+    }
+    if (input$trans != "All") {
+      data <- data[data$trans == input$trans,]
+    }
+    data
+  }))
+}
+
+# Return a Shiny app object
+shinyApp(ui = ui, server = server)
+```
+
+This will appear, when run, as:
+
+<img src="man/figures/fontawesome_shiny_app.png">
 
 ## Code of Conduct
 
