@@ -18,4 +18,5 @@ Imports:
     htmltools (>= 0.3.6)
 Suggests: 
     testthat,
-    knitr
+    knitr,
+    covr
