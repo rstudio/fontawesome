@@ -5,10 +5,10 @@
 #' \code{fontawesome}.
 #' @keywords internal
 #' @export
-knit_print.fontawesome <- function(x, ...) {
+knit_print.fontawesome <- function(x, ...) { # nocov start
 
   if (requireNamespace("knitr", quietly = TRUE)) {
 
     knitr::knit_print(as.character(x), ...)
   }
-}
+} # nocov end
