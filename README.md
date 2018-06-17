@@ -5,6 +5,8 @@
 status](https://travis-ci.org/rstudio/fontawesome.svg?branch=master)](https://travis-ci.org/rstudio/fontawesome)
 [![Coverage
 status](https://codecov.io/gh/rstudio/fontawesome/branch/master/graph/badge.svg)](https://codecov.io/github/rstudio/fontawesome?branch=master)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/fontawesome)](https://cran.r-project.org/package=fontawesome)
 
 # The fontawesome package
 
@@ -148,6 +150,23 @@ shinyApp(ui = ui, server = server)
 This will appear, when run, as:
 
 <img src="man/figures/fontawesome_shiny_app.png">
+
+### Installation of the package
+
+**fontawesome** is used in an R environment. If you don’t have an R
+installation, it can be obtained from the [**Comprehensive R Archive
+Network (CRAN)**](https://cran.r-project.org/).
+
+You can install the development version of **fontawesome** from
+**GitHub** using the **devtools** package.
+
+``` r
+devtools::install_github("rstudio/fontawesome")
+```
+
+If you encounter a bug, have usage questions, or want to share ideas to
+make this package better, feel free to file an
+[issue](https://github.com/rstudio/fontawesome/issues).
 
 ## Code of Conduct
 
