@@ -4,7 +4,6 @@
 #' @param x an object containing the class
 #' \code{fontawesome}.
 #' @keywords internal
-#' @export
 knit_print.fontawesome <- function(x, ...) { # nocov start
 
   if (requireNamespace("knitr", quietly = TRUE)) {
