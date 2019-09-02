@@ -5,8 +5,6 @@
 # We assume that icons.json is relatively self-contained and stable.
 # We cannot assume that any of SVG extracted from this file in this
 # location are considered final
-# TODO: use `icons.json` from the official releases
-
 library(tidyverse)
 library(jsonlite)
 library(usethis)
@@ -14,7 +12,7 @@ library(usethis)
 # Read in `icons.json` file
 fa_list <-
   jsonlite::fromJSON(
-    txt = "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/advanced-options/metadata/icons.json")
+    txt = "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/metadata/icons.json")
 
 # Generate an empty table
 fa_tbl <-
