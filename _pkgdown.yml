@@ -1,0 +1,17 @@
+destination: docs
+
+home:
+  strip_header: true
+
+reference:
+  - title: FontAwesome Icon Insertion
+    desc: >
+      If you'd like to insert a FontAwesome icon somewhere it's needed, the
+      best option is via the `fa()` function. Should you need a PNG version of
+      the icon, then `fa_png()` is best for that.
+    contents:
+    - fa
+    - fa_png
+
+development:
+  version_tooltip: "Development version"
