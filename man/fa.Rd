@@ -9,26 +9,23 @@ fa(name, height = NULL, fill = NULL)
 \arguments{
 \item{name}{the name of the FontAwesome icon.}
 
-\item{height}{the absolute height (px)
-of the rendered SVG.}
+\item{height}{the absolute height (px) of the rendered SVG.}
 
-\item{fill}{an option to change the fill
-color of the icon.}
+\item{fill}{an option to change the fill color of the icon.}
 }
 \value{
-a character object that is the styled
-FontAwesome icon within \code{svg} tags.
+an `svg` object that is the styled FontAwesome icon.
 }
 \description{
-Add a FontAwesome icon as SVG contained within
-\code{<svg>...</svg>}. We can optionally set
-certain style attributes. The \code{fa()} function
-can be used directly within inline evaluations
-of R code (e.g., as \code{`r fa(...)`}) in R
-Markdown documents.
+Add a FontAwesome icon as SVG contained within \code{<svg>...</svg>}. We can
+optionally set certain style attributes. The \code{fa()} function can be used
+directly within inline evaluations of R code (e.g., as \code{`r fa(...)`}) in
+R Markdown documents.
 }
 \examples{
 # Emit a FontAwesome icon (`r-project`) as
 # SVG within `svg` tags
 fa(name = "r-project")
+
+
 }
