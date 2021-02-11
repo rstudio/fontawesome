@@ -15,7 +15,8 @@ RoxygenNote: 7.1.1
 Depends: 
     R (>= 3.2.0)
 Imports:
-    htmltools (>= 0.3.6)
+    htmltools (>= 0.5.1.1),
+    magrittr
 Suggests: 
     covr,
     knitr,
