@@ -1,9 +1,8 @@
-library(ggplot2)
+library(shiny)
 library(DT)
+library(ggplot2)
 library(fontawesome)
 
-# Load the ggplot2 package which provides
-# the 'mpg' dataset
 ui <- fluidPage(
 
   titlePanel("Basic DataTable"),
@@ -48,9 +47,6 @@ ui <- fluidPage(
   )
 )
 
-# Define the server code
-# Load the ggplot2 package which provides
-# the 'mpg' dataset
 server <- function(input, output) {
 
   # Filter data based on selections
@@ -70,5 +66,4 @@ server <- function(input, output) {
   })
 }
 
-# Return a Shiny app object
 shinyApp(ui = ui, server = server)

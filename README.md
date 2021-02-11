@@ -68,14 +68,13 @@ This will appear, when knit, as:
 Here’s a Shiny app (from the [Shiny Gallery](http://shiny.rstudio.com/gallery/basic-datatable.html)) that’s been slightly modified to incorporate FontAwesome icons in the text above the three search fields:
 
 ``` r
-library(ggplot2)
+library(shiny)
 library(DT)
+library(ggplot2)
 library(fontawesome)
 
-# Load the ggplot2 package which provides
-# the 'mpg' dataset
 ui <- fluidPage(
-  
+
   titlePanel("Basic DataTable"),
 
   # Create a new Row in the UI for selectInputs
@@ -118,13 +117,11 @@ ui <- fluidPage(
   )
 )
 
-# Define the server code
-# Load the ggplot2 package which provides
-# the 'mpg' dataset
 server <- function(input, output) {
 
   # Filter data based on selections
-  output$table <- DT::renderDataTable(DT::datatable({
+  output$table <- renderDataTable({
+
     data <- mpg
     if (input$man != "All") {
       data <- data[data$manufacturer == input$man,]
@@ -136,10 +133,9 @@ server <- function(input, output) {
       data <- data[data$trans == input$trans,]
     }
     data
-  }))
+  })
 }
 
-# Return a Shiny app object
 shinyApp(ui = ui, server = server)
 ```
 
