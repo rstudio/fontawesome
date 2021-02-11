@@ -1,23 +1,22 @@
 #' Generate a FontAwesome icon as an SVG
 #'
-#' Add a FontAwesome icon as SVG contained within
-#' \code{<svg>...</svg>}. We can optionally set
-#' certain style attributes. The \code{fa()} function
-#' can be used directly within inline evaluations
-#' of R code (e.g., as \code{`r fa(...)`}) in R
-#' Markdown documents.
+#' Add a FontAwesome icon as SVG contained within \code{<svg>...</svg>}. We can
+#' optionally set certain style attributes. The \code{fa()} function can be used
+#' directly within inline evaluations of R code (e.g., as \code{`r fa(...)`}) in
+#' R Markdown documents.
+#'
 #' @param name the name of the FontAwesome icon.
-#' @param height the absolute height (px)
-#' of the rendered SVG.
-#' @param fill an option to change the fill
-#' color of the icon.
-#' @return a character object that is the styled
-#' FontAwesome icon within \code{svg} tags.
+#' @param height the absolute height (px) of the rendered SVG.
+#' @param fill an option to change the fill color of the icon.
+#'
+#' @return an `svg` object that is the styled FontAwesome icon.
+#'
 #' @examples
 #' # Emit a FontAwesome icon (`r-project`) as
 #' # SVG within `svg` tags
 #' fa(name = "r-project")
-#' @importFrom htmltools HTML
+#'
+#'
 #' @export
 fa <- function(name,
                height = NULL,
@@ -39,36 +38,41 @@ fa <- function(name,
         which(fa_tbl$name == name), ][1, 4]
 
   } else {
-    return("")
+    stop("This icon (`", name, "`) does not exist", call. = FALSE)
   }
+
+  # Add `xmlns` attribute ---------------------------------------------------
+
+  svg <- gsub("^<svg", "<svg xmlns=\"http://www.w3.org/2000/svg\"", svg)
 
   # Construct `style` attributes --------------------------------------------
 
-  style <- "style=\""
+  if (!is.null(height) || !is.null(fill)) {
 
-  if (is.null(height)) {
-    style <- paste0(style, "height:0.8em;top:.04em;position:relative;")
-  } else {
-    style <- paste0(style, "height:", height, ";")
+    style <- "style=\""
+
+    if (is.null(height)) {
+      style <- paste0(style, "height:0.8em;top:0.04em;position:relative;")
+    } else {
+      style <- paste0(style, "height:", height, ";")
+    }
+
+    if (!is.null(fill)) {
+      style <- paste0(style, "fill:", fill, ";")
+    }
+
+    style <- paste0(style, "\"")
+
+    if (style != "style=\"\"") {
+      svg <- gsub("^<svg", paste0("<svg ", style), svg)
+    }
   }
 
-  if (!is.null(fill)) {
-    style <- paste0(style, "fill:", fill, ";")
-  }
-
-  style <- paste0(style, "\"")
-
-  if (!grepl(style, pattern = "style=\"\"")) {
-
-    svg <-
-      gsub(
-        pattern = "^<svg",
-        replacement = paste0("<svg ", style),
-        x = svg)
-  }
+  svg <- gsub("^<svg", '<svg class="rfa"', svg)
 
   svg <- htmltools::HTML(svg)
 
-  class(svg) <- c("fontawesome", class(svg))
+  class(svg) <- c("fontawesome", "svg", class(svg))
+
   svg
 }
