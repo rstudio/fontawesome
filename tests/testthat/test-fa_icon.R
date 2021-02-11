@@ -30,8 +30,6 @@ test_that("inserting the fill attribute works for an FA icon works", {
 
 test_that("inserting the height attribute works for an FA icon works", {
 
-  library(stringr)
-
   # Expect that the `height = "30em"` CSS rule is rendered
   expect_match(
     fa(name = "file", height = "30em") %>% as.character(),
