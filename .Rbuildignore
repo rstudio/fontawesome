@@ -1,9 +1,6 @@
 ^fontawesome\.Rproj$
 ^\.Rproj\.user$
-^CODE_OF_CONDUCT\.md$
+^\.github$
 ^LICENSE\.md$
-^README\.Rmd$
-^cran-comments\.md$
 ^/tools$
-^\.travis\.yml$
 ^codecov\.yml$
