@@ -143,7 +143,7 @@ server <- function(input, output) {
 shinyApp(ui = ui, server = server)
 ```
 
-This will appear, when run, as:
+The Shiny app will look something like this:
 
 <img src="man/figures/fontawesome_shiny_app.png">
 
