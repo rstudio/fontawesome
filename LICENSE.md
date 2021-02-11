@@ -9,7 +9,7 @@ packaged as .svg and .js files types).
 
 # MIT License
 
-Copyright (c) 2018 RStudio, Inc.
+Copyright (c) 2021 RStudio, PBC.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,7 @@ SOFTWARE.
 
 # Attribution 4.0 International
 
-Copyright (c) 2018 Fonticons, Inc.
+Copyright (c) 2021 Fonticons, Inc.
 
 =======================================================================
 
