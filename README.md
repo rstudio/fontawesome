@@ -10,7 +10,7 @@
 # The **fontawesome** package
 
 This is an R package that makes it very easy to insert **FontAwesome**
-icons into R Markdown documents and Shiny apps.
+icons into R Markdown documents and Shiny apps (or, anywhere else you need to put 'em).
 
 ## Example
 
