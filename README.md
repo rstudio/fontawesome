@@ -1,17 +1,16 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- badges: start -->
+<a href="https://cran.r-project.org/package=fontawesome"><img src="https://www.r-pkg.org/badges/version/fontawesome" alt="CRAN status" /></a>
+<a href="https://codecov.io/gh/rstudio/fontawesome?branch=master"><img src="https://codecov.io/gh/rstudio/fontawesome/branch/master/graph/badge.svg" alt="Coverage status" /></a>
+<a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing" /></a>
 
-[![Travis build
-status](https://travis-ci.org/rstudio/fontawesome.svg?branch=master)](https://travis-ci.org/rstudio/fontawesome)
-[![Coverage
-status](https://codecov.io/gh/rstudio/fontawesome/branch/master/graph/badge.svg)](https://codecov.io/github/rstudio/fontawesome?branch=master)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/fontawesome)](https://cran.r-project.org/package=fontawesome)
+<a href="https://www.contributor-covenant.org/version/2/0/code_of_conduct/"><img src="https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg" alt="Contributor Covenant" /></a>
+<!-- badges: end -->
 
-# The fontawesome package
+# The **fontawesome** package
 
-The **fontawesome** package makes it very easy to insert **FontAwesome**
-icons within R Markdown documents and Shiny apps.
+This is an R package that makes it very easy to insert **FontAwesome**
+icons into R Markdown documents and Shiny apps.
 
 ## Example
 
@@ -66,10 +65,7 @@ This will appear, when knit, as:
 
 ## Shiny
 
-Here’s a Shiny app (from the [Shiny
-Gallery](http://shiny.rstudio.com/gallery/basic-datatable.html)) that’s
-been slightly modified to incorporate FontAwesome icons in the text
-above the three search fields:
+Here’s a Shiny app (from the [Shiny Gallery](http://shiny.rstudio.com/gallery/basic-datatable.html)) that’s been slightly modified to incorporate FontAwesome icons in the text above the three search fields:
 
 ``` r
 library(ggplot2)
@@ -153,27 +149,22 @@ This will appear, when run, as:
 
 ### Installation of the package
 
-**fontawesome** is used in an R environment. If you don’t have an R
-installation, it can be obtained from the [**Comprehensive R Archive
-Network (CRAN)**](https://cran.r-project.org/).
-
-You can install the development version of **fontawesome** from
-**GitHub** using the **devtools** package.
+Want to try this out? You can install the development version of **fontawesome** from **GitHub**:
 
 ``` r
 devtools::install_github("rstudio/fontawesome")
 ```
 
-If you encounter a bug, have usage questions, or want to share ideas to
-make this package better, feel free to file an
-[issue](https://github.com/rstudio/fontawesome/issues).
+If you encounter a bug, have usage questions, or want to share ideas to make this package better, feel free to file an [issue](https://github.com/rstudio/fontawesome/issues).
 
-## Code of Conduct
+##### Code of Conduct
 
-Please note that this project is released with a [Contributor Code of
-Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree
-to abide by its terms.
+Please note that the `rstudio/fontawesome` project is released with a [contributor code of conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct/).<br>By participating in this project you agree to abide by its terms.
 
-## License
+##### 📄 License
 
-MIT © RStudio
+**fontawesome** is licensed under the MIT license. See the [`LICENSE.md`](LICENSE.md) file for more details.
+
+##### 🏛️ Governance
+
+This project is primarily maintained by [Rich Iannone](https://github.com/rich-iannone). Other authors may occasionally assist with some of these duties.
