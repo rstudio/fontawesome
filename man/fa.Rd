@@ -4,17 +4,40 @@
 \alias{fa}
 \title{Generate a FontAwesome icon as an SVG}
 \usage{
-fa(name, height = NULL, fill = NULL)
+fa(
+  name,
+  fill = NULL,
+  fill_opacity = NULL,
+  stroke = NULL,
+  stroke_width = NULL,
+  stroke_opacity = NULL,
+  height = NULL,
+  position = NULL
+)
 }
 \arguments{
-\item{name}{the name of the FontAwesome icon.}
+\item{name}{The name of the FontAwesome icon.}
 
-\item{height}{the absolute height (px) of the rendered SVG.}
+\item{fill, fill_opacity}{The fill color of the icon can be set with `fill`.
+If not provided then the default value of `"currentColor"` is applied so
+that the SVG fill matches the color of the parent HTML element's `color`
+attribute. The opacity level of the SVG fill can be controlled with a
+decimal value between `0` and `1`.}
 
-\item{fill}{an option to change the fill color of the icon.}
+\item{stroke, stroke_width, stroke_opacity}{The stroke options allow for
+setting the color, width, and opacity of the SVG outline stroke. By
+default, the stroke width is very small at `"1px"` so a size adjustment
+with `"stroke_width"` can be useful. The `"stroke_opacity"` value can be
+any decimal values between `0` and `1` (bounds included).}
+
+\item{height}{The absolute height of the rendered SVG. If nothing is provided
+then a default value of `"0.75em"` will be applied.}
+
+\item{position}{The value for the `position` style attribute. By default,
+`"relative"` is used here.}
 }
 \value{
-an `svg` object that is the styled FontAwesome icon.
+An `svg` object that is the styled FontAwesome icon.
 }
 \description{
 Add a FontAwesome icon as SVG contained within \code{<svg>...</svg>}. We can
@@ -23,9 +46,7 @@ directly within inline evaluations of R code (e.g., as \code{`r fa(...)`}) in
 R Markdown documents.
 }
 \examples{
-# Emit a FontAwesome icon (`r-project`) as
-# SVG within `svg` tags
+# Create a FontAwesome SVG icon
 fa(name = "r-project")
-
 
 }
