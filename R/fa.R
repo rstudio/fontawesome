@@ -6,21 +6,26 @@
 #' R Markdown documents.
 #'
 #' @param name The name of the FontAwesome icon.
+#' @param fill,fill_opacity The fill color of the icon can be set with `fill`.
+#'   If not provided then the default value of `"currentColor"` is applied so
+#'   that the SVG fill matches the color of the parent HTML element's `color`
+#'   attribute. The opacity level of the SVG fill can be controlled with a
+#'   decimal value between `0` and `1`.
+#' @param stroke,stroke_width,stroke_opacity The stroke options allow for
+#'   setting the color, width, and opacity of the SVG outline stroke. By
+#'   default, the stroke width is very small at `"1px"` so a size adjustment
+#'   with `"stroke_width"` can be useful. The `"stroke_opacity"` value can be
+#'   any decimal values between `0` and `1` (bounds included).
 #' @param height The absolute height of the rendered SVG. If nothing is provided
 #'   then a default value of `"0.75em"` will be applied.
-#' @param fill The fill color of the icon. If not provided then the default
-#'   value of `"currentColor"` is applied so that the SVG fill matches the color
-#'   of the parent HTML element's `color` attribute.
 #' @param position The value for the `position` style attribute. By default,
 #'   `"relative"` is used here.
 #'
 #' @return An `svg` object that is the styled FontAwesome icon.
 #'
 #' @examples
-#' # Emit a FontAwesome icon (`r-project`) as
-#' # SVG within `svg` tags
+#' # Create a FontAwesome SVG icon
 #' fa(name = "r-project")
-#'
 #'
 #' @export
 fa <- function(name,
