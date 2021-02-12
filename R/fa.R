@@ -1,9 +1,8 @@
 #' Generate a FontAwesome icon as an SVG
 #'
-#' Add a FontAwesome icon as SVG contained within \code{<svg>...</svg>}. We can
-#' optionally set certain style attributes. The \code{fa()} function can be used
-#' directly within inline evaluations of R code (e.g., as \code{`r fa(...)`}) in
-#' R Markdown documents.
+#' Add a FontAwesome icon as SVG contained within `<svg>...</svg>`. We can
+#' optionally set certain style attributes. The `fa()` function can be used
+#' directly within inline evaluations of R code in R Markdown documents.
 #'
 #' @param name The name of the FontAwesome icon.
 #' @param fill,fill_opacity The fill color of the icon can be set with `fill`.

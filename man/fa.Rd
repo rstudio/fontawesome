@@ -18,32 +18,31 @@ fa(
 \arguments{
 \item{name}{The name of the FontAwesome icon.}
 
-\item{fill, fill_opacity}{The fill color of the icon can be set with `fill`.
-If not provided then the default value of `"currentColor"` is applied so
-that the SVG fill matches the color of the parent HTML element's `color`
+\item{fill, fill_opacity}{The fill color of the icon can be set with \code{fill}.
+If not provided then the default value of \code{"currentColor"} is applied so
+that the SVG fill matches the color of the parent HTML element's \code{color}
 attribute. The opacity level of the SVG fill can be controlled with a
-decimal value between `0` and `1`.}
+decimal value between \code{0} and \code{1}.}
 
 \item{stroke, stroke_width, stroke_opacity}{The stroke options allow for
 setting the color, width, and opacity of the SVG outline stroke. By
-default, the stroke width is very small at `"1px"` so a size adjustment
-with `"stroke_width"` can be useful. The `"stroke_opacity"` value can be
-any decimal values between `0` and `1` (bounds included).}
+default, the stroke width is very small at \code{"1px"} so a size adjustment
+with \code{"stroke_width"} can be useful. The \code{"stroke_opacity"} value can be
+any decimal values between \code{0} and \code{1} (bounds included).}
 
 \item{height}{The absolute height of the rendered SVG. If nothing is provided
-then a default value of `"0.75em"` will be applied.}
+then a default value of \code{"0.75em"} will be applied.}
 
-\item{position}{The value for the `position` style attribute. By default,
-`"relative"` is used here.}
+\item{position}{The value for the \code{position} style attribute. By default,
+\code{"relative"} is used here.}
 }
 \value{
-An `svg` object that is the styled FontAwesome icon.
+An \code{svg} object that is the styled FontAwesome icon.
 }
 \description{
-Add a FontAwesome icon as SVG contained within \code{<svg>...</svg>}. We can
+Add a FontAwesome icon as SVG contained within \verb{<svg>...</svg>}. We can
 optionally set certain style attributes. The \code{fa()} function can be used
-directly within inline evaluations of R code (e.g., as \code{`r fa(...)`}) in
-R Markdown documents.
+directly within inline evaluations of R code in R Markdown documents.
 }
 \examples{
 # Create a FontAwesome SVG icon

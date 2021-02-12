@@ -2,7 +2,7 @@
 #' @description This facilitates printing of
 #' the FontAwesome icon within R Markdown.
 #' @param x an object containing the class
-#' \code{fontawesome}.
+#' `fontawesome`.
 #' @keywords internal
 knit_print.fontawesome <- function(x, ...) { # nocov start
 
