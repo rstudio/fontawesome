@@ -32,4 +32,6 @@ register_s3_method <- function(pkg, generic, class, fun = NULL) {
       registerS3method(generic, class, fun, envir = asNamespace(pkg))
     }
   )
-} #nocov end
+}
+
+#nocov end
