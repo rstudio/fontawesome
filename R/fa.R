@@ -5,11 +5,16 @@
 #' directly within inline evaluations of R code (e.g., as \code{`r fa(...)`}) in
 #' R Markdown documents.
 #'
-#' @param name the name of the FontAwesome icon.
-#' @param height the absolute height (px) of the rendered SVG.
-#' @param fill an option to change the fill color of the icon.
+#' @param name The name of the FontAwesome icon.
+#' @param height The absolute height of the rendered SVG. If nothing is provided
+#'   then a default value of `"0.75em"` will be applied.
+#' @param fill The fill color of the icon. If not provided then the default
+#'   value of `"currentColor"` is applied so that the SVG fill matches the color
+#'   of the parent HTML element's `color` attribute.
+#' @param position The value for the `position` style attribute. By default,
+#'   `"relative"` is used here.
 #'
-#' @return an `svg` object that is the styled FontAwesome icon.
+#' @return An `svg` object that is the styled FontAwesome icon.
 #'
 #' @examples
 #' # Emit a FontAwesome icon (`r-project`) as
@@ -19,11 +24,13 @@
 #'
 #' @export
 fa <- function(name,
+               fill = NULL,
+               fill_opacity = NULL,
+               stroke = NULL,
+               stroke_width = NULL,
+               stroke_opacity = NULL,
                height = NULL,
-               fill = NULL) {
-
-  # Create bindings for global variables
-  full_name <- NULL
+               position = NULL) {
 
   if (name %in% fa_tbl$full_name) {
 
@@ -41,36 +48,35 @@ fa <- function(name,
     stop("This icon (`", name, "`) does not exist", call. = FALSE)
   }
 
-  # Add `xmlns` attribute ---------------------------------------------------
+  match <- regexpr("viewBox=\".*?\"", svg)
+  svg_viewbox <- regmatches(svg, match)
 
-  svg <- gsub("^<svg", "<svg xmlns=\"http://www.w3.org/2000/svg\"", svg)
+  viewbox_value <-
+    svg_viewbox %>%
+    gsub("viewBox=\"", "", ., fixed = TRUE) %>%
+    gsub("\"", "", ., fixed = TRUE)
 
-  # Construct `style` attributes --------------------------------------------
+  svg_inner <-
+    svg %>%
+    gsub("<svg.*?>", "", .) %>%
+    gsub("</svg>", "", .)
 
-  if (!is.null(height) || !is.null(fill)) {
-
-    style <- "style=\""
-
-    if (is.null(height)) {
-      style <- paste0(style, "height:0.8em;top:0.04em;position:relative;")
-    } else {
-      style <- paste0(style, "height:", height, ";")
-    }
-
-    if (!is.null(fill)) {
-      style <- paste0(style, "fill:", fill, ";")
-    }
-
-    style <- paste0(style, "\"")
-
-    if (style != "style=\"\"") {
-      svg <- gsub("^<svg", paste0("<svg ", style), svg)
-    }
-  }
-
-  svg <- gsub("^<svg", '<svg class="rfa"', svg)
-
-  svg <- htmltools::HTML(svg)
+  svg <-
+    htmltools::tags$svg(
+      xmlns = "http://www.w3.org/2000/svg",
+      viewBox = viewbox_value,
+      class = "rfa",
+      style = htmltools::css(
+        height = height %||% "0.75em",
+        fill = fill %||% "currentColor",
+        fill_opacity = fill_opacity,
+        stroke = stroke,
+        stroke_width = stroke_width,
+        stroke_opacity = stroke_opacity,
+        position = position %||% "relative"
+      ),
+      htmltools::HTML(svg_inner)
+    )
 
   class(svg) <- c("fontawesome", "svg", class(svg))
 
