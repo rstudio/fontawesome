@@ -3,5 +3,6 @@
 S3method(print,svg)
 export("%>%")
 export(fa)
+export(fa_i)
 export(fa_png)
 importFrom(magrittr,"%>%")
