@@ -1,7 +1,8 @@
+Type: Package
 Package: fontawesome
 Version: 0.0.0.9000
-Title: Easily Insert FontAwesome Icons into Documents
-Description: Easily and flexibly insert FontAwesome icons into R Markdown
+Title: Easily Work with 'FontAwesome' Icons
+Description: Easily and flexibly insert 'FontAwesome' icons into R Markdown
     documents or Shiny apps. 
 Authors@R: c(
     person("Richard", "Iannone", , "rich@rstudio.com", c("aut", "cre"),
@@ -9,11 +10,14 @@ Authors@R: c(
     person("RStudio", role = c("cph", "fnd"))
     )
 License: MIT + file LICENSE
+URL: https://github.com/rstudio/fontawesome
+BugReports: https://github.com/rstudio/fontawesome/issues
 Encoding: UTF-8
 LazyData: true
+ByteCompile: true
 RoxygenNote: 7.1.1
 Depends: 
-    R (>= 3.2.0)
+    R (>= 3.5.0)
 Imports:
     htmltools (>= 0.5.1.1),
     magrittr
