@@ -1,3 +1,5 @@
+# nocov start
+
 #' @export
 print.svg <- function(x, ..., view = interactive()) {
 
@@ -27,3 +29,5 @@ print.svg <- function(x, ..., view = interactive()) {
 
   message(x)
 }
+
+# nocov end
