@@ -9,8 +9,13 @@ fa_i(name, class = NULL, ...)
 \arguments{
 \item{name}{The name of the FontAwesome icon.}
 
-\item{class}{Additional classes to customize the style of the
-icon (see the usage examples for details on supported styles).}
+\item{class}{Additional classes to customize the style of the icon (see the
+usage examples for details on supported styles).}
+
+\item{...}{Arguments passed to the \verb{<i>} tag of \link[htmltools:builder]{htmltools::tags}}
+}
+\value{
+An icon element.
 }
 \description{
 Generate a FontAwesome \verb{<i>} tag
