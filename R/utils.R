@@ -1,3 +1,5 @@
+# nocov start
+
 `%||%` <- function(x, y) {
   if (is.null(x)) y else x
 }
@@ -22,3 +24,5 @@ audit_fa_tbl <- function(tbl) {
 
   col_names_chk & col_names_chk & col_names_chk
 }
+
+# nocov end
