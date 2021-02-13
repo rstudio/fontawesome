@@ -12,6 +12,7 @@ reference:
     contents:
     - fa
     - fa_png
+    - fa_i
 
 development:
   version_tooltip: "Development version"
