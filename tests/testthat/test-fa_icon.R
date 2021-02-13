@@ -36,3 +36,31 @@ test_that("inserting the height attribute works for an FA icon works", {
     "height:30em;"
   )
 })
+
+test_that("the `fa_i()` function returns an icon object", {
+
+  icon <- fa_i(name = "r-project")
+
+  # Expect that the `icon` object is a `shiny.tag`
+  expect_is(icon, "shiny.tag")
+
+  # Expect that the `icon` object is a list with
+  # specific element names
+  expect_equal(names(icon), c("name", "attribs", "children"))
+
+  # For this object, expect certain values within
+  # the list components
+  expect_equal(icon$name, "i")
+  expect_equal(icon$attribs$class, "fab fa-r-project")
+  expect_equal(icon$attribs$role, "presentation")
+  expect_equal(icon$attribs$`aria-label`, "r-project icon")
+  expect_equal(icon$children, list())
+
+  # Expect there are certain attributes available
+  icon_attributes <- attributes(icon)
+
+  expect_equal(
+    names(icon_attributes),
+    c("names", "class", "html_dependencies", "browsable_html")
+  )
+})
