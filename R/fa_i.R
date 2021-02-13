@@ -1,8 +1,11 @@
 #' Generate a FontAwesome `<i>` tag
 #'
 #' @inheritParams fa
-#' @param class Additional classes to customize the style of the
-#' icon (see the usage examples for details on supported styles).
+#' @param class Additional classes to customize the style of the icon (see the
+#'   usage examples for details on supported styles).
+#' @param ... Arguments passed to the `<i>` tag of [htmltools::tags]
+#'
+#' @return An icon element.
 #'
 #' @export
 fa_i <- function(name,
