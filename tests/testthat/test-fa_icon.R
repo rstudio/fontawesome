@@ -41,6 +41,11 @@ test_that("the `fa_i()` function returns an icon object", {
 
   icon <- fa_i(name = "r-project")
 
+  expect_equal(
+    as.character(icon),
+    "<i class=\"fab fa-r-project\" role=\"presentation\" aria-label=\"r-project icon\"></i>"
+  )
+
   # Expect that the `icon` object is a `shiny.tag`
   expect_is(icon, "shiny.tag")
 
@@ -62,5 +67,14 @@ test_that("the `fa_i()` function returns an icon object", {
   expect_equal(
     names(icon_attributes),
     c("names", "class", "html_dependencies", "browsable_html")
+  )
+
+  # Add a style rule to the icon
+  icon_2 <- fa_i(name = "r-project", height = "20px")
+
+  # Expect the style property to render in the `<i>` tag
+  expect_equal(
+    as.character(icon_2),
+    "<i class=\"fab fa-r-project\" role=\"presentation\" aria-label=\"r-project icon\" height=\"20px\"></i>"
   )
 })
