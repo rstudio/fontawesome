@@ -23,8 +23,12 @@
 #' @return An `svg` object that is the styled FontAwesome icon.
 #'
 #' @examples
+#' if (interactive()) {
+#'
 #' # Create a FontAwesome SVG icon
 #' fa(name = "r-project")
+#'
+#' }
 #'
 #' @export
 fa <- function(name,
@@ -38,15 +42,11 @@ fa <- function(name,
 
   if (name %in% fa_tbl$full_name) {
 
-    svg <-
-      fa_tbl[
-        which(fa_tbl$full_name == name), ][1, 4]
+    svg <- fa_tbl[which(fa_tbl$full_name == name), ][1, 4]
 
   } else if (name %in% fa_tbl$name) {
 
-    svg <-
-      fa_tbl[
-        which(fa_tbl$name == name), ][1, 4]
+    svg <- fa_tbl[which(fa_tbl$name == name), ][1, 4]
 
   } else {
     stop("This icon (`", name, "`) does not exist", call. = FALSE)
