@@ -40,7 +40,11 @@
 
 
 <meta property="og:title" content="Generate a FontAwesome &lt;i&gt; tag — fa_i" />
-<meta property="og:description" content="Generate a FontAwesome &amp;lt;i&amp;gt; tag" />
+<meta property="og:description" content="The fa_i() function creates a Font Awesome &amp;lt;i&amp;gt; tag and not an SVG as with
+fa(). The primary use case for fa_i() is for legacy Shiny applications
+that use the shiny::icon() function. This function is called within a
+shiny::icon() call and all HTML dependencies to support icon generation are
+hosted in the fontawesome package." />
 
 
 
@@ -119,7 +123,11 @@
     </div>
 
     <div class="ref-description">
-    <p>Generate a FontAwesome <code>&lt;i&gt;</code> tag</p>
+    <p>The <code>fa_i()</code> function creates a Font Awesome <code>&lt;i&gt;</code> tag and not an SVG as with
+<code><a href='fa.html'>fa()</a></code>. The primary use case for <code>fa_i()</code> is for legacy Shiny applications
+that use the <code>shiny::icon()</code> function. This function is called within a
+<code>shiny::icon()</code> call and all HTML dependencies to support icon generation are
+hosted in the <strong>fontawesome</strong> package.</p>
     </div>
 
     <pre class="usage"><span class='fu'>fa_i</span><span class='op'>(</span><span class='va'>name</span>, class <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
