@@ -13,6 +13,14 @@
 #'
 #' @return An icon element.
 #'
+#' @examples
+#' if (interactive()) {
+#'
+#' # Create a Font Awesome icon object
+#' fa_i(name = "r-project")
+#'
+#' }
+#'
 #' @export
 fa_i <- function(name,
                  class = NULL,
