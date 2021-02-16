@@ -9,10 +9,9 @@
 
 # The **fontawesome** package
 
-This is an R package that makes it very easy to insert **FontAwesome**
-icons into **R Markdown** documents and **Shiny** apps (or, anywhere else you need to put them).
+This R package that makes it very easy to insert **Font Awesome** icons into **R Markdown** documents and **Shiny** apps (or, anywhere else you need to put them).
 
-## Example
+## Examples
 
 The `fa()` function can be used to insert an FA icon. For example, we
 can get the *r-project* icon in `steelblue`:
@@ -30,13 +29,13 @@ As can be seen, what we really get from the function is an SVG object that repre
 
 Font Awesome SVG icons are great to use instead of `<i>` tags + font files for a few reasons:
 
-- There is less overhead in a Shiny app or R Markdown document since an `<i>` tag requires computation to obtain the icon (`<svg>` tags represent the actual icon)
+- There is less overhead in a **Shiny** app or **R Markdown** document since an `<i>` tag requires computation to obtain the icon (`<svg>` tags represent the actual icon)
 - Using `<i>` tags has a 'being online' requirement since network activity is necessary for resolving these tags (SVGs in **fontawesome** are stored in the package, so, no Internet connectivity is necessary for that)
 - There are styling options available for SVG that aren't there for icon fonts
 
-## R Markdown
+### R Markdown
 
-Here is an example R Markdown document that includes FontAwesome icons:
+Here is an example **R Markdown** document that includes FontAwesome icons:
 
     ---
     title: "FontAwesome in R Markdown"
@@ -67,9 +66,9 @@ This will appear, when knit, as:
 
 <img src="man/figures/fontawesome_rmd.png">
 
-## Shiny
+### Shiny
 
-Here’s a Shiny app (from the [Shiny Gallery](http://shiny.rstudio.com/gallery/basic-datatable.html)) that’s been slightly modified to incorporate FontAwesome icons in the text above the three search fields:
+Here’s a **Shiny** app (from the [Shiny Gallery](http://shiny.rstudio.com/gallery/basic-datatable.html)) that’s been slightly modified to incorporate Font Awesome icons in the text above the three search fields:
 
 ``` r
 library(shiny)
@@ -143,13 +142,13 @@ server <- function(input, output) {
 shinyApp(ui = ui, server = server)
 ```
 
-The Shiny app will look something like this:
+The **Shiny** app will look something like this:
 
 <img src="man/figures/fontawesome_shiny_app.png">
 
 Please note that using `shiny::icon()` in place of `fontawesome::fa()` will still work. Internally, the `icon()` function will call `fontawesome`'s `fa_i()` function, which generates an old-school `<i>` tag for the icon.
 
-### Installation of the package
+### Installation
 
 Want to try this out? You can install the development version of **fontawesome** from **GitHub**:
 
