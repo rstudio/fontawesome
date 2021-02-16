@@ -1,6 +1,7 @@
 ^fontawesome\.Rproj$
 ^\.Rproj\.user$
 ^\.github$
+^\.gitattributes$
 ^_pkgdown\.yml$
 ^LICENSE\.md$
 ^/tools$
