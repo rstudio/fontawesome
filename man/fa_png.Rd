@@ -66,8 +66,12 @@ attribute before writing the PNG. Additionally, there is control over the
 output width and height (usually, icons are 512 by 512 pixels).
 }
 \examples{
+if (interactive()) {
+
 # Create a FontAwesome SVG icon as a
 # PNG file on disk
 fa_png(name = "r-project")
+
+}
 
 }

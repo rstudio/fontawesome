@@ -24,3 +24,12 @@ that use the \code{\link[shiny:icon]{shiny::icon()}} function. This function is 
 \code{\link[shiny:icon]{shiny::icon()}} call and all HTML dependencies to support icon generation are
 hosted in the \strong{fontawesome} package.
 }
+\examples{
+if (interactive()) {
+
+# Create a Font Awesome icon object
+fa_i(name = "r-project")
+
+}
+
+}

@@ -45,7 +45,11 @@ optionally set certain style attributes. The \code{fa()} function can be used
 directly within inline evaluations of R code in R Markdown documents.
 }
 \examples{
+if (interactive()) {
+
 # Create a FontAwesome SVG icon
 fa(name = "r-project")
+
+}
 
 }
