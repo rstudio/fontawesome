@@ -51,7 +51,7 @@ fa_png <- function(name,
   # filename based on the icon's short name
   if (is.null(file)) {
     if (name %in% fa_tbl$full_name) {
-      short_name <- fa_tbl[which(fa_tbl$full_name == name), ][1, 1]
+      short_name <- fa_tbl[fa_tbl$full_name == name, ][1, "name"]
     } else if (name %in% fa_tbl$name) {
       short_name <- name
     }
