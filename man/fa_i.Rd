@@ -18,5 +18,9 @@ usage examples for details on supported styles).}
 An icon element.
 }
 \description{
-Generate a FontAwesome \verb{<i>} tag
+The \code{fa_i()} function creates a Font Awesome \verb{<i>} tag and not an SVG as with
+\code{\link[=fa]{fa()}}. The primary use case for \code{fa_i()} is for legacy Shiny applications
+that use the \code{\link[shiny:icon]{shiny::icon()}} function. This function is called within a
+\code{\link[shiny:icon]{shiny::icon()}} call and all HTML dependencies to support icon generation are
+hosted in the \strong{fontawesome} package.
 }
