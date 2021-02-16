@@ -15,9 +15,13 @@
 #' @return A PNG file written to disk.
 #'
 #' @examples
+#' if (interactive()) {
+#'
 #' # Create a FontAwesome SVG icon as a
 #' # PNG file on disk
 #' fa_png(name = "r-project")
+#'
+#' }
 #'
 #' @export
 fa_png <- function(name,
