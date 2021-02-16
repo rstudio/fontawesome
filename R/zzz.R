@@ -2,7 +2,11 @@
 
 utils::globalVariables(
   c(
-    "full_name"
+    ".",
+    "col_names",
+    "full_name",
+    "n",
+    "vars"
   )
 )
 
