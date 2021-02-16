@@ -10,7 +10,7 @@
 # The **fontawesome** package
 
 This is an R package that makes it very easy to insert **FontAwesome**
-icons into R Markdown documents and Shiny apps (or, anywhere else you need to put 'em).
+icons into **R Markdown** documents and **Shiny** apps (or, anywhere else you need to put them).
 
 ## Example
 
@@ -19,16 +19,20 @@ can get the *r-project* icon in `steelblue`:
 
 ``` r
 fa(name = "r-project", fill = "steelblue")
-#> [1] "<svg style=\"height:0.8em;top:.04em;position:relative;fill:steelblue;\" viewBox=\"0 0 581 512\"><path d=\"M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z\"/></svg>"
+#> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 581 512" class="rfa" style="height:0.75em;fill:steelblue;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg>
 ```
 
-As can be seen, what we really get from the function is a character
-object providing inline SVG for the icon (i.e., SVG within
-`<svg>...</svg>`). This can be directly used within R Markdown with:
+As can be seen, what we really get from the function is an SVG object that represents the icon. This can be directly used within **R Markdown** with:
 
 ``` r
 {text} `r fa(...)` {text}
 ```
+
+Font Awesome SVG icons are great to use instead of `<i>` tags + font files for a few reasons:
+
+- There is less overhead in a Shiny app or R Markdown document since an `<i>` tag requires computation to obtain the icon (`<svg>` tags represent the actual icon)
+- Using `<i>` tags has a 'being online' requirement since network activity is necessary for resolving these tags (SVGs in **fontawesome** are stored in the package, so, no Internet connectivity is necessary for that)
+- There are styling options available for SVG that aren't there for icon fonts
 
 ## R Markdown
 
@@ -142,6 +146,8 @@ shinyApp(ui = ui, server = server)
 The Shiny app will look something like this:
 
 <img src="man/figures/fontawesome_shiny_app.png">
+
+Please note that using `shiny::icon()` in place of `fontawesome::fa()` will still work. Internally, the `icon()` function will call `fontawesome`'s `fa_i()` function, which generates an old-school `<i>` tag for the icon.
 
 ### Installation of the package
 
