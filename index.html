@@ -71,10 +71,10 @@
 <p><a href="https://www.contributor-covenant.org/version/2/0/code_of_conduct/"><img src="https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg" alt="Contributor Covenant"></a> <!-- badges: end --></p>
 <div id="the-fontawesome-package" class="section level1">
 
-<p>This is an R package that makes it very easy to insert <strong>FontAwesome</strong> icons into <strong>R Markdown</strong> documents and <strong>Shiny</strong> apps (or, anywhere else you need to put them).</p>
-<div id="example" class="section level2">
+<p>This R package that makes it very easy to insert <strong>Font Awesome</strong> icons into <strong>R Markdown</strong> documents and <strong>Shiny</strong> apps (or, anywhere else you need to put them).</p>
+<div id="examples" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
+<a href="#examples" class="anchor"></a>Examples</h2>
 <p>The <code><a href="reference/fa.html">fa()</a></code> function can be used to insert an FA icon. For example, we can get the <em>r-project</em> icon in <code>steelblue</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/fa.html">fa</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"r-project"</span>, fill <span class="op">=</span> <span class="st">"steelblue"</span><span class="op">)</span>
@@ -83,15 +83,14 @@
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>{text} <span class="st">`</span><span class="dt">r fa(...)</span><span class="st">`</span> {text}</span></code></pre></div>
 <p>Font Awesome SVG icons are great to use instead of <code>&lt;i&gt;</code> tags + font files for a few reasons:</p>
 <ul>
-<li>There is less overhead in a Shiny app or R Markdown document since an <code>&lt;i&gt;</code> tag requires computation to obtain the icon (<code>&lt;svg&gt;</code> tags represent the actual icon)</li>
+<li>There is less overhead in a <strong>Shiny</strong> app or <strong>R Markdown</strong> document since an <code>&lt;i&gt;</code> tag requires computation to obtain the icon (<code>&lt;svg&gt;</code> tags represent the actual icon)</li>
 <li>Using <code>&lt;i&gt;</code> tags has a ‘being online’ requirement since network activity is necessary for resolving these tags (SVGs in <strong>fontawesome</strong> are stored in the package, so, no Internet connectivity is necessary for that)</li>
 <li>There are styling options available for SVG that aren’t there for icon fonts</li>
 </ul>
-</div>
-<div id="r-markdown" class="section level2">
-<h2 class="hasAnchor">
-<a href="#r-markdown" class="anchor"></a>R Markdown</h2>
-<p>Here is an example R Markdown document that includes FontAwesome icons:</p>
+<div id="r-markdown" class="section level3">
+<h3 class="hasAnchor">
+<a href="#r-markdown" class="anchor"></a>R Markdown</h3>
+<p>Here is an example <strong>R Markdown</strong> document that includes FontAwesome icons:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="op">---</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>title<span class="op">:</span><span class="st"> "FontAwesome in R Markdown"</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a>output<span class="op">:</span><span class="st"> </span>html_document</span>
@@ -119,10 +118,10 @@
 <p>This will appear, when knit, as:</p>
 <p><img src="reference/figures/fontawesome_rmd.png"></p>
 </div>
-<div id="shiny" class="section level2">
-<h2 class="hasAnchor">
-<a href="#shiny" class="anchor"></a>Shiny</h2>
-<p>Here’s a Shiny app (from the <a href="http://shiny.rstudio.com/gallery/basic-datatable.html">Shiny Gallery</a>) that’s been slightly modified to incorporate FontAwesome icons in the text above the three search fields:</p>
+<div id="shiny" class="section level3">
+<h3 class="hasAnchor">
+<a href="#shiny" class="anchor"></a>Shiny</h3>
+<p>Here’s a <strong>Shiny</strong> app (from the <a href="http://shiny.rstudio.com/gallery/basic-datatable.html">Shiny Gallery</a>) that’s been slightly modified to incorporate Font Awesome icons in the text above the three search fields:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">shiny</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">DT</span><span class="op">)</span>
@@ -193,12 +192,13 @@
 <span class="op">}</span>
 
 <span class="fu">shinyApp</span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></code></pre></div>
-<p>The Shiny app will look something like this:</p>
+<p>The <strong>Shiny</strong> app will look something like this:</p>
 <p><img src="reference/figures/fontawesome_shiny_app.png"></p>
 <p>Please note that using <code>shiny::icon()</code> in place of <code><a href="reference/fa.html">fontawesome::fa()</a></code> will still work. Internally, the <code>icon()</code> function will call <code>fontawesome</code>’s <code><a href="reference/fa_i.html">fa_i()</a></code> function, which generates an old-school <code>&lt;i&gt;</code> tag for the icon.</p>
-<div id="installation-of-the-package" class="section level3">
+</div>
+<div id="installation" class="section level3">
 <h3 class="hasAnchor">
-<a href="#installation-of-the-package" class="anchor"></a>Installation of the package</h3>
+<a href="#installation" class="anchor"></a>Installation</h3>
 <p>Want to try this out? You can install the development version of <strong>fontawesome</strong> from <strong>GitHub</strong>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rstudio/fontawesome"</span><span class="op">)</span></code></pre></div>
