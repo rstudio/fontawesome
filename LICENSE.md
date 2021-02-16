@@ -3,7 +3,7 @@ The fontawesome package as a whole is distributed under the MIT License.
 This package includes icons from the Font Awesome project, taken from SVG
 formatted assets from the 'Free' download version. These components are
 applicable to the CC BY 4.0 license (which applies to all Font Awesome icons
-packaged as .svg and .js files types).
+packaged as .svg and .js file types).
 
 
 
