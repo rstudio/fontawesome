@@ -1,10 +1,10 @@
 library(shiny)
 
 fa4icons <- c(
-  "scissors",
+  "cut",
   "slack",
   "arrow-left",
-  "eur",
+  "euro-sign",
   "barcode"
 )
 
