@@ -1,7 +1,16 @@
-# nocov start
-
+#' Print the fontawesome icon to the Viewer
+#'
+#' This function will show the fontawesome icon in the Viewer.
+#'
+#' @param x An agent object of class `fontawesome`.
+#' @param view The value for `print()`s `browse` argument.
+#' @param ... Any additional parameters.
+#'
+#' @keywords internal
 #' @export
-print.svg <- function(x, ..., view = interactive()) {
+print.fontawesome <- function(x, view = interactive(), ...) {
+
+  # nocov start
 
   dots <- list(...)
 
@@ -28,6 +37,8 @@ print.svg <- function(x, ..., view = interactive()) {
     htmltools::html_print()
 
   message(x)
+
+  # nocov end
 }
 
-# nocov end
+
