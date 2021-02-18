@@ -22,18 +22,18 @@ devtools::install_github("rstudio/fontawesome")
 
 If you encounter a bug, have usage questions, or want to share ideas to make this package better, feel free to file an [issue](https://github.com/rstudio/fontawesome/issues).
 
-## Let's Discuss!
+### Let's Discuss!
 
 Let's talk about this package in [**fontawesome** Discussions](https://github.com/rstudio/fontawesome/discussions)! It's a great place to ask questions about how to use the package, discuss some ideas, engage with others, and much more!
 
-## Code of Conduct
+### Code of Conduct
 
 Please note that the `rstudio/fontawesome` project is released with a [contributor code of conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct/).<br>By participating in this project you agree to abide by its terms.
 
-## 📄 License
+### 📄 License
 
 **fontawesome** is licensed under the MIT license. See the [`LICENSE.md`](LICENSE.md) file for more details.
 
-## 🏛️ Governance
+### 🏛️ Governance
 
 This project is primarily maintained by [Rich Iannone](https://github.com/rich-iannone). Other authors may occasionally assist with some of these duties.
