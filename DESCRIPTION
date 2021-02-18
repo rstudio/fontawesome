@@ -3,7 +3,10 @@ Package: fontawesome
 Version: 0.0.0.9000
 Title: Easily Work with 'FontAwesome' Icons
 Description: Easily and flexibly insert 'FontAwesome' icons into 'R Markdown'
-    documents and 'Shiny' apps. 
+    documents and 'Shiny' apps. These icons can inserted into HTML content
+    through inline 'SVG' tags or 'i' tags. There is also a utility function for
+    exporting 'FontAwesome' icons as 'PNG' images for those situations where
+    raster graphics are needed.
 Authors@R: c(
     person("Richard", "Iannone", , "rich@rstudio.com", c("aut", "cre"),
            comment = c(ORCID = "0000-0003-3925-190X")),
