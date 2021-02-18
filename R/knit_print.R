@@ -1,6 +1,6 @@
-#' Safely print any FontAwesome in R Markdown
+#' Safely print any Font Awesome icon in R Markdown
 #'
-#' This facilitates printing of the FontAwesome icon within R Markdown.
+#' This facilitates printing of Font Awesome icons within R Markdown.
 #'
 #' @param x An object of class `fontawesome`.
 #' @param ... Any additional parameters.
