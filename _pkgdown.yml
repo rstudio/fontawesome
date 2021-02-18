@@ -4,9 +4,9 @@ home:
   strip_header: true
 
 reference:
-  - title: FontAwesome Icon Insertion
+  - title: Font Awesome Icon Insertion
     desc: >
-      If you'd like to insert a FontAwesome icon somewhere it's needed, the
+      If you'd like to insert a Font Awesome icon somewhere it's needed, the
       best option is via the `fa()` function. Should you need a PNG version of
       the icon, then `fa_png()` is best for that.
     contents:
