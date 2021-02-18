@@ -42,10 +42,10 @@ Font Awesome SVG icons are great to use instead of `<i>` tags + font files for a
 
 ### R Markdown
 
-Here is an example **R Markdown** document that includes FontAwesome icons:
+Here is an example **R Markdown** document that includes Font Awesome icons:
 
     ---
-    title: "FontAwesome in R Markdown"
+    title: "Font Awesome in R Markdown"
     output: html_document
     ---
     
