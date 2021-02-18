@@ -1,4 +1,4 @@
-#' Generate a FontAwesome `<i>` tag
+#' Generate a Font Awesome `<i>` tag
 #'
 #' The `fa_i()` function creates a Font Awesome `<i>` tag and not an SVG as with
 #' [fa()]. The primary use case for `fa_i()` is for legacy Shiny applications
@@ -6,10 +6,10 @@
 #' [shiny::icon()] call and all HTML dependencies to support icon generation are
 #' hosted in the **fontawesome** package.
 #'
-#' @inheritParams fa
+#' @param name The name of the Font Awesome icon.
 #' @param class Additional classes to customize the style of the icon (see the
 #'   usage examples for details on supported styles).
-#' @param ... Arguments passed to the `<i>` tag of [htmltools::tags]
+#' @param ... Arguments passed to the `<i>` tag of [htmltools::tags].
 #'
 #' @return An icon element.
 #'
