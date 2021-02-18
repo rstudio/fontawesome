@@ -1,5 +1,5 @@
 ---
-title: "FontAwesome in R Markdown"
+title: "Font Awesome in R Markdown"
 output: html_document
 ---
 
