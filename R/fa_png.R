@@ -1,23 +1,31 @@
-#' Create a PNG version of a FontAwesome icon
+#' Create a PNG version of a Font Awesome icon
 #'
-#' Get a FontAwesome icon as a PNG file. We can optionally set the fill
+#' Get a Font Awesome icon as a PNG file. We can optionally set the fill
 #' attribute before writing the PNG. Additionally, there is control over the
 #' output width and height (usually, icons are 512 by 512 pixels).
 #'
-#' @inheritParams fa
-#' @param file the path to the output file. If `NULL`, then filename will
-#'   take the short name of the icon and a `.png` extension will be
-#'   applied.
-#' @param height,width The output height and width of the rendered PNG.
-#'   If nothing is provided then the output dimensions will match that of the
-#'   input SVG viewBox.
+#' @param name The name of the Font Awesome icon.
+#' @param file the path to the output file. If `NULL`, then filename will take
+#'   the short name of the icon and a `.png` extension will be applied.
+#' @param fill,fill_opacity The fill color of the icon can be set with `fill`.
+#'   If not provided then the default fill color will be black. The opacity
+#'   level of the fill color can be controlled with a decimal value between `0`
+#'   and `1`.
+#' @param stroke,stroke_width,stroke_opacity The stroke options allow for
+#'   setting the color, width, and opacity of the outline stroke. By default,
+#'   the stroke width is very small at `"1px"` so a size adjustment with
+#'   `"stroke_width"` can be useful. The `"stroke_opacity"` value can be any
+#'   decimal values between `0` and `1` (bounds included).
+#' @param height,width The output height and width of the rendered PNG. If
+#'   nothing is provided then the output dimensions will match that of the input
+#'   SVG viewBox.
 #'
 #' @return A PNG file written to disk.
 #'
 #' @examples
 #' if (interactive()) {
 #'
-#' # Create a FontAwesome SVG icon as a
+#' # Create a Font Awesome SVG icon as a
 #' # PNG file on disk
 #' fa_png(name = "r-project")
 #'
