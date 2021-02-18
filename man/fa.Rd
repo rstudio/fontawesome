@@ -2,7 +2,7 @@
 % Please edit documentation in R/fa.R
 \name{fa}
 \alias{fa}
-\title{Generate a FontAwesome icon as an SVG}
+\title{Generate a Font Awesome icon as an SVG}
 \usage{
 fa(
   name,
@@ -16,7 +16,7 @@ fa(
 )
 }
 \arguments{
-\item{name}{The name of the FontAwesome icon.}
+\item{name}{The name of the Font Awesome icon.}
 
 \item{fill, fill_opacity}{The fill color of the icon can be set with \code{fill}.
 If not provided then the default value of \code{"currentColor"} is applied so
@@ -37,17 +37,17 @@ then a default value of \code{"0.75em"} will be applied.}
 \code{"relative"} is used here.}
 }
 \value{
-An \code{svg} object that is the styled FontAwesome icon.
+A \code{fontawesome} object that is the styled Font Awesome icon.
 }
 \description{
-Add a FontAwesome icon as SVG contained within \verb{<svg>...</svg>}. We can
+Add a Font Awesome icon as SVG contained within \verb{<svg>...</svg>}. We can
 optionally set certain style attributes. The \code{fa()} function can be used
 directly within inline evaluations of R code in R Markdown documents.
 }
 \examples{
 if (interactive()) {
 
-# Create a FontAwesome SVG icon
+# Create a Font Awesome SVG icon
 fa(name = "r-project")
 
 }

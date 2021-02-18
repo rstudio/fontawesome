@@ -2,17 +2,17 @@
 % Please edit documentation in R/fa_i.R
 \name{fa_i}
 \alias{fa_i}
-\title{Generate a FontAwesome \verb{<i>} tag}
+\title{Generate a Font Awesome \verb{<i>} tag}
 \usage{
 fa_i(name, class = NULL, ...)
 }
 \arguments{
-\item{name}{The name of the FontAwesome icon.}
+\item{name}{The name of the Font Awesome icon.}
 
 \item{class}{Additional classes to customize the style of the icon (see the
 usage examples for details on supported styles).}
 
-\item{...}{Arguments passed to the \verb{<i>} tag of \link[htmltools:builder]{htmltools::tags}}
+\item{...}{Arguments passed to the \verb{<i>} tag of \link[htmltools:builder]{htmltools::tags}.}
 }
 \value{
 An icon element.

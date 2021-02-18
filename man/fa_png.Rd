@@ -2,7 +2,7 @@
 % Please edit documentation in R/fa_png.R
 \name{fa_png}
 \alias{fa_png}
-\title{Create a PNG version of a FontAwesome icon}
+\title{Create a PNG version of a Font Awesome icon}
 \usage{
 fa_png(
   name,
@@ -17,58 +17,38 @@ fa_png(
 )
 }
 \arguments{
-\item{name}{The name of the FontAwesome icon.}
+\item{name}{The name of the Font Awesome icon.}
 
-\item{file}{the path to the output file. If \code{NULL}, then filename will
-take the short name of the icon and a \code{.png} extension will be
-applied.}
+\item{file}{the path to the output file. If \code{NULL}, then filename will take
+the short name of the icon and a \code{.png} extension will be applied.}
 
-\item{fill}{The fill color of the icon can be set with \code{fill}.
-If not provided then the default value of \code{"currentColor"} is applied so
-that the SVG fill matches the color of the parent HTML element's \code{color}
-attribute. The opacity level of the SVG fill can be controlled with a
-decimal value between \code{0} and \code{1}.}
+\item{fill, fill_opacity}{The fill color of the icon can be set with \code{fill}.
+If not provided then the default fill color will be black. The opacity
+level of the fill color can be controlled with a decimal value between \code{0}
+and \code{1}.}
 
-\item{fill_opacity}{The fill color of the icon can be set with \code{fill}.
-If not provided then the default value of \code{"currentColor"} is applied so
-that the SVG fill matches the color of the parent HTML element's \code{color}
-attribute. The opacity level of the SVG fill can be controlled with a
-decimal value between \code{0} and \code{1}.}
+\item{stroke, stroke_width, stroke_opacity}{The stroke options allow for
+setting the color, width, and opacity of the outline stroke. By default,
+the stroke width is very small at \code{"1px"} so a size adjustment with
+\code{"stroke_width"} can be useful. The \code{"stroke_opacity"} value can be any
+decimal values between \code{0} and \code{1} (bounds included).}
 
-\item{stroke}{The stroke options allow for
-setting the color, width, and opacity of the SVG outline stroke. By
-default, the stroke width is very small at \code{"1px"} so a size adjustment
-with \code{"stroke_width"} can be useful. The \code{"stroke_opacity"} value can be
-any decimal values between \code{0} and \code{1} (bounds included).}
-
-\item{stroke_width}{The stroke options allow for
-setting the color, width, and opacity of the SVG outline stroke. By
-default, the stroke width is very small at \code{"1px"} so a size adjustment
-with \code{"stroke_width"} can be useful. The \code{"stroke_opacity"} value can be
-any decimal values between \code{0} and \code{1} (bounds included).}
-
-\item{stroke_opacity}{The stroke options allow for
-setting the color, width, and opacity of the SVG outline stroke. By
-default, the stroke width is very small at \code{"1px"} so a size adjustment
-with \code{"stroke_width"} can be useful. The \code{"stroke_opacity"} value can be
-any decimal values between \code{0} and \code{1} (bounds included).}
-
-\item{height, width}{The output height and width of the rendered PNG.
-If nothing is provided then the output dimensions will match that of the
-input SVG viewBox.}
+\item{height, width}{The output height and width of the rendered PNG. If
+nothing is provided then the output dimensions will match that of the input
+SVG viewBox.}
 }
 \value{
 A PNG file written to disk.
 }
 \description{
-Get a FontAwesome icon as a PNG file. We can optionally set the fill
+Get a Font Awesome icon as a PNG file. We can optionally set the fill
 attribute before writing the PNG. Additionally, there is control over the
 output width and height (usually, icons are 512 by 512 pixels).
 }
 \examples{
 if (interactive()) {
 
-# Create a FontAwesome SVG icon as a
+# Create a Font Awesome SVG icon as a
 # PNG file on disk
 fa_png(name = "r-project")
 
