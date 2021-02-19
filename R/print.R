@@ -6,6 +6,8 @@
 #' @param view The value for `print()`s `browse` argument.
 #' @param ... Any additional parameters.
 #'
+#' @return No return value, called for printing to the Viewer.
+#'
 #' @keywords internal
 #' @export
 print.fontawesome <- function(x, view = interactive(), ...) {

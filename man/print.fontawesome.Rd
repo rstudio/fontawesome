@@ -13,6 +13,9 @@
 
 \item{...}{Any additional parameters.}
 }
+\value{
+No return value, called for printing to the Viewer.
+}
 \description{
 This function will show the fontawesome icon in the Viewer.
 }
