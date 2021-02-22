@@ -22,7 +22,7 @@ LazyData: true
 ByteCompile: true
 RoxygenNote: 7.1.1
 Depends: 
-    R (>= 3.5.0)
+    R (>= 3.3.0)
 Imports:
     htmltools (>= 0.5.1.1)
 Suggests: 
