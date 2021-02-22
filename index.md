@@ -13,7 +13,13 @@ The **fontawesome** R package makes it very easy to insert **Font Awesome** icon
 
 ### Installation
 
-Want to try this out? You can install the development version of **fontawesome** from **GitHub**:
+Want to try this out? The **fontawesome** package can be installed from CRAN:
+
+``` r
+install.packages("fontawesome")
+```
+
+Also, you can install the development version of **fontawesome** from **GitHub**:
 
 ``` r
 devtools::install_github("rstudio/fontawesome")
