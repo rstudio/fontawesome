@@ -156,7 +156,13 @@ Please note that using `shiny::icon()` in place of `fontawesome::fa()` will stil
 
 ### Installation
 
-Want to try this out? You can install the development version of **fontawesome** from **GitHub**:
+Want to try this out? The **fontawesome** package can be installed from CRAN:
+
+``` r
+install.packages("fontawesome")
+```
+
+Also, you can install the development version of **fontawesome** from **GitHub**:
 
 ``` r
 devtools::install_github("rstudio/fontawesome")
