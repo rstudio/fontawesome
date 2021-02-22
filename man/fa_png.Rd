@@ -43,7 +43,10 @@ A PNG file written to disk.
 \description{
 Get a Font Awesome icon as a PNG file. We can optionally set the fill
 attribute before writing the PNG. Additionally, there is control over the
-output width and height (usually, icons are 512 by 512 pixels).
+output width and height (usually, icons are 512 by 512 pixels). Please note
+that this function requires that the \strong{rsvg} is installed on the system.
+Attempting to use \code{fa_png()} without \strong{rsvg} available will result in an
+error message.
 }
 \examples{
 if (interactive()) {
