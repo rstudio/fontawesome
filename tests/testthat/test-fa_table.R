@@ -1,6 +1,8 @@
-library(pointblank)
+skip_on_cran()
 
 test_that("The `fa_tbl` object fits expectations", {
+
+  library(pointblank)
 
   # Expect that rows are distinct (with different
   # groupings of columns)

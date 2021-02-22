@@ -1,6 +1,6 @@
 <div align="center">
 
-<a href='http://rstudio.github.io/fontawesome/'><img src="man/figures/logo.svg" height="350px"/></a>
+<a href='https://rstudio.github.io/fontawesome/'><img src="man/figures/logo.svg" height="350px"/></a>
 
 <br />
 <!-- badges: start -->
@@ -8,7 +8,6 @@
 <a href="https://github.com/rstudio/fontawesome/actions"><img src="https://github.com/rstudio/fontawesome/workflows/R-CMD-check/badge.svg" alt="R build status" /></a>
 <a href="https://github.com/rstudio/fontawesome/actions"><img src="https://github.com/rstudio/fontawesome/workflows/pkgdown/badge.svg" alt="Package Site" /></a>
 <a href="https://codecov.io/gh/rstudio/fontawesome?branch=master"><img src="https://codecov.io/gh/rstudio/fontawesome/branch/master/graph/badge.svg" alt="Coverage status" /></a>
-<a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing" /></a>
 
 <a href="https://www.contributor-covenant.org/version/2/0/code_of_conduct/"><img src="https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg" alt="Contributor Covenant" /></a>
 <!-- badges: end -->
@@ -75,7 +74,7 @@ This will appear, when knit, as:
 
 ### Shiny
 
-Here’s a **Shiny** app (from the [Shiny Gallery](http://shiny.rstudio.com/gallery/basic-datatable.html)) that’s been slightly modified to incorporate Font Awesome icons in the text above the three search fields:
+Here’s a **Shiny** app (from the [Shiny Gallery](https://shiny.rstudio.com/gallery/basic-datatable.html)) that’s been slightly modified to incorporate Font Awesome icons in the text above the three search fields:
 
 ``` r
 library(shiny)
@@ -168,10 +167,6 @@ If you encounter a bug, have usage questions, or want to share ideas to make thi
 ##### Code of Conduct
 
 Please note that the `rstudio/fontawesome` project is released with a [contributor code of conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct/).<br>By participating in this project you agree to abide by its terms.
-
-##### 📄 License
-
-**fontawesome** is licensed under the MIT license. See the [`LICENSE.md`](LICENSE.md) file for more details.
 
 ##### 🏛️ Governance
 
