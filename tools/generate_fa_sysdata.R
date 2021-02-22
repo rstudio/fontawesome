@@ -98,6 +98,4 @@ for (i in seq_along(fa_list)) {
 }
 
 # Create `sysdata.rda`
-if (fontawesome:::audit_fa_tbl(tbl = fa_tbl)) {
-  usethis::use_data(fa_tbl, internal = TRUE, overwrite = TRUE)
-}
+usethis::use_data(fa_tbl, internal = TRUE, overwrite = TRUE)
