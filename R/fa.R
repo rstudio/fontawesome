@@ -51,15 +51,11 @@ fa <- function(name,
   match <- regexpr("viewBox=\".*?\"", svg)
   svg_viewbox <- regmatches(svg, match)
 
-  viewbox_value <-
-    svg_viewbox %>%
-    gsub("viewBox=\"", "", ., fixed = TRUE) %>%
-    gsub("\"", "", ., fixed = TRUE)
+  viewbox_value <- gsub("viewBox=\"", "", svg_viewbox, fixed = TRUE)
+  viewbox_value <- gsub("\"", "", viewbox_value, fixed = TRUE)
 
-  svg_inner <-
-    svg %>%
-    gsub("<svg.*?>", "", .) %>%
-    gsub("</svg>", "", .)
+  svg_inner <- gsub("<svg.*?>", "", svg)
+  svg_inner <- gsub("</svg>", "", svg_inner)
 
   svg <-
     htmltools::tags$svg(
