@@ -49,10 +49,11 @@
 <meta property="og:title" content="Create a PNG version of a Font Awesome icon — fa_png" />
 <meta property="og:description" content="Get a Font Awesome icon as a PNG file. We can optionally set the fill
 attribute before writing the PNG. Additionally, there is control over the
-output width and height (usually, icons are 512 by 512 pixels)." />
+output width and height (usually, icons are 512 by 512 pixels). Please note
+that this function requires that the rsvg is installed on the system.
+Attempting to use fa_png() without rsvg available will result in an
+error message." />
 <meta property="og:image" content="/logo.svg" />
-
-
 
 
 
@@ -68,15 +69,9 @@ output width and height (usually, icons are 512 by 512 pixels)." />
 
 
 
-  
-
-  
-
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    
-
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -90,13 +85,19 @@ output width and height (usually, icons are 512 by 512 pixels)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fontawesome</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Development version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Development version">0.1.0.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
@@ -131,7 +132,10 @@ output width and height (usually, icons are 512 by 512 pixels)." />
     <div class="ref-description">
     <p>Get a Font Awesome icon as a PNG file. We can optionally set the fill
 attribute before writing the PNG. Additionally, there is control over the
-output width and height (usually, icons are 512 by 512 pixels).</p>
+output width and height (usually, icons are 512 by 512 pixels). Please note
+that this function requires that the <strong>rsvg</strong> is installed on the system.
+Attempting to use <code>fa_png()</code> without <strong>rsvg</strong> available will result in an
+error message.</p>
     </div>
 
     <pre class="usage"><span class='fu'>fa_png</span><span class='op'>(</span>
@@ -210,7 +214,7 @@ SVG viewBox.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
@@ -218,8 +222,6 @@ SVG viewBox.</p></td>
 
   
 
-
-  
 
   </body>
 </html>
