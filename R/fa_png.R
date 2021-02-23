@@ -2,7 +2,10 @@
 #'
 #' Get a Font Awesome icon as a PNG file. We can optionally set the fill
 #' attribute before writing the PNG. Additionally, there is control over the
-#' output width and height (usually, icons are 512 by 512 pixels).
+#' output width and height (usually, icons are 512 by 512 pixels). Please note
+#' that this function requires that the **rsvg** is installed on the system.
+#' Attempting to use `fa_png()` without **rsvg** available will result in an
+#' error message.
 #'
 #' @param name The name of the Font Awesome icon.
 #' @param file the path to the output file. If `NULL`, then filename will take
@@ -44,6 +47,16 @@ fa_png <- function(name,
 
   # nocov start
 
+  # The `rsvg` package is required for this function; stop
+  # function if it's not installed
+  if (!requireNamespace("rsvg", quietly = TRUE)) {
+    stop(
+      "Use of the `fa_png()` function requires the rsvg package:\n",
+      " * It can be installed with `install.packages(\"rsvg\")`.",
+      call. = FALSE
+    )
+  }
+
   # Obtain the SVG
   svg <-
     fa(
@@ -66,17 +79,12 @@ fa_png <- function(name,
     file <- paste0(short_name, ".png")
   }
 
-  # If the `rsvg` package is available, perform
-  # the conversion from SVG to PNG
-  if (requireNamespace("rsvg", quietly = TRUE)) {
-
-    rsvg::rsvg_png(
-      svg = charToRaw(as.character(svg)),
-      file = file,
-      width = width,
-      height = height
-    )
-  }
+  rsvg::rsvg_png(
+    svg = charToRaw(as.character(svg)),
+    file = file,
+    width = width,
+    height = height
+  )
 
   # nocov end
 }

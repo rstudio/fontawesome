@@ -22,12 +22,9 @@ LazyData: true
 ByteCompile: true
 RoxygenNote: 7.1.1
 Depends: 
-    R (>= 3.5.0)
+    R (>= 3.3.0)
 Imports:
-    dplyr (>= 1.0.4),
-    htmltools (>= 0.5.1.1),
-    magrittr,
-    pointblank (>= 0.6.0)
+    htmltools (>= 0.5.1.1)
 Suggests: 
     covr,
     knitr,

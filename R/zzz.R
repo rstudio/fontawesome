@@ -1,15 +1,5 @@
 #nocov start
 
-utils::globalVariables(
-  c(
-    ".",
-    "col_names",
-    "full_name",
-    "n",
-    "vars"
-  )
-)
-
 .onLoad <- function(...) {
   register_s3_method("knitr", "knit_print", "fontawesome")
 }

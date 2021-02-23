@@ -23,24 +23,25 @@ print.fontawesome <- function(x, view = interactive(), ...) {
       collapse = "\n"
     )
 
-  c(
-    "<!DOCTYPE html>",
-    "<html>",
-    "<head>",
-    "<meta charset=\"utf-8\">",
-    "</head>",
-    "<body>",
-    html,
-    "</body>",
-    "</html>"
-  ) %>%
-    paste(collapse = "\n") %>%
-    htmltools::HTML() %>%
-    htmltools::html_print()
+  htmltools::html_print(
+    htmltools::HTML(
+      paste(
+        c(
+          "<!DOCTYPE html>",
+          "<html>",
+          "<head>",
+          "<meta charset=\"utf-8\">",
+          "</head>",
+          "<body>",
+          html,
+          "</body>",
+          "</html>"
+        ),
+        collapse = "\n")
+    )
+  )
 
   message(x)
 
   # nocov end
 }
-
-
