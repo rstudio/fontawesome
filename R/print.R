@@ -41,7 +41,7 @@ print.fontawesome <- function(x, view = interactive(), ...) {
     )
   )
 
-  message(x)
+  cat(as.character(x))
 
   # nocov end
 }
