@@ -44,6 +44,8 @@ fa <- function(name,
     svg <- fa_tbl[fa_tbl$full_name == name, ][1, "svg"]
   } else if (name %in% fa_tbl$name) {
     svg <- fa_tbl[fa_tbl$name == name, ][1, "svg"]
+  } else if (name %in% fa_tbl$v4_name) {
+    svg <- fa_tbl[fa_tbl$v4_name == name, ][1, "svg"]
   } else {
     stop("This icon (`", name, "`) does not exist", call. = FALSE)
   }
