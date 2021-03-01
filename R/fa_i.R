@@ -52,7 +52,7 @@ fa_i <- function(name,
   htmltools::htmlDependencies(icon_tag) <-
     htmltools::htmlDependency(
       name = "font-awesome",
-      version = "5.13.0",
+      version = fa_version,
       src = "fontawesome",
       package = "fontawesome",
       stylesheet = c("css/all.min.css", "css/v4-shims.min.css")
