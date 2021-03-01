@@ -3,4 +3,5 @@
 S3method(print,fontawesome)
 export(fa)
 export(fa_i)
+export(fa_metadata)
 export(fa_png)
