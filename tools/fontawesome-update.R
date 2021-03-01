@@ -1,6 +1,10 @@
-# This script is used for extracting the raw SVGs from the `icons.json`
-# file that exists in the `Font-Awesome` repo
-
+# This script is used for extracting the raw SVG from the `icons.json`
+# file that exists in the `Font-Awesome` repo (address below) and that
+# also ships with the official releases.
+#
+# We assume that icons.json is relatively self-contained and stable.
+# We cannot assume that any of SVG extracted from this file in this
+# location are considered final
 library(tidyverse)
 library(rprojroot)
 library(stringr)
