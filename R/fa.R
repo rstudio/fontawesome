@@ -67,7 +67,7 @@ fa <- function(name,
     )
 
   } else {
-    stop("This icon ('", name, "') does not exist", call. = FALSE)
+    stop("This Font Awesome icon ('", name, "') does not exist", call. = FALSE)
   }
 
   match <- regexpr("viewBox=\".*?\"", svg)
