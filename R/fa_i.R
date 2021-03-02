@@ -100,7 +100,8 @@ fa_i <- function(name,
         "The object supplied to `htmlDependency` must be an object ",
         "of class `html_dependency`:\n",
         "* Use `htmltools::htmlDependency() to generate the object\n",
-        "* Ensure that version number is set higher than any other dependency of the same type"
+        "* Ensure that version number is set higher than any other dependency of the same type",
+        call. = FALSE
       )
     }
 
