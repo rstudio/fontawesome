@@ -20,6 +20,10 @@ components:
 included icons
 \item \code{icon_names_full}: The full names (e.g., \code{"fab fa-npm"}, \code{"fas fa-drum"},
 etc.) for all included icons
+\item \code{icon_names_fa(r|s|b)}: The short names within the regular (\code{"r"}), solid
+(\code{"s"}), and brand (\code{"b"}) groups
+\item \code{icon_names_full_fa(r|s|b)}: The full names within the regular (\code{"r"}),
+solid (\code{"s"}), and brand (\code{"b"}) groups
 }
 }
 \examples{
