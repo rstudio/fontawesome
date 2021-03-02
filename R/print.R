@@ -41,7 +41,7 @@ print.fontawesome <- function(x, view = interactive(), ...) {
     )
   )
 
-  cat(as.character(x))
+  cat(paste0(as.character(x), "\n"))
 
   # nocov end
 }
