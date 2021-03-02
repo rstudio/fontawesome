@@ -35,7 +35,16 @@ fa_i <- function(name,
       prefix_class <- "fab"
     }
     iconClass <- paste0(prefix_class, " ", prefix, "-", name)
+  prefix_class <- prefix
+
+  metadata_list <- fa_metadata()
+  font_awesome_brands <- metadata_list$icon_names_fab
+
+  if (prefix_class == "fa" && name %in% font_awesome_brands) {
+    prefix_class <- "fab"
   }
+
+  iconClass <- paste0(prefix_class, " ", prefix, "-", name)
 
   if (!is.null(class)) {
     iconClass <- paste(iconClass, class)
