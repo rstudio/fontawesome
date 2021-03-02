@@ -71,8 +71,8 @@ fa_i <- function(name,
 
   prefix_class <- prefix
 
-  metadata_list <- fa_metadata()
-  font_awesome_brands <- metadata_list$icon_names_fab
+  font_awesome_brands <-
+    unique(fa_tbl$name[grepl("fab ", fa_tbl$full_name)])
 
   if (prefix_class == "fa" && name %in% font_awesome_brands) {
     prefix_class <- "fab"
