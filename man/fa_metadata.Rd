@@ -16,14 +16,15 @@ components:
 \itemize{
 \item \code{version}: The released version number for the Font Awesome icons
 \item \code{icon_count}: The total count of unique Font Awesome icons
-\item \code{icon_names}: The short names (e.g., \code{"npm"}, \code{"drum"}, etc.) for all
-included icons
-\item \code{icon_names_full}: The full names (e.g., \code{"fab fa-npm"}, \code{"fas fa-drum"},
-etc.) for all included icons
-\item \code{icon_names_fa(r|s|b)}: The short names within the regular (\code{"r"}), solid
-(\code{"s"}), and brand (\code{"b"}) groups
-\item \code{icon_names_full_fa(r|s|b)}: The full names within the regular (\code{"r"}),
+\item \code{icon_names}: A vector of short names (e.g., \code{"npm"}, \code{"drum"}, etc.) for
+all included icons
+\item \code{icon_names_full}: A vector containing the full names (e.g., \code{"fab fa-npm"}, \code{"fas fa-drum"}, etc.) for all included icons
+\item \code{icon_names_fa(r|s|b)}: Vectors of short names within the regular (\code{"r"}),
 solid (\code{"s"}), and brand (\code{"b"}) groups
+\item \code{icon_names_full_fa(r|s|b)}: Vectors with the full names of icons within
+the regular (\code{"r"}), solid (\code{"s"}), and brand (\code{"b"}) groups
+\item \code{v4_v5_name_tbl}: A data frame containing the short names that changed
+from version 4 (\code{v4_name}) to version 5 (\code{v5_name}) of Font Awesome
 }
 }
 \examples{
