@@ -11,6 +11,10 @@
 #' included icons
 #' - `icon_names_full`: The full names (e.g., `"fab fa-npm"`, `"fas fa-drum"`,
 #' etc.) for all included icons
+#' - `icon_names_fa(r|s|b)`: The short names within the regular (`"r"`), solid
+#' (`"s"`), and brand (`"b"`) groups
+#' - `icon_names_full_fa(r|s|b)`: The full names within the regular (`"r"`),
+#' solid (`"s"`), and brand (`"b"`) groups
 #'
 #' @return A list with metadata for the included Font Awesome assets.
 #'
@@ -28,11 +32,26 @@ fa_metadata <- function() {
 
   icon_names <- unique(fa_tbl$name)
   icon_names_full <- unique(fa_tbl$full_name)
+  icon_names_far <- unique(fa_tbl$name[grepl("far ", fa_tbl$full_name)])
+  icon_names_fas <- unique(fa_tbl$name[grepl("fas ", fa_tbl$full_name)])
+  icon_names_fab <- unique(fa_tbl$name[grepl("fab ", fa_tbl$full_name)])
+  icon_names_full_far <- unique(fa_tbl$full_name[grepl("far ", fa_tbl$full_name)])
+  icon_names_full_fas <- unique(fa_tbl$full_name[grepl("fas ", fa_tbl$full_name)])
+  icon_names_full_fab <- unique(fa_tbl$full_name[grepl("fab ", fa_tbl$full_name)])
+
+  # TODO: create lookup table with v4 -> v5 name translations
+
 
   list(
     version = fa_version,
     icon_count = length(icon_names),
     icon_names = icon_names,
-    icon_names_full = icon_names_full
+    icon_names_full = icon_names_full,
+    icon_names_far = icon_names_far,
+    icon_names_fas = icon_names_fas,
+    icon_names_fab = icon_names_fab,
+    icon_names_full_far = icon_names_full_far,
+    icon_names_full_fas = icon_names_full_fas,
+    icon_names_full_fab = icon_names_full_fab
   )
 }
