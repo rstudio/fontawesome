@@ -9,6 +9,14 @@
 #' @param name The name of the Font Awesome icon.
 #' @param class Additional classes to customize the style of the icon (see the
 #'   usage examples for details on supported styles).
+#' @param htmlDependency Provides an opportunity to use a custom
+#'   `html_dependency` object (created via a call to
+#'   [htmltools::htmlDependency()]) instead of one supplied by the function
+#'   (which uses Font Awesome's free assets and are bundled in the package). A
+#'   custom `html_dependency` object is useful when you have paid icons from
+#'   Font Awesome or would otherwise like to customize exactly which icon assets
+#'   are used (e.g., woff, woff2, eot, etc.). By default, this is `NULL` where
+#'   the function interally generates an `html_dependency`.
 #' @param ... Arguments passed to the `<i>` tag of [htmltools::tags].
 #'
 #' @return An icon element.
@@ -24,6 +32,7 @@
 #' @export
 fa_i <- function(name,
                  class = NULL,
+                 htmlDependency = NULL,
                  ...) {
 
   prefix <- "fa"
@@ -80,14 +89,31 @@ fa_i <- function(name,
       ...
     )
 
-  htmltools::htmlDependencies(icon_tag) <-
-    htmltools::htmlDependency(
-      name = "font-awesome",
-      version = fa_version,
-      src = "fontawesome",
-      package = "fontawesome",
-      stylesheet = c("css/all.min.css", "css/v4-shims.min.css")
-    )
+  if (!is.null(htmlDependency)) {
+
+    if (!inherits(htmlDependency, "html_dependency")) {
+      # Stop the function if the object isn't actually an `html_dependency`
+      stop(
+        "The object supplied to `htmlDependency` must be an object ",
+        "of class `html_dependency`:\n",
+        "* Use `htmltools::htmlDependency() to generate the object\n",
+        "* Ensure that version number is set higher than any other dependency of the same type"
+      )
+    }
+
+    htmltools::htmlDependencies(icon_tag) <- htmlDependency
+
+  } else {
+
+    htmltools::htmlDependencies(icon_tag) <-
+      htmltools::htmlDependency(
+        name = "font-awesome",
+        version = fa_version,
+        src = "fontawesome",
+        package = "fontawesome",
+        stylesheet = c("css/all.min.css", "css/v4-shims.min.css")
+      )
+  }
 
   if (name_resolved) {
     htmltools::browsable(icon_tag)
