@@ -53,8 +53,21 @@ fa <- function(name,
     svg <- fa_tbl[fa_tbl$name == name, ][1, "svg"]
   } else if (name %in% fa_tbl$v4_name) {
     svg <- fa_tbl[fa_tbl$v4_name == name, ][1, "svg"]
+
+    # Obtain the version 5 `name` and `full_name`
+    # for messaging purposes
+    v5_name <- fa_tbl[fa_tbl$v4_name == name, ][1, "name"]
+    v5_name_full <- fa_tbl[fa_tbl$v4_name == name, ][1, "full_name"]
+
+    # Warn that the v4 icon name should be changed to a v5 one
+    warning(
+      "The `name` provided ('", name ,"') is deprecated in Font Awesome v5:\n",
+      "* please consider using '", v5_name, "' or '", v5_name_full, "' instead",
+      call. = FALSE
+    )
+
   } else {
-    stop("This icon (`", name, "`) does not exist", call. = FALSE)
+    stop("This icon ('", name, "') does not exist", call. = FALSE)
   }
 
   match <- regexpr("viewBox=\".*?\"", svg)

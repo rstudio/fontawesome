@@ -29,12 +29,23 @@ fa_i <- function(name,
   prefix <- "fa"
   iconClass <- ""
 
-  if (!is.null(name)) {
-    prefix_class <- prefix
-    if (prefix_class == "fa" && name %in% font_awesome_brands) {
-      prefix_class <- "fab"
-    }
-    iconClass <- paste0(prefix_class, " ", prefix, "-", name)
+  # Determine if the `name` is a Font Awesome v4
+  # icon name and provide a warning
+  if (name %in% fa_tbl$v4_name && !(name %in% fa_tbl$name)) {
+
+    # Obtain the version 5 `name` and `full_name`
+    # for messaging purposes
+    v5_name <- fa_tbl[fa_tbl$v4_name == name, ][1, "name"]
+    v5_name_full <- fa_tbl[fa_tbl$v4_name == name, ][1, "full_name"]
+
+    # Warn that the v4 icon name should be changed to a v5 one
+    warning(
+      "The `name` provided ('", name ,"') is deprecated in Font Awesome v5:\n",
+      "* please consider using '", v5_name, "' or '", v5_name_full, "' instead",
+      call. = FALSE
+    )
+  }
+
   prefix_class <- prefix
 
   metadata_list <- fa_metadata()
