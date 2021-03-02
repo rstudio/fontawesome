@@ -4,13 +4,22 @@
 \alias{fa_i}
 \title{Generate a Font Awesome \verb{<i>} tag}
 \usage{
-fa_i(name, class = NULL, ...)
+fa_i(name, class = NULL, htmlDependency = NULL, ...)
 }
 \arguments{
 \item{name}{The name of the Font Awesome icon.}
 
 \item{class}{Additional classes to customize the style of the icon (see the
 usage examples for details on supported styles).}
+
+\item{htmlDependency}{Provides an opportunity to use a custom
+\code{html_dependency} object (created via a call to
+\code{\link[htmltools:htmlDependency]{htmltools::htmlDependency()}}) instead of one supplied by the function
+(which uses Font Awesome's free assets and are bundled in the package). A
+custom \code{html_dependency} object is useful when you have paid icons from
+Font Awesome or would otherwise like to customize exactly which icon assets
+are used (e.g., woff, woff2, eot, etc.). By default, this is \code{NULL} where
+the function interally generates an \code{html_dependency}.}
 
 \item{...}{Arguments passed to the \verb{<i>} tag of \link[htmltools:builder]{htmltools::tags}.}
 }
