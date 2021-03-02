@@ -55,15 +55,18 @@ fa_i <- function(name,
     )
   }
 
-  # Provide a warning if the icon name can't be resolved
-  if (!(name %in% fa_tbl$full_name) &&
+  # Provide a warning if the icon name can't be resolved, but
+  # only do this if the user isn't supplying a custom `html-dependency`
+  # (which is the common scenario)
+  if (is.null(htmlDependency) &&
+      !(name %in% fa_tbl$full_name) &&
       !(name %in% fa_tbl$name) &&
       !(name %in% fa_tbl$v4_name)
   ) {
     warning("This Font Awesome icon ('", name, "') does not exist", call. = FALSE)
-    name_resolved <- FALSE
+    make_browsable <- FALSE
   } else {
-    name_resolved <- TRUE
+    make_browsable <- TRUE
   }
 
   prefix_class <- prefix
@@ -115,7 +118,7 @@ fa_i <- function(name,
       )
   }
 
-  if (name_resolved) {
+  if (make_browsable) {
     htmltools::browsable(icon_tag)
   }
 }
