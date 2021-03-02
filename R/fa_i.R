@@ -6,7 +6,16 @@
 #' [shiny::icon()] call and all HTML dependencies to support icon generation are
 #' hosted in the **fontawesome** package.
 #'
-#' @param name The name of the Font Awesome icon.
+#' @param name The name of the Font Awesome icon. This could be as a short name
+#'   (e.g., `"npm"`, `"drum"`, etc.), or, a full name (e.g., `"fab fa-npm"`,
+#'   `"fas fa-drum"`, etc.). The names should correspond to current Version 5
+#'   Font Awesome names. A list of short and full names can be accessed through
+#'   the [fa_metadata()] function with `fa_metadata()$icon_names` and
+#'   `fa_metadata()$icon_names_full`. If supplying a Version 4 icon name, it
+#'   will be internally translated to the Version 5 icon name and a Version 5
+#'   icon will be returned. A data frame containing the short names that changed
+#'   from version 4 (`v4_name`) to version 5 (`v5_name`) can be obtained by
+#'   using `fa_metadata()$v4_v5_name_tbl`.
 #' @param class Additional classes to customize the style of the icon (see the
 #'   usage examples for details on supported styles).
 #' @param htmlDependency Provides an opportunity to use a custom
