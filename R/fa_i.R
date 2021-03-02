@@ -46,6 +46,17 @@ fa_i <- function(name,
     )
   }
 
+  # Provide a warning if the icon name can't be resolved
+  if (!(name %in% fa_tbl$full_name) &&
+      !(name %in% fa_tbl$name) &&
+      !(name %in% fa_tbl$v4_name)
+  ) {
+    warning("This Font Awesome icon ('", name, "') does not exist", call. = FALSE)
+    name_resolved <- FALSE
+  } else {
+    name_resolved <- TRUE
+  }
+
   prefix_class <- prefix
 
   metadata_list <- fa_metadata()
@@ -78,5 +89,7 @@ fa_i <- function(name,
       stylesheet = c("css/all.min.css", "css/v4-shims.min.css")
     )
 
-  htmltools::browsable(icon_tag)
+  if (name_resolved) {
+    htmltools::browsable(icon_tag)
+  }
 }
