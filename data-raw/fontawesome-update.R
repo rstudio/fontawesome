@@ -150,6 +150,14 @@ fa_tbl <-
     TRUE ~ v4_name
   ))
 
+# Generate a table that has the changes in short names
+# from version 4 to version 5 of FA
+fa_v4_v5 <-
+  fa_tbl %>%
+  dplyr::select(v4_name, v5_name = name) %>%
+  dplyr::filter(v4_name != v5_name) %>%
+  dplyr::distinct()
+
 #
 # Perform validation testing before writing the .rda file
 #
@@ -245,9 +253,13 @@ expect_col_vals_in_set(
 # Create `sysdata.rda`; this adds the `fa_tbl` data frame
 # and the `fa_version` length-1 character vector
 usethis::use_data(
-  fa_tbl, fa_version,
+  fa_tbl, fa_v4_v5, fa_version,
   internal = TRUE, overwrite = TRUE
 )
+
+# Write the `fa_tbl` and `fa_v4_v5` tables to CSV files in `data-raw`
+readr::write_csv(fa_v4_v5, file = "data-raw/fa_v4_v5.csv")
+readr::write_csv(fa_tbl, file = "data-raw/fa_tbl.csv")
 
 # Download FA files and add them to 'inst/fontawesome/css'
 # and 'inst/fontawesome/webfonts'
