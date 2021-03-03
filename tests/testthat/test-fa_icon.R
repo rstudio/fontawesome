@@ -78,3 +78,23 @@ test_that("the `fa_i()` function returns an icon object", {
     "<i class=\"fab fa-r-project\" role=\"presentation\" aria-label=\"r-project icon\" height=\"20px\"></i>"
   )
 })
+
+test_that("the user can quell messages in `fa_i()`", {
+
+  # There are messages when using FA 4 short names or invalid names
+  expect_message(regexp = "deprecated in Font Awesome 5", fa_i("eur"))
+  expect_message(regexp = "does not exist", fa_i("euroz"))
+
+  # If using a FA 5 name then no message is seen
+  expect_message(regexp = NA, fa_i("euro-sign"))
+  expect_message(regexp = NA, fa_i("fas fa-euro-sign"))
+
+  # If using `verify_fontawesome = FALSE`, no messages will be shown
+  expect_message(regexp = NA, fa_i("eur", verify_fontawesome = FALSE))
+  expect_message(regexp = NA, fa_i("euroz", verify_fontawesome = FALSE))
+
+  # Providing an `html_dependency` object will also avoid checks that
+  # would otherwise yield messages
+  expect_message(regexp = NA, fa_i("eur", html_dependency = fa_html_dependency()))
+  expect_message(regexp = NA, fa_i("euroz", html_dependency = fa_html_dependency()))
+})
