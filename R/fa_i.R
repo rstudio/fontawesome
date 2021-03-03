@@ -18,7 +18,8 @@
 #'   using `fa_metadata()$v4_v5_name_tbl`.
 #' @param class Additional classes to customize the style of the icon (see the
 #'   usage examples for details on supported styles).
-#' @param htmlDependency Provides an opportunity to use a custom
+#' @param ... Arguments passed to the `<i>` tag of [htmltools::tags].
+#' @param html_dependency Provides an opportunity to use a custom
 #'   `html_dependency` object (created via a call to
 #'   [htmltools::htmlDependency()]) instead of one supplied by the function
 #'   (which uses Font Awesome's free assets and are bundled in the package). A
@@ -26,7 +27,11 @@
 #'   Font Awesome or would otherwise like to customize exactly which icon assets
 #'   are used (e.g., woff, woff2, eot, etc.). By default, this is `NULL` where
 #'   the function interally generates an `html_dependency`.
-#' @param ... Arguments passed to the `<i>` tag of [htmltools::tags].
+#' @param verify_fontawesome An option to verify the icon `name`. If `TRUE` the
+#'   default, internal checks will take place and issue messages should the
+#'   `name` is a Font Awesome 4 icon name (the message will provide the Version
+#'   5 name), or, if the icon name cannot be found in either Font Awesome 4 or
+#'   5.
 #'
 #' @return An icon element.
 #'
@@ -41,42 +46,12 @@
 #' @export
 fa_i <- function(name,
                  class = NULL,
-                 htmlDependency = NULL,
-                 ...) {
+                 ...,
+                 html_dependency = NULL,
+                 verify_fontawesome = TRUE) {
 
   prefix <- "fa"
   iconClass <- ""
-
-  # Determine if the `name` is a Font Awesome v4
-  # icon name and provide a warning
-  if (name %in% fa_tbl$v4_name && !(name %in% fa_tbl$name)) {
-
-    # Obtain the version 5 `name` and `full_name`
-    # for messaging purposes
-    v5_name <- fa_tbl[fa_tbl$v4_name == name, ][1, "name"]
-    v5_name_full <- fa_tbl[fa_tbl$v4_name == name, ][1, "full_name"]
-
-    # Warn that the v4 icon name should be changed to a v5 one
-    warning(
-      "The `name` provided ('", name ,"') is deprecated in Font Awesome v5:\n",
-      "* please consider using '", v5_name, "' or '", v5_name_full, "' instead",
-      call. = FALSE
-    )
-  }
-
-  # Provide a warning if the icon name can't be resolved, but
-  # only do this if the user isn't supplying a custom `html-dependency`
-  # (which is the common scenario)
-  if (is.null(htmlDependency) &&
-      !(name %in% fa_tbl$full_name) &&
-      !(name %in% fa_tbl$name) &&
-      !(name %in% fa_tbl$v4_name)
-  ) {
-    warning("This Font Awesome icon ('", name, "') does not exist", call. = FALSE)
-    make_browsable <- FALSE
-  } else {
-    make_browsable <- TRUE
-  }
 
   prefix_class <- prefix
 
@@ -100,10 +75,12 @@ fa_i <- function(name,
       ...
     )
 
-  if (!is.null(htmlDependency)) {
+  if (!is.null(html_dependency)) {
 
-    if (!inherits(htmlDependency, "html_dependency")) {
-      # Stop the function if the object isn't actually an `html_dependency`
+    if (!inherits(html_dependency, "html_dependency")) {
+
+      # Stop the function if the object isn't
+      # actually an `html_dependency`
       stop(
         "The object supplied to `htmlDependency` must be an object ",
         "of class `html_dependency`:\n",
@@ -113,11 +90,44 @@ fa_i <- function(name,
       )
     }
 
-    htmltools::htmlDependencies(icon_tag) <- htmlDependency
+    icon_tag <- htmltools::attachDependencies(icon_tag, html_dependency)
+    icon_tag <- htmltools::browsable(icon_tag)
 
-  } else {
+    return(icon_tag)
+  }
 
-    htmltools::htmlDependencies(icon_tag) <-
+  # Perform verifications on `name` if `verify_fontawesome` is TRUE
+  if (verify_fontawesome) {
+
+    # Determine if the `name` is a Font Awesome v4
+    # icon name and provide a message
+    if (name %in% fa_tbl$v4_name && !(name %in% fa_tbl$name)) {
+
+      # Obtain the version 5 `name` and `full_name`
+      # for messaging purposes
+      v5_name <- fa_tbl[fa_tbl$v4_name == name, ][1, "name"]
+      v5_name_full <- fa_tbl[fa_tbl$v4_name == name, ][1, "full_name"]
+
+      # State that the v4 icon name should be changed to a v5 one
+      message(
+        "The `name` provided ('", name ,"') is deprecated in Font Awesome 5:\n",
+        "* please consider using '", v5_name, "' or '", v5_name_full, "' instead"
+      )
+    }
+
+    # Provide a message if the icon name can't be resolved from
+    # any Font Awesome 4 or 5 names
+    if (!(name %in% fa_tbl$full_name) &&
+        !(name %in% fa_tbl$name) &&
+        !(name %in% fa_tbl$v4_name)
+    ) {
+      message("This Font Awesome icon ('", name, "') does not exist")
+    }
+  }
+
+  icon_tag <-
+    htmltools::attachDependencies(
+      icon_tag,
       htmltools::htmlDependency(
         name = "font-awesome",
         version = fa_version,
@@ -125,9 +135,7 @@ fa_i <- function(name,
         package = "fontawesome",
         stylesheet = c("css/all.min.css", "css/v4-shims.min.css")
       )
-  }
+    )
 
-  if (make_browsable) {
-    htmltools::browsable(icon_tag)
-  }
+  htmltools::browsable(icon_tag)
 }
