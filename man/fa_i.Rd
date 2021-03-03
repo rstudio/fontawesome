@@ -4,7 +4,13 @@
 \alias{fa_i}
 \title{Generate a Font Awesome \verb{<i>} tag}
 \usage{
-fa_i(name, class = NULL, htmlDependency = NULL, ...)
+fa_i(
+  name,
+  class = NULL,
+  ...,
+  html_dependency = NULL,
+  verify_fontawesome = TRUE
+)
 }
 \arguments{
 \item{name}{The name of the Font Awesome icon. This could be as a short name
@@ -21,7 +27,9 @@ using \code{fa_metadata()$v4_v5_name_tbl}.}
 \item{class}{Additional classes to customize the style of the icon (see the
 usage examples for details on supported styles).}
 
-\item{htmlDependency}{Provides an opportunity to use a custom
+\item{...}{Arguments passed to the \verb{<i>} tag of \link[htmltools:builder]{htmltools::tags}.}
+
+\item{html_dependency}{Provides an opportunity to use a custom
 \code{html_dependency} object (created via a call to
 \code{\link[htmltools:htmlDependency]{htmltools::htmlDependency()}}) instead of one supplied by the function
 (which uses Font Awesome's free assets and are bundled in the package). A
@@ -30,7 +38,11 @@ Font Awesome or would otherwise like to customize exactly which icon assets
 are used (e.g., woff, woff2, eot, etc.). By default, this is \code{NULL} where
 the function interally generates an \code{html_dependency}.}
 
-\item{...}{Arguments passed to the \verb{<i>} tag of \link[htmltools:builder]{htmltools::tags}.}
+\item{verify_fontawesome}{An option to verify the icon \code{name}. If \code{TRUE} the
+default, internal checks will take place and issue messages should the
+\code{name} is a Font Awesome 4 icon name (the message will provide the Version
+5 name), or, if the icon name cannot be found in either Font Awesome 4 or
+5.}
 }
 \value{
 An icon element.
