@@ -158,6 +158,10 @@ fa_v4_v5 <-
   dplyr::filter(v4_name != v5_name) %>%
   dplyr::distinct()
 
+# Generate the `font_awesome_brands` vector for faster retrieval
+# in `fa_i()`
+font_awesome_brands <- unique(fa_tbl$name[grepl("fab ", fa_tbl$full_name)])
+
 #
 # Perform validation testing before writing the .rda file
 #
@@ -253,7 +257,7 @@ expect_col_vals_in_set(
 # Create `sysdata.rda`; this adds the `fa_tbl` data frame
 # and the `fa_version` length-1 character vector
 usethis::use_data(
-  fa_tbl, fa_v4_v5, fa_version,
+  fa_tbl, fa_v4_v5, fa_version, font_awesome_brands,
   internal = TRUE, overwrite = TRUE
 )
 
