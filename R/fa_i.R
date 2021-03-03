@@ -80,9 +80,8 @@ fa_i <- function(name,
 
   prefix_class <- prefix
 
-  font_awesome_brands <-
-    unique(fa_tbl$name[grepl("fab ", fa_tbl$full_name)])
-
+  # Change the `prefix_class` to `"fab"` if the `name` is found in
+  # the internal vector of `font_awesome_brands`
   if (prefix_class == "fa" && name %in% font_awesome_brands) {
     prefix_class <- "fab"
   }
