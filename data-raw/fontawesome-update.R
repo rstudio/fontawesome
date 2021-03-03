@@ -270,7 +270,7 @@ fa_version_text <-
   )
 
 # Write the `fa_version_text` to the 'version_fontawesome.R' file
-fa_write_file(
+fontawesome:::fa_write_file(
   path = "R/version_fontawesome.R",
   lines = fa_version_text,
   append = FALSE
