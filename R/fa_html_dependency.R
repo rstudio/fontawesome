@@ -4,11 +4,11 @@ fa_dependency_obj <- NULL
 #'
 #' The `fa_html_dependency()` function adds a `html_dependency` object into a
 #' Shiny or R Markdown context. This allows for the direct use of `<i>` tags
-#' that refer to Font Awesome icons without having to use the [fa_i()] to
-#' create these tags and also add the `html_dependency` to the document.
+#' that refer to Font Awesome icons without having to use the [fa_i()] to create
+#' these tags and also add the `html_dependency` to the document.
 #'
-#' The `html_dependency` object is the object that's created with the following
-#' invocation
+#' The `html_dependency` object is created internally with the following
+#' invocation:
 #'
 #' ```
 #' htmltools::htmlDependency(
@@ -25,6 +25,14 @@ fa_dependency_obj <- NULL
 #' `fa_metadata()$version`.
 #'
 #' @return An `html_dependency` object.
+#'
+#' @examples
+#' if (interactive()) {
+#'
+#' # Create a Font Awesome `html_dependency`
+#' fa_html_dependency()
+#'
+#' }
 #'
 #' @export
 fa_html_dependency <- function() {
