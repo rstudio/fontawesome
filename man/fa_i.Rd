@@ -4,13 +4,7 @@
 \alias{fa_i}
 \title{Generate a Font Awesome \verb{<i>} tag}
 \usage{
-fa_i(
-  name,
-  class = NULL,
-  ...,
-  html_dependency = NULL,
-  verify_fontawesome = TRUE
-)
+fa_i(name, class = NULL, ..., html_dependency = NULL, verify_fa = TRUE)
 }
 \arguments{
 \item{name}{The name of the Font Awesome icon. This could be as a short name
@@ -38,8 +32,8 @@ Font Awesome or would otherwise like to customize exactly which icon assets
 are used (e.g., woff, woff2, eot, etc.). By default, this is \code{NULL} where
 the function interally generates an \code{html_dependency}.}
 
-\item{verify_fontawesome}{An option to verify the icon \code{name}. If \code{TRUE} the
-default, internal checks will take place and issue messages should the
+\item{verify_fa}{An option to verify the provided icon \code{name}. If \code{TRUE} (the
+default), internal checks will take place and issue messages should the
 \code{name} is a Font Awesome 4 icon name (the message will provide the Version
 5 name), or, if the icon name cannot be found in either Font Awesome 4 or
 5.}

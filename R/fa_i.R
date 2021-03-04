@@ -27,8 +27,8 @@
 #'   Font Awesome or would otherwise like to customize exactly which icon assets
 #'   are used (e.g., woff, woff2, eot, etc.). By default, this is `NULL` where
 #'   the function interally generates an `html_dependency`.
-#' @param verify_fontawesome An option to verify the icon `name`. If `TRUE` the
-#'   default, internal checks will take place and issue messages should the
+#' @param verify_fa An option to verify the provided icon `name`. If `TRUE` (the
+#'   default), internal checks will take place and issue messages should the
 #'   `name` is a Font Awesome 4 icon name (the message will provide the Version
 #'   5 name), or, if the icon name cannot be found in either Font Awesome 4 or
 #'   5.
@@ -48,7 +48,7 @@ fa_i <- function(name,
                  class = NULL,
                  ...,
                  html_dependency = NULL,
-                 verify_fontawesome = TRUE) {
+                 verify_fa = TRUE) {
 
   prefix <- "fa"
   iconClass <- ""
@@ -96,8 +96,8 @@ fa_i <- function(name,
     return(icon_tag)
   }
 
-  # Perform verifications on `name` if `verify_fontawesome` is TRUE
-  if (verify_fontawesome) {
+  # Perform verifications on `name` if `verify_fa` is TRUE
+  if (verify_fa) {
 
     # Determine if the `name` is a Font Awesome v4
     # icon name and provide a message
@@ -111,7 +111,8 @@ fa_i <- function(name,
       # State that the v4 icon name should be changed to a v5 one
       message(
         "The `name` provided ('", name ,"') is deprecated in Font Awesome 5:\n",
-        "* please consider using '", v5_name, "' or '", v5_name_full, "' instead"
+        "* please consider using '", v5_name, "' or '", v5_name_full, "' instead\n",
+        "* use the `verify_fa = FALSE` to deactivate these messages"
       )
     }
 
@@ -121,7 +122,11 @@ fa_i <- function(name,
         !(name %in% fa_tbl$name) &&
         !(name %in% fa_tbl$v4_name)
     ) {
-      message("This Font Awesome icon ('", name, "') does not exist")
+      message(
+        "This Font Awesome icon ('", name, "') does not exist:\n",
+        "* if providing a custom `html_dependency` these `name` checks can \n",
+        "  be deactivated with `verify_fa = FALSE`"
+      )
     }
   }
 
