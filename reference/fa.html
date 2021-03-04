@@ -148,7 +148,16 @@ directly within inline evaluations of R code in R Markdown documents.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>name</th>
-      <td><p>The name of the Font Awesome icon.</p></td>
+      <td><p>The name of the Font Awesome icon. This could be as a short name
+(e.g., <code>"npm"</code>, <code>"drum"</code>, etc.), or, a full name (e.g., <code>"fab fa-npm"</code>,
+<code>"fas fa-drum"</code>, etc.). The names should correspond to current Version 5
+Font Awesome names. A list of short and full names can be accessed through
+the <code><a href='fa_metadata.html'>fa_metadata()</a></code> function with <code>fa_metadata()$icon_names</code> and
+<code>fa_metadata()$icon_names_full</code>. If supplying a Version 4 icon name, it
+will be internally translated to the Version 5 icon name and a Version 5
+icon will be returned. A data frame containing the short names that changed
+from version 4 (<code>v4_name</code>) to version 5 (<code>v5_name</code>) can be obtained by
+using <code>fa_metadata()$v4_v5_name_tbl</code>.</p></td>
     </tr>
     <tr>
       <th>fill, fill_opacity</th>

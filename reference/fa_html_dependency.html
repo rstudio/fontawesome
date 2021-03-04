@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate a Font Awesome &lt;i&gt; tag — fa_i • fontawesome</title>
+<title>Use a Font Awesome html_dependency — fa_html_dependency • fontawesome</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,12 +46,11 @@
 
 
 
-<meta property="og:title" content="Generate a Font Awesome &lt;i&gt; tag — fa_i" />
-<meta property="og:description" content="The fa_i() function creates a Font Awesome &amp;lt;i&amp;gt; tag and not an SVG as with
-fa(). The primary use case for fa_i() is for legacy Shiny applications
-that use the shiny::icon() function. This function is called within a
-shiny::icon() call and all HTML dependencies to support icon generation are
-hosted in the fontawesome package." />
+<meta property="og:title" content="Use a Font Awesome html_dependency — fa_html_dependency" />
+<meta property="og:description" content="The fa_html_dependency() function adds a html_dependency object into a
+Shiny or R Markdown context. This allows for the direct use of &amp;lt;i&amp;gt; tags
+that refer to Font Awesome icons without having to use the fa_i() to create
+these tags and also add the html_dependency to the document." />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -123,76 +122,45 @@ hosted in the fontawesome package." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate a Font Awesome <code>&lt;i&gt;</code> tag</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rstudio/fontawesome/blob/master/R/fa_i.R'><code>R/fa_i.R</code></a></small>
-    <div class="hidden name"><code>fa_i.Rd</code></div>
+    <h1>Use a Font Awesome <code>html_dependency</code></h1>
+    <small class="dont-index">Source: <a href='https://github.com/rstudio/fontawesome/blob/master/R/fa_html_dependency.R'><code>R/fa_html_dependency.R</code></a></small>
+    <div class="hidden name"><code>fa_html_dependency.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The <code>fa_i()</code> function creates a Font Awesome <code>&lt;i&gt;</code> tag and not an SVG as with
-<code><a href='fa.html'>fa()</a></code>. The primary use case for <code>fa_i()</code> is for legacy Shiny applications
-that use the <code>shiny::icon()</code> function. This function is called within a
-<code>shiny::icon()</code> call and all HTML dependencies to support icon generation are
-hosted in the <strong>fontawesome</strong> package.</p>
+    <p>The <code>fa_html_dependency()</code> function adds a <code>html_dependency</code> object into a
+Shiny or R Markdown context. This allows for the direct use of <code>&lt;i&gt;</code> tags
+that refer to Font Awesome icons without having to use the <code><a href='fa_i.html'>fa_i()</a></code> to create
+these tags and also add the <code>html_dependency</code> to the document.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fa_i</span><span class='op'>(</span><span class='va'>name</span>, class <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span>, html_dependency <span class='op'>=</span> <span class='cn'>NULL</span>, verify_fa <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>fa_html_dependency</span><span class='op'>(</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>name</th>
-      <td><p>The name of the Font Awesome icon. This could be as a short name
-(e.g., <code>"npm"</code>, <code>"drum"</code>, etc.), or, a full name (e.g., <code>"fab fa-npm"</code>,
-<code>"fas fa-drum"</code>, etc.). The names should correspond to current Version 5
-Font Awesome names. A list of short and full names can be accessed through
-the <code><a href='fa_metadata.html'>fa_metadata()</a></code> function with <code>fa_metadata()$icon_names</code> and
-<code>fa_metadata()$icon_names_full</code>. If supplying a Version 4 icon name, it
-will be internally translated to the Version 5 icon name and a Version 5
-icon will be returned. A data frame containing the short names that changed
-from version 4 (<code>v4_name</code>) to version 5 (<code>v5_name</code>) can be obtained by
-using <code>fa_metadata()$v4_v5_name_tbl</code>.</p></td>
-    </tr>
-    <tr>
-      <th>class</th>
-      <td><p>Additional classes to customize the style of the icon (see the
-usage examples for details on supported styles).</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Arguments passed to the <code>&lt;i&gt;</code> tag of <a href='https://rdrr.io/pkg/htmltools/man/builder.html'>htmltools::tags</a>.</p></td>
-    </tr>
-    <tr>
-      <th>html_dependency</th>
-      <td><p>Provides an opportunity to use a custom
-<code>html_dependency</code> object (created via a call to
-<code><a href='https://rdrr.io/pkg/htmltools/man/htmlDependency.html'>htmltools::htmlDependency()</a></code>) instead of one supplied by the function
-(which uses Font Awesome's free assets and are bundled in the package). A
-custom <code>html_dependency</code> object is useful when you have paid icons from
-Font Awesome or would otherwise like to customize exactly which icon assets
-are used (e.g., woff, woff2, eot, etc.). By default, this is <code>NULL</code> where
-the function interally generates an <code>html_dependency</code>.</p></td>
-    </tr>
-    <tr>
-      <th>verify_fa</th>
-      <td><p>An option to verify the provided icon <code>name</code>. If <code>TRUE</code> (the
-default), internal checks will take place and issue messages should the
-<code>name</code> is a Font Awesome 4 icon name (the message will provide the Version
-5 name), or, if the icon name cannot be found in either Font Awesome 4 or
-5.</p></td>
-    </tr>
-    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An icon element.</p>
+    <p>An <code>html_dependency</code> object.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The <code>html_dependency</code> object is created internally with the following
+invocation:</p><pre><span class='fu'>htmltools</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/htmltools/man/htmlDependency.html'>htmlDependency</a></span><span class='op'>(</span>
+  name <span class='op'>=</span> <span class='st'>"font-awesome"</span>,
+  version <span class='op'>=</span> <span class='va'>fa_version</span>,
+  src <span class='op'>=</span> <span class='st'>"fontawesome"</span>,
+  package <span class='op'>=</span> <span class='st'>"fontawesome"</span>,
+  stylesheet <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"css/all.min.css"</span>, <span class='st'>"css/v4-shims.min.css"</span><span class='op'>)</span>
+<span class='op'>)</span>
+</pre>
+
+<p>The <code>fa_version</code> object is an internal object that provides the released
+version number for the Font Awesome icons. This can be inspected by using
+<code>fa_metadata()$version</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
 
-<span class='co'># Create a Font Awesome icon object</span>
-<span class='fu'>fa_i</span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"r-project"</span><span class='op'>)</span>
+<span class='co'># Create a Font Awesome `html_dependency`</span>
+<span class='fu'>fa_html_dependency</span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='op'>}</span>
 
