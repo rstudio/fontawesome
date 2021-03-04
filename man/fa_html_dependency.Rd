@@ -12,12 +12,12 @@ An \code{html_dependency} object.
 \description{
 The \code{fa_html_dependency()} function adds a \code{html_dependency} object into a
 Shiny or R Markdown context. This allows for the direct use of \verb{<i>} tags
-that refer to Font Awesome icons without having to use the \code{\link[=fa_i]{fa_i()}} to
-create these tags and also add the \code{html_dependency} to the document.
+that refer to Font Awesome icons without having to use the \code{\link[=fa_i]{fa_i()}} to create
+these tags and also add the \code{html_dependency} to the document.
 }
 \details{
-The \code{html_dependency} object is the object that's created with the following
-invocation\preformatted{htmltools::htmlDependency(
+The \code{html_dependency} object is created internally with the following
+invocation:\preformatted{htmltools::htmlDependency(
   name = "font-awesome",
   version = fa_version,
   src = "fontawesome",
@@ -29,4 +29,13 @@ invocation\preformatted{htmltools::htmlDependency(
 The \code{fa_version} object is an internal object that provides the released
 version number for the Font Awesome icons. This can be inspected by using
 \code{fa_metadata()$version}.
+}
+\examples{
+if (interactive()) {
+
+# Create a Font Awesome `html_dependency`
+fa_html_dependency()
+
+}
+
 }
