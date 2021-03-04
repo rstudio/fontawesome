@@ -4,7 +4,16 @@
 #' optionally set certain style attributes. The `fa()` function can be used
 #' directly within inline evaluations of R code in R Markdown documents.
 #'
-#' @param name The name of the Font Awesome icon.
+#' @param name The name of the Font Awesome icon. This could be as a short name
+#'   (e.g., `"npm"`, `"drum"`, etc.), or, a full name (e.g., `"fab fa-npm"`,
+#'   `"fas fa-drum"`, etc.). The names should correspond to current Version 5
+#'   Font Awesome names. A list of short and full names can be accessed through
+#'   the [fa_metadata()] function with `fa_metadata()$icon_names` and
+#'   `fa_metadata()$icon_names_full`. If supplying a Version 4 icon name, it
+#'   will be internally translated to the Version 5 icon name and a Version 5
+#'   icon will be returned. A data frame containing the short names that changed
+#'   from version 4 (`v4_name`) to version 5 (`v5_name`) can be obtained by
+#'   using `fa_metadata()$v4_v5_name_tbl`.
 #' @param fill,fill_opacity The fill color of the icon can be set with `fill`.
 #'   If not provided then the default value of `"currentColor"` is applied so
 #'   that the SVG fill matches the color of the parent HTML element's `color`
@@ -44,8 +53,23 @@ fa <- function(name,
     svg <- fa_tbl[fa_tbl$full_name == name, ][1, "svg"]
   } else if (name %in% fa_tbl$name) {
     svg <- fa_tbl[fa_tbl$name == name, ][1, "svg"]
+  } else if (name %in% fa_tbl$v4_name) {
+    svg <- fa_tbl[fa_tbl$v4_name == name, ][1, "svg"]
+
+    # Obtain the version 5 `name` and `full_name`
+    # for messaging purposes
+    v5_name <- fa_tbl[fa_tbl$v4_name == name, ][1, "name"]
+    v5_name_full <- fa_tbl[fa_tbl$v4_name == name, ][1, "full_name"]
+
+    # Warn that the v4 icon name should be changed to a v5 one
+    warning(
+      "The `name` provided ('", name ,"') is deprecated in Font Awesome v5:\n",
+      "* please consider using '", v5_name, "' or '", v5_name_full, "' instead",
+      call. = FALSE
+    )
+
   } else {
-    stop("This icon (`", name, "`) does not exist", call. = FALSE)
+    stop("This Font Awesome icon ('", name, "') does not exist", call. = FALSE)
   }
 
   match <- regexpr("viewBox=\".*?\"", svg)

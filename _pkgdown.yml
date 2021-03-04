@@ -13,6 +13,7 @@ reference:
     - fa
     - fa_png
     - fa_i
+    - fa_html_dependency
 
 development:
   version_tooltip: "Development version"

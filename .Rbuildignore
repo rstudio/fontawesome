@@ -6,4 +6,5 @@
 ^LICENSE\.md$
 ^/tools$
 ^codecov\.yml$
+^data-raw$
 index.md

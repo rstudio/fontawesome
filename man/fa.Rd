@@ -16,7 +16,16 @@ fa(
 )
 }
 \arguments{
-\item{name}{The name of the Font Awesome icon.}
+\item{name}{The name of the Font Awesome icon. This could be as a short name
+(e.g., \code{"npm"}, \code{"drum"}, etc.), or, a full name (e.g., \code{"fab fa-npm"},
+\code{"fas fa-drum"}, etc.). The names should correspond to current Version 5
+Font Awesome names. A list of short and full names can be accessed through
+the \code{\link[=fa_metadata]{fa_metadata()}} function with \code{fa_metadata()$icon_names} and
+\code{fa_metadata()$icon_names_full}. If supplying a Version 4 icon name, it
+will be internally translated to the Version 5 icon name and a Version 5
+icon will be returned. A data frame containing the short names that changed
+from version 4 (\code{v4_name}) to version 5 (\code{v5_name}) can be obtained by
+using \code{fa_metadata()$v4_v5_name_tbl}.}
 
 \item{fill, fill_opacity}{The fill color of the icon can be set with \code{fill}.
 If not provided then the default value of \code{"currentColor"} is applied so
