@@ -24,8 +24,12 @@
 #'   default, the stroke width is very small at `"1px"` so a size adjustment
 #'   with `"stroke_width"` can be useful. The `"stroke_opacity"` value can be
 #'   any decimal values between `0` and `1` (bounds included).
-#' @param height The absolute height of the rendered SVG. If nothing is provided
-#'   then a default value of `"0.75em"` will be applied.
+#' @param height,width The height and width style attributes of the rendered
+#'   SVG. If nothing is provided for `height` then a default value of `"1em"`
+#'   will be applied. If a `width` isn't given, then it will be calculated in
+#'   units of `"em"` on the basis of the icon's SVG `"viewBox"` dimensions.
+#' @param margin_right The length value for the margin that's right of the icon.
+#'   By default, `"0.2rem"` is used.
 #' @param position The value for the `position` style attribute. By default,
 #'   `"relative"` is used here.
 #'
@@ -47,14 +51,19 @@ fa <- function(name,
                stroke_width = NULL,
                stroke_opacity = NULL,
                height = NULL,
+               width = NULL,
+               margin_right = NULL,
                position = NULL) {
 
   if (name %in% fa_tbl$full_name) {
     svg <- fa_tbl[fa_tbl$full_name == name, ][1, "svg"]
+    viewbox_width <- fa_tbl[fa_tbl$full_name == name, ][1, "width"]
   } else if (name %in% fa_tbl$name) {
     svg <- fa_tbl[fa_tbl$name == name, ][1, "svg"]
+    viewbox_width <- fa_tbl[fa_tbl$name == name, ][1, "width"]
   } else if (name %in% fa_tbl$v4_name) {
     svg <- fa_tbl[fa_tbl$v4_name == name, ][1, "svg"]
+    viewbox_width <- fa_tbl[fa_tbl$v4_name == name, ][1, "width"]
 
     # Obtain the version 5 `name` and `full_name`
     # for messaging purposes
@@ -72,14 +81,20 @@ fa <- function(name,
     stop("This Font Awesome icon ('", name, "') does not exist", call. = FALSE)
   }
 
-  match <- regexpr("viewBox=\".*?\"", svg)
-  svg_viewbox <- regmatches(svg, match)
-
-  viewbox_value <- gsub("viewBox=\"", "", svg_viewbox, fixed = TRUE)
-  viewbox_value <- gsub("\"", "", viewbox_value, fixed = TRUE)
-
+  # Extract the inner SVG content
   svg_inner <- gsub("<svg.*?>", "", svg)
   svg_inner <- gsub("</svg>", "", svg_inner)
+
+  # Generate the viewBox value through use of the only
+  # changing value: the width
+  viewbox_value <- paste0("0 0 ", viewbox_width, " 512")
+
+  # Get the width attribute through simple calculation
+  width_attr <-
+    paste0(
+      round((viewbox_width / 512) - (0.125 * (viewbox_width / 512)), 2),
+      "em"
+    )
 
   svg <-
     htmltools::tags$svg(
@@ -87,8 +102,13 @@ fa <- function(name,
       viewBox = viewbox_value,
       class = "rfa",
       style = htmltools::css(
-        height = height %||% "0.75em",
+        height = height %||% "1em",
+        width = width %||% width_attr,
+        vertical_align = "-0.125em",
+        margin_right = "0.2rem",
+        font_size = "inherit",
         fill = fill %||% "currentColor",
+        overflow = "visible",
         fill_opacity = fill_opacity,
         stroke = stroke,
         stroke_width = stroke_width,
