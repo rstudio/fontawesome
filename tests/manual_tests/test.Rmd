@@ -11,14 +11,20 @@ library(fontawesome)
 
 It works well in headings...
 
-# `r fa("r-project", fill = "steelblue")` H1 Heading
+# `r fa("r-project", fill = "steelblue")`H1 Heading
 
-## `r fa("r-project", fill = "steelblue")` H2 Heading
+## `r fa("r-project", fill = "steelblue")`H2 Heading
 
-### `r fa("r-project", fill = "steelblue")` H3 Heading
+### `r fa("r-project", fill = "steelblue")`H3 Heading
 
-#### `r fa("r-project", fill = "steelblue")` H4 Heading
+#### `r fa("r-project", fill = "steelblue")`H4 Heading
 
-##### `r fa("r-project", fill = "steelblue")` H5 Heading
+##### `r fa("r-project", fill = "steelblue")`H5 Heading
 
 ...and works equally well within inline text: `r fa("r-project", fill = "steelblue")`.
+
+Here is a block of icons:
+
+`r fa("r-project")``r fa("500px")``r fa("bell")``r fa("exclamation")`
+
+
