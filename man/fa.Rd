@@ -12,6 +12,8 @@ fa(
   stroke_width = NULL,
   stroke_opacity = NULL,
   height = NULL,
+  width = NULL,
+  margin_right = NULL,
   position = NULL
 )
 }
@@ -39,8 +41,13 @@ default, the stroke width is very small at \code{"1px"} so a size adjustment
 with \code{"stroke_width"} can be useful. The \code{"stroke_opacity"} value can be
 any decimal values between \code{0} and \code{1} (bounds included).}
 
-\item{height}{The absolute height of the rendered SVG. If nothing is provided
-then a default value of \code{"0.75em"} will be applied.}
+\item{height, width}{The height and width style attributes of the rendered
+SVG. If nothing is provided for \code{height} then a default value of \code{"1em"}
+will be applied. If a \code{width} isn't given, then it will be calculated in
+units of \code{"em"} on the basis of the icon's SVG \code{"viewBox"} dimensions.}
+
+\item{margin_right}{The length value for the margin that's right of the icon.
+By default, \code{"0.2rem"} is used.}
 
 \item{position}{The value for the \code{position} style attribute. By default,
 \code{"relative"} is used here.}
