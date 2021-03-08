@@ -100,7 +100,6 @@ fa <- function(name,
     htmltools::tags$svg(
       xmlns = "http://www.w3.org/2000/svg",
       viewBox = viewbox_value,
-      class = "rfa",
       style = htmltools::css(
         height = height %||% "1em",
         width = width %||% width_attr,
