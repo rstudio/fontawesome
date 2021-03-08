@@ -55,6 +55,37 @@ fa <- function(name,
                margin_right = NULL,
                position = NULL) {
 
+  if (length(name) > 1) {
+
+    svg <-
+      vapply(
+        name,
+        FUN.VALUE = character(1),
+        USE.NAMES = FALSE,
+        FUN = function(x) {
+          as.character(
+            fa(
+              name = x,
+              fill = fill,
+              fill_opacity = fill_opacity,
+              stroke = stroke,
+              stroke_width = stroke_width,
+              stroke_opacity = stroke_opacity,
+              height = height,
+              width = width,
+              margin_right = margin_right,
+              position = position
+            )
+          )
+        }
+      )
+
+    svg <- paste0(svg, collapse = "")
+
+    class(svg) <- c("fontawesome", "svg", class(svg))
+    return(svg)
+  }
+
   if (name %in% fa_tbl$full_name) {
     svg <- fa_tbl[fa_tbl$full_name == name, ][1, "svg"]
     viewbox_width <- fa_tbl[fa_tbl$full_name == name, ][1, "width"]
