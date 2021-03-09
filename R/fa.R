@@ -89,12 +89,15 @@ fa <- function(name,
   if (name %in% fa_tbl$full_name) {
     svg <- fa_tbl[fa_tbl$full_name == name, ][1, "svg"]
     viewbox_width <- fa_tbl[fa_tbl$full_name == name, ][1, "width"]
+    path <- fa_tbl[fa_tbl$full_name == name, ][1, "path"]
   } else if (name %in% fa_tbl$name) {
     svg <- fa_tbl[fa_tbl$name == name, ][1, "svg"]
     viewbox_width <- fa_tbl[fa_tbl$name == name, ][1, "width"]
+    path <- fa_tbl[fa_tbl$name == name, ][1, "path"]
   } else if (name %in% fa_tbl$v4_name) {
     svg <- fa_tbl[fa_tbl$v4_name == name, ][1, "svg"]
     viewbox_width <- fa_tbl[fa_tbl$v4_name == name, ][1, "width"]
+    path <- fa_tbl[fa_tbl$v4_name == name, ][1, "path"]
 
     # Obtain the version 5 `name` and `full_name`
     # for messaging purposes
@@ -111,10 +114,6 @@ fa <- function(name,
   } else {
     stop("This Font Awesome icon ('", name, "') does not exist", call. = FALSE)
   }
-
-  # Extract the inner SVG content
-  svg_inner <- gsub("<svg.*?>", "", svg)
-  svg_inner <- gsub("</svg>", "", svg_inner)
 
   # Generate the viewBox value through use of the only
   # changing value: the width
@@ -145,7 +144,7 @@ fa <- function(name,
         stroke_opacity = stroke_opacity,
         position = position %||% "relative"
       ),
-      htmltools::HTML(svg_inner)
+      htmltools::HTML(path)
     )
 
   class(svg) <- c("fontawesome", "svg", class(svg))
