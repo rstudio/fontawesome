@@ -87,27 +87,22 @@ fa <- function(name,
   }
 
   if (name %in% fa_tbl$full_name) {
-    svg <- fa_tbl[fa_tbl$full_name == name, ][1, "svg"]
-    viewbox_width <- fa_tbl[fa_tbl$full_name == name, ][1, "width"]
-    path <- fa_tbl[fa_tbl$full_name == name, ][1, "path"]
-  } else if (name %in% fa_tbl$name) {
-    svg <- fa_tbl[fa_tbl$name == name, ][1, "svg"]
-    viewbox_width <- fa_tbl[fa_tbl$name == name, ][1, "width"]
-    path <- fa_tbl[fa_tbl$name == name, ][1, "path"]
-  } else if (name %in% fa_tbl$v4_name) {
-    svg <- fa_tbl[fa_tbl$v4_name == name, ][1, "svg"]
-    viewbox_width <- fa_tbl[fa_tbl$v4_name == name, ][1, "width"]
-    path <- fa_tbl[fa_tbl$v4_name == name, ][1, "path"]
 
-    # Obtain the version 5 `name` and `full_name`
-    # for messaging purposes
-    v5_name <- fa_tbl[fa_tbl$v4_name == name, ][1, "name"]
-    v5_name_full <- fa_tbl[fa_tbl$v4_name == name, ][1, "full_name"]
+    svg_list <- as.list(fa_tbl[fa_tbl[["full_name"]] == name, ][1, c("width", "path")])
+
+  } else if (name %in% fa_tbl$name) {
+
+    svg_list <- as.list(fa_tbl[fa_tbl[["name"]] == name, ][1, c("width", "path")])
+
+  } else if (name %in% fa_tbl$v4_name) {
+
+    svg_list <- as.list(fa_tbl[fa_tbl[["v4_name"]] == name, ][1, c("width", "path", "name", "full_name")])
 
     # Warn that the v4 icon name should be changed to a v5 one
     warning(
       "The `name` provided ('", name ,"') is deprecated in Font Awesome v5:\n",
-      "* please consider using '", v5_name, "' or '", v5_name_full, "' instead",
+      "* please consider using '", svg_list$name,
+      "' or '", svg_list$full_name, "' instead",
       call. = FALSE
     )
 
@@ -117,12 +112,12 @@ fa <- function(name,
 
   # Generate the viewBox value through use of the only
   # changing value: the width
-  viewbox_value <- paste0("0 0 ", viewbox_width, " 512")
+  viewbox_value <- paste0("0 0 ", svg_list$width, " 512")
 
   # Get the width attribute through simple calculation
   width_attr <-
     paste0(
-      round((viewbox_width / 512) - (0.125 * (viewbox_width / 512)), 2),
+      round((svg_list$width / 512) - (0.125 * (svg_list$width / 512)), 2),
       "em"
     )
 
@@ -144,7 +139,7 @@ fa <- function(name,
         stroke_opacity = stroke_opacity,
         position = position %||% "relative"
       ),
-      htmltools::HTML(path)
+      htmltools::HTML(svg_list$path)
     )
 
   class(svg) <- c("fontawesome", "svg", class(svg))
