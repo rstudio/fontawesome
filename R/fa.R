@@ -1,8 +1,8 @@
-#' Generate a Font Awesome icon as an SVG
+#' Generate Font Awesome icons as SVGs
 #'
-#' Add a Font Awesome icon as SVG contained within `<svg>...</svg>`. We can
-#' optionally set certain style attributes. The `fa()` function can be used
-#' directly within inline evaluations of R code in R Markdown documents.
+#' Add one or more Font Awesome icons as SVGs contained within `<svg>...</svg>`.
+#' We can optionally set certain style attributes. The `fa()` function can be
+#' used directly within inline evaluations of R code in R Markdown documents.
 #'
 #' @param name The name of the Font Awesome icon. This could be as a short name
 #'   (e.g., `"npm"`, `"drum"`, etc.), or, a full name (e.g., `"fab fa-npm"`,
@@ -13,7 +13,9 @@
 #'   will be internally translated to the Version 5 icon name and a Version 5
 #'   icon will be returned. A data frame containing the short names that changed
 #'   from version 4 (`v4_name`) to version 5 (`v5_name`) can be obtained by
-#'   using `fa_metadata()$v4_v5_name_tbl`.
+#'   using `fa_metadata()$v4_v5_name_tbl`. If multiple names are provided as
+#'   a character vector, then multiple icons will be produced by concatenating
+#'   together the SVG tags.
 #' @param fill,fill_opacity The fill color of the icon can be set with `fill`.
 #'   If not provided then the default value of `"currentColor"` is applied so
 #'   that the SVG fill matches the color of the parent HTML element's `color`
@@ -33,7 +35,7 @@
 #' @param position The value for the `position` style attribute. By default,
 #'   `"relative"` is used here.
 #'
-#' @return A `fontawesome` object that is the styled Font Awesome icon.
+#' @return A `fontawesome` object.
 #'
 #' @examples
 #' if (interactive()) {
