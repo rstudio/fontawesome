@@ -40,6 +40,7 @@ fa_tbl <-
     style = character(0),
     full_name = character(0),
     svg = character(0),
+    path = character(0),
     min_x = numeric(0),
     min_y = numeric(0),
     width = numeric(0),
@@ -53,6 +54,12 @@ get_viewbox_vals <- function(svg) {
     str_split(pattern = " ") %>%
     unlist() %>%
     as.numeric()
+}
+
+get_svg_path <- function(svg) {
+  svg %>%
+    gsub("<svg.*?>", "", .) %>%
+    gsub("</svg>", "", .)
 }
 
 # Traverse through every top-level item in `fa_list`
@@ -73,6 +80,7 @@ for (i in seq_along(fa_list)) {
       )
 
     viewBox_vals <- get_viewbox_vals(svg)
+    path <- get_svg_path(svg)
 
     fa_tbl <-
       dplyr::bind_rows(
@@ -82,6 +90,7 @@ for (i in seq_along(fa_list)) {
           style = "brands",
           full_name = glue::glue("fab fa-{name}") %>% as.character(),
           svg = svg,
+          path = path,
           min_x = viewBox_vals[1],
           min_y = viewBox_vals[2],
           width = viewBox_vals[3],
@@ -100,6 +109,7 @@ for (i in seq_along(fa_list)) {
       )
 
     viewBox_vals <- get_viewbox_vals(svg)
+    path <- get_svg_path(svg)
 
     fa_tbl <-
       dplyr::bind_rows(
@@ -109,6 +119,7 @@ for (i in seq_along(fa_list)) {
           style = "solid",
           full_name = glue::glue("fas fa-{name}") %>% as.character(),
           svg = svg,
+          path = path,
           min_x = viewBox_vals[1],
           min_y = viewBox_vals[2],
           width = viewBox_vals[3],
@@ -127,6 +138,7 @@ for (i in seq_along(fa_list)) {
       )
 
     viewBox_vals <- get_viewbox_vals(svg)
+    path <- get_svg_path(svg)
 
     fa_tbl <-
       dplyr::bind_rows(
@@ -136,6 +148,7 @@ for (i in seq_along(fa_list)) {
           style = "regular",
           full_name = glue::glue("far fa-{name}") %>% as.character(),
           svg = svg,
+          path = path,
           min_x = viewBox_vals[1],
           min_y = viewBox_vals[2],
           width = viewBox_vals[3],
@@ -206,6 +219,7 @@ expect_col_vals_not_null(fa_tbl, vars(name))
 expect_col_vals_not_null(fa_tbl, vars(style))
 expect_col_vals_not_null(fa_tbl, vars(full_name))
 expect_col_vals_not_null(fa_tbl, vars(svg))
+expect_col_vals_not_null(fa_tbl, vars(path))
 expect_col_vals_not_null(fa_tbl, vars(min_x))
 expect_col_vals_not_null(fa_tbl, vars(min_y))
 expect_col_vals_not_null(fa_tbl, vars(width))
@@ -215,6 +229,10 @@ expect_col_vals_not_null(fa_tbl, vars(v4_name))
 # Expect that there is an SVG formed
 # with `<svg>...</svg>` in the `svg` column
 expect_col_vals_regex(fa_tbl, vars(svg), regex = "^<svg.*</svg>$")
+
+# Expect that there is an SVG path formed
+# with `<path>...</path>` in the `path` column
+expect_col_vals_regex(fa_tbl, vars(path), regex = "^<path.*</path>$")
 
 # Expect that there is an SVG viewBox present and it
 # has a specific pattern
@@ -289,13 +307,14 @@ expect_col_vals_in_set(
   dplyr::tibble(col_names = colnames(fa_tbl)),
   columns = vars(col_names),
   set = c(
-    "name", "style", "full_name", "svg",
+    "name", "style", "full_name", "svg", "path",
     "min_x", "min_y", "width", "height",
     "v4_name"
   )
 )
 
-# Expect that some columns have constant values
+# Expect that columns relating to the SVG
+# viewBox have constant values
 expect_col_vals_equal(fa_tbl, vars(min_x), 0)
 expect_col_vals_equal(fa_tbl, vars(min_y), 0)
 expect_col_vals_equal(fa_tbl, vars(height), 512)
