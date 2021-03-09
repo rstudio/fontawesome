@@ -232,7 +232,11 @@ expect_col_vals_regex(fa_tbl, vars(svg), regex = "^<svg.*</svg>$")
 
 # Expect that there is an SVG path formed
 # with `<path>...</path>` in the `path` column
-expect_col_vals_regex(fa_tbl, vars(path), regex = "^<path.*</path>$")
+expect_col_vals_regex(fa_tbl, vars(path), regex = "^<path.*/>$")
+
+# Expect that there is always just an SVG path within
+# the `<svg>` tag
+expect_col_vals_regex(fa_tbl, vars(svg), regex = "^<svg.*?><path.*/></svg>$")
 
 # Expect that there is an SVG viewBox present and it
 # has a specific pattern
