@@ -23,8 +23,7 @@ It works well in headings...
 
 ...and works equally well within inline text: `r fa("r-project", fill = "steelblue")`.
 
-Here is a block of icons:
+Here are all of the icons:
 
-`r fa("r-project")``r fa("500px")``r fa("bell")``r fa("exclamation")`
-
+`r fa(fa_metadata()$icon_names)`
 
