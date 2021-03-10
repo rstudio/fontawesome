@@ -134,11 +134,7 @@ fa <- function(name,
   viewbox_value <- paste0("0 0 ", svg_list$width, " 512")
 
   # Get the width attribute through simple calculation
-  width_attr <-
-    paste0(
-      round((svg_list$width / 512) - (0.125 * (svg_list$width / 512)), 2),
-      "em"
-    )
+  width_attr <- paste0(round(svg_list$width / 512, 2), "em")
 
   svg <-
     paste0(
