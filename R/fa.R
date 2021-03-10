@@ -162,6 +162,8 @@ fa <- function(name,
       "</svg>"
     )
 
+  svg <- htmltools::HTML(svg)
+
   class(svg) <- c("fontawesome", "svg", class(svg))
 
   svg
