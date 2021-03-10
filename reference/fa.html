@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate a Font Awesome icon as an SVG — fa • fontawesome</title>
+<title>Generate Font Awesome icons as SVGs — fa • fontawesome</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,10 +46,10 @@
 
 
 
-<meta property="og:title" content="Generate a Font Awesome icon as an SVG — fa" />
-<meta property="og:description" content="Add a Font Awesome icon as SVG contained within &amp;lt;svg&amp;gt;...&amp;lt;/svg&amp;gt;. We can
-optionally set certain style attributes. The fa() function can be used
-directly within inline evaluations of R code in R Markdown documents." />
+<meta property="og:title" content="Generate Font Awesome icons as SVGs — fa" />
+<meta property="og:description" content="Add one or more Font Awesome icons as SVGs contained within &amp;lt;svg&amp;gt;...&amp;lt;/svg&amp;gt;.
+We can optionally set certain style attributes. The fa() function can be
+used directly within inline evaluations of R code in R Markdown documents." />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -121,15 +121,15 @@ directly within inline evaluations of R code in R Markdown documents." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate a Font Awesome icon as an SVG</h1>
+    <h1>Generate Font Awesome icons as SVGs</h1>
     <small class="dont-index">Source: <a href='https://github.com/rstudio/fontawesome/blob/master/R/fa.R'><code>R/fa.R</code></a></small>
     <div class="hidden name"><code>fa.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Add a Font Awesome icon as SVG contained within <code>&lt;svg&gt;...&lt;/svg&gt;</code>. We can
-optionally set certain style attributes. The <code>fa()</code> function can be used
-directly within inline evaluations of R code in R Markdown documents.</p>
+    <p>Add one or more Font Awesome icons as SVGs contained within <code>&lt;svg&gt;...&lt;/svg&gt;</code>.
+We can optionally set certain style attributes. The <code>fa()</code> function can be
+used directly within inline evaluations of R code in R Markdown documents.</p>
     </div>
 
     <pre class="usage"><span class='fu'>fa</span><span class='op'>(</span>
@@ -140,6 +140,8 @@ directly within inline evaluations of R code in R Markdown documents.</p>
   stroke_width <span class='op'>=</span> <span class='cn'>NULL</span>,
   stroke_opacity <span class='op'>=</span> <span class='cn'>NULL</span>,
   height <span class='op'>=</span> <span class='cn'>NULL</span>,
+  width <span class='op'>=</span> <span class='cn'>NULL</span>,
+  margin_right <span class='op'>=</span> <span class='cn'>NULL</span>,
   position <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
@@ -157,7 +159,9 @@ the <code><a href='fa_metadata.html'>fa_metadata()</a></code> function with <cod
 will be internally translated to the Version 5 icon name and a Version 5
 icon will be returned. A data frame containing the short names that changed
 from version 4 (<code>v4_name</code>) to version 5 (<code>v5_name</code>) can be obtained by
-using <code>fa_metadata()$v4_v5_name_tbl</code>.</p></td>
+using <code>fa_metadata()$v4_v5_name_tbl</code>. If multiple names are provided as
+a character vector, then multiple icons will be produced by concatenating
+together the SVG tags.</p></td>
     </tr>
     <tr>
       <th>fill, fill_opacity</th>
@@ -176,9 +180,16 @@ with <code>"stroke_width"</code> can be useful. The <code>"stroke_opacity"</code
 any decimal values between <code>0</code> and <code>1</code> (bounds included).</p></td>
     </tr>
     <tr>
-      <th>height</th>
-      <td><p>The absolute height of the rendered SVG. If nothing is provided
-then a default value of <code>"0.75em"</code> will be applied.</p></td>
+      <th>height, width</th>
+      <td><p>The height and width style attributes of the rendered
+SVG. If nothing is provided for <code>height</code> then a default value of <code>"1em"</code>
+will be applied. If a <code>width</code> isn't given, then it will be calculated in
+units of <code>"em"</code> on the basis of the icon's SVG <code>"viewBox"</code> dimensions.</p></td>
+    </tr>
+    <tr>
+      <th>margin_right</th>
+      <td><p>The length value for the margin that's right of the icon.
+By default, <code>"0.2rem"</code> is used.</p></td>
     </tr>
     <tr>
       <th>position</th>
@@ -189,7 +200,7 @@ then a default value of <code>"0.75em"</code> will be applied.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>fontawesome</code> object that is the styled Font Awesome icon.</p>
+    <p>A <code>fontawesome</code> object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
