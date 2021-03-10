@@ -88,17 +88,34 @@ fa <- function(name,
     return(svg)
   }
 
-  if (name %in% fa_tbl$full_name) {
+  if (name %in% fa_tbl$name) {
 
-    svg_list <- as.list(fa_tbl[fa_tbl[["full_name"]] == name, ][1, c("width", "path")])
+    idx <- fa_tbl$name == name
 
-  } else if (name %in% fa_tbl$name) {
+    svg_list <- list(
+      width = fa_tbl$width[idx][1],
+      path  = fa_tbl$path[idx][1]
+    )
 
-    svg_list <- as.list(fa_tbl[fa_tbl[["name"]] == name, ][1, c("width", "path")])
+  } else if (name %in% fa_tbl$full_name) {
+
+    idx <- fa_tbl$full_name == name
+
+    svg_list <- list(
+      width = fa_tbl$width[idx][1],
+      path  = fa_tbl$path[idx][1]
+    )
 
   } else if (name %in% fa_tbl$v4_name) {
 
-    svg_list <- as.list(fa_tbl[fa_tbl[["v4_name"]] == name, ][1, c("width", "path", "name", "full_name")])
+    idx <- fa_tbl$v4_name == name
+
+    svg_list <- list(
+      width = fa_tbl$width[idx][1],
+      path  = fa_tbl$path[idx][1],
+      name  = fa_tbl$name[idx][1],
+      full_name  = fa_tbl$full_name[idx][1],
+    )
 
     # Warn that the v4 icon name should be changed to a v5 one
     warning(
@@ -124,24 +141,25 @@ fa <- function(name,
     )
 
   svg <-
-    htmltools::tags$svg(
-      xmlns = "http://www.w3.org/2000/svg",
-      viewBox = viewbox_value,
-      style = htmltools::css(
-        height = height %||% "1em",
-        width = width %||% width_attr,
-        vertical_align = "-0.125em",
-        margin_right = "0.2em",
-        font_size = "inherit",
-        fill = fill %||% "currentColor",
-        overflow = "visible",
-        fill_opacity = fill_opacity,
-        stroke = stroke,
-        stroke_width = stroke_width,
-        stroke_opacity = stroke_opacity,
-        position = position %||% "relative"
-      ),
-      htmltools::HTML(svg_list$path)
+    paste0(
+      "<svg xmlns=\"http://www.w3.org/2000/svg\" ",
+      "viewBox=\"", viewbox_value, "\" " ,
+      "style=\"",
+      "height:", height %||% "1em", ";",
+      "width:", width %||% width_attr, ";",
+      "vertical-align:-0.125em;",
+      "margin-right:0.2em;",
+      "font-size:inherit;",
+      "fill:", fill %||% "currentColor", ";",
+      "overflow:visible;",
+      if (!is.null(fill_opacity)) paste0("fill-opacity:", fill_opacity, ";"),
+      if (!is.null(stroke)) paste0("stroke:", stroke, ";"),
+      if (!is.null(stroke_width)) paste0("stroke-width:", stroke_width, ";"),
+      if (!is.null(stroke_opacity)) paste0("stroke-opacity:", stroke_opacity, ";"),
+      "position:", position %||% "relative", ";",
+      "\">",
+      svg_list$path,
+      "</svg>"
     )
 
   class(svg) <- c("fontawesome", "svg", class(svg))
