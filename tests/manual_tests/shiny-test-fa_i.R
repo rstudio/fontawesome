@@ -14,7 +14,7 @@ ui <- fluidPage(
       width = 4,
       selectInput(
         inputId = "man",
-        label = tags$p(fa("car", fill = "purple"), "Manufacturer:"),
+        label = tags$p(fa_i("car"), "Manufacturer:"),
         choices = c(
           "All",
           unique(as.character(mpg$manufacturer))))
@@ -24,7 +24,7 @@ ui <- fluidPage(
       width = 4,
       selectInput(
         inputId = "trans",
-        label = tags$p(fa("car", fill = "forestgreen"), "Transmission:"),
+        label = tags$p(fa_i("car"), "Transmission:"),
         choices = c(
           "All",
           unique(as.character(mpg$trans))))
@@ -34,7 +34,7 @@ ui <- fluidPage(
       width = 4,
       selectInput(
         inputId = "cyl",
-        label = tags$p(fa("car", fill = "steelblue"), "Cylinders:"),
+        label = tags$p(fa_i("car"), "Cylinders:"),
         choices = c(
           "All",
           unique(as.character(mpg$cyl))))
