@@ -87,7 +87,8 @@ fa <- function(name,
               height = height,
               width = width,
               margin_right = margin_right,
-              position = position
+              position = position,
+              a11y_case = a11y_case
             )
           )
         }
