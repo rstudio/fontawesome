@@ -14,7 +14,9 @@ fa(
   height = NULL,
   width = NULL,
   margin_right = NULL,
-  position = NULL
+  position = NULL,
+  a11y_case = c("decorative", "semantic", "none"),
+  title = NULL
 )
 }
 \arguments{
@@ -53,6 +55,17 @@ By default, \code{"0.2rem"} is used.}
 
 \item{position}{The value for the \code{position} style attribute. By default,
 \code{"relative"} is used here.}
+
+\item{a11y_case}{Cases that distinguish the role of the icon and inform which
+accessibility attributes to be used. Icons can either be \code{"decorative"}
+(the default case) or \code{"semantic"}. Using \code{"none"} will result in no
+accessibility features for the icon.}
+
+\item{title}{An option for populating the SVG \code{'title'} attribute, which
+provides on-hover text for the icon. By default, no title text is given to
+the icon. If \code{a11y_case == "semantic"} then title text will be
+automatically given to the rendered icon, however, providing text here
+will override that.}
 }
 \value{
 A \code{fontawesome} object.
