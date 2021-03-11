@@ -44,7 +44,8 @@ fa_tbl <-
     min_x = numeric(0),
     min_y = numeric(0),
     width = numeric(0),
-    height = numeric(0)
+    height = numeric(0),
+    label = character(0)
   )
 
 get_viewbox_vals <- function(svg) {
@@ -69,6 +70,7 @@ for (i in seq_along(fa_list)) {
   fa_list_item <- fa_list[i]
   name <- fa_list_item %>% names()
   styles <- fa_list_item[[1]]$styles
+  label <- fa_list_item[[1]]$label
 
   if ("brands" %in% styles) {
 
@@ -94,7 +96,8 @@ for (i in seq_along(fa_list)) {
           min_x = viewBox_vals[1],
           min_y = viewBox_vals[2],
           width = viewBox_vals[3],
-          height = viewBox_vals[4]
+          height = viewBox_vals[4],
+          label = label
         )
       )
   }
@@ -123,7 +126,8 @@ for (i in seq_along(fa_list)) {
           min_x = viewBox_vals[1],
           min_y = viewBox_vals[2],
           width = viewBox_vals[3],
-          height = viewBox_vals[4]
+          height = viewBox_vals[4],
+          label = label
         )
       )
   }
@@ -152,7 +156,8 @@ for (i in seq_along(fa_list)) {
           min_x = viewBox_vals[1],
           min_y = viewBox_vals[2],
           width = viewBox_vals[3],
-          height = viewBox_vals[4]
+          height = viewBox_vals[4],
+          label = label
         )
       )
   }
@@ -225,6 +230,7 @@ expect_col_vals_not_null(fa_tbl, vars(min_y))
 expect_col_vals_not_null(fa_tbl, vars(width))
 expect_col_vals_not_null(fa_tbl, vars(height))
 expect_col_vals_not_null(fa_tbl, vars(v4_name))
+expect_col_vals_not_null(fa_tbl, vars(label))
 
 # Expect that there is an SVG formed
 # with `<svg>...</svg>` in the `svg` column
@@ -313,7 +319,7 @@ expect_col_vals_in_set(
   set = c(
     "name", "style", "full_name", "svg", "path",
     "min_x", "min_y", "width", "height",
-    "v4_name"
+    "v4_name", "label"
   )
 )
 
