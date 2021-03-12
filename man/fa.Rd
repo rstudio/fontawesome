@@ -16,7 +16,7 @@ fa(
   margin_right = NULL,
   position = NULL,
   title = NULL,
-  a11y = c("decorative", "semantic", "none")
+  a11y = c("d", "s", "n")
 )
 }
 \arguments{
@@ -63,8 +63,8 @@ automatically given to the rendered icon, however, providing text here
 will override that.}
 
 \item{a11y}{Cases that distinguish the role of the icon and inform which
-accessibility attributes to be used. Icons can either be \code{"decorative"}
-(the default case) or \code{"semantic"}. Using \code{"none"} will result in no
+accessibility attributes to be used. Icons can either be \code{"d"} (decorative,
+the default case) or \code{"s"} (semantic). Using \code{"n"} (none) will result in no
 accessibility features for the icon.}
 }
 \value{
