@@ -101,7 +101,7 @@ fa <- function(name,
     return(svg)
   }
 
-  a11y_case <- match.arg(a11y_case)
+  a11y_case <- match.arg(a11y_case, choices = c("decorative", "semantic", "none"))
 
   if (name %in% fa_tbl$name) {
 
