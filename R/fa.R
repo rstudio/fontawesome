@@ -34,6 +34,15 @@
 #'   By default, `"0.2rem"` is used.
 #' @param position The value for the `position` style attribute. By default,
 #'   `"relative"` is used here.
+#' @param title An option for populating the SVG `'title'` attribute, which
+#'   provides on-hover text for the icon. By default, no title text is given to
+#'   the icon. If `a11y == "semantic"` then title text will be
+#'   automatically given to the rendered icon, however, providing text here
+#'   will override that.
+#' @param a11y Cases that distinguish the role of the icon and inform which
+#'   accessibility attributes to be used. Icons can either be `"desc"`
+#'   (decorative, the default case) or `"sem"` (semantic). Using `"none"` will
+#'   result in no accessibility features for the icon.
 #'
 #' @return A `fontawesome` object.
 #'
@@ -45,6 +54,7 @@
 #'
 #' }
 #'
+#' @import htmltools
 #' @export
 fa <- function(name,
                fill = NULL,
@@ -55,7 +65,9 @@ fa <- function(name,
                height = NULL,
                width = NULL,
                margin_right = NULL,
-               position = NULL) {
+               position = NULL,
+               title = NULL,
+               a11y = c("desc", "sem", "none")) {
 
   if (length(name) > 1) {
 
@@ -76,7 +88,8 @@ fa <- function(name,
               height = height,
               width = width,
               margin_right = margin_right,
-              position = position
+              position = position,
+              a11y = a11y
             )
           )
         }
@@ -87,6 +100,8 @@ fa <- function(name,
     class(svg) <- c("fontawesome", "svg", class(svg))
     return(svg)
   }
+
+  a11y <- match.arg(a11y, choices = c("desc", "sem", "none"))
 
   if (name %in% fa_tbl$name) {
 
@@ -114,7 +129,7 @@ fa <- function(name,
       width = fa_tbl$width[idx][1],
       path  = fa_tbl$path[idx][1],
       name  = fa_tbl$name[idx][1],
-      full_name  = fa_tbl$full_name[idx][1],
+      full_name  = fa_tbl$full_name[idx][1]
     )
 
     # Warn that the v4 icon name should be changed to a v5 one
@@ -136,9 +151,48 @@ fa <- function(name,
   # Get the width attribute through simple calculation
   width_attr <- paste0(round(svg_list$width / 512, 2), "em")
 
+  extra_attrs <- ""
+  title_tag <- ""
+
+  # Generate accessibility attributes if either of
+  # the "desc" or "sem" cases are chosen
+  if (a11y == "none") {
+
+    if (!is.null(title)) {
+      title_tag <- paste0("<title>", htmlEscape(title), "</title>")
+    }
+
+  } else if (a11y == "desc") {
+
+    extra_attrs <- paste0("aria-hidden=\"true\" role=\"img\" ")
+
+    if (!is.null(title)) {
+      title_tag <- paste0("<title>", htmlEscape(title), "</title>")
+    }
+
+  } else {
+
+    # The 'semantic' case
+
+    if (is.null(title)) {
+      title <- fa_tbl$label[idx][1]
+    }
+
+    extra_attrs <-
+      paste0(
+        "aria-label=\"",
+        htmlEscape(title, attribute = TRUE), "\" ",
+        "role=\"img\" "
+      )
+
+    title_tag <-
+      paste0("<title>", htmlEscape(title), "</title>")
+  }
+
   svg <-
     paste0(
-      "<svg xmlns=\"http://www.w3.org/2000/svg\" ",
+      "<svg ",
+      extra_attrs,
       "viewBox=\"", viewbox_value, "\" " ,
       "style=\"",
       "height:", height %||% "1em", ";",
@@ -154,11 +208,12 @@ fa <- function(name,
       if (!is.null(stroke_opacity)) paste0("stroke-opacity:", stroke_opacity, ";"),
       "position:", position %||% "relative", ";",
       "\">",
+      title_tag,
       svg_list$path,
       "</svg>"
     )
 
-  svg <- htmltools::HTML(svg)
+  svg <- HTML(svg)
 
   class(svg) <- c("fontawesome", "svg", class(svg))
 
