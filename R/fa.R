@@ -40,9 +40,9 @@
 #'   automatically given to the rendered icon, however, providing text here
 #'   will override that.
 #' @param a11y Cases that distinguish the role of the icon and inform which
-#'   accessibility attributes to be used. Icons can either be `"d"` (decorative,
-#'   the default case) or `"s"` (semantic). Using `"n"` (none) will result in no
-#'   accessibility features for the icon.
+#'   accessibility attributes to be used. Icons can either be `"desc"`
+#'   (decorative, the default case) or `"sem"` (semantic). Using `"none"` will
+#'   result in no accessibility features for the icon.
 #'
 #' @return A `fontawesome` object.
 #'
@@ -67,7 +67,7 @@ fa <- function(name,
                margin_right = NULL,
                position = NULL,
                title = NULL,
-               a11y = c("d", "s", "n")) {
+               a11y = c("desc", "sem", "none")) {
 
   if (length(name) > 1) {
 
@@ -101,7 +101,7 @@ fa <- function(name,
     return(svg)
   }
 
-  a11y <- match.arg(a11y, choices = c("d", "s", "n"))
+  a11y <- match.arg(a11y, choices = c("desc", "sem", "none"))
 
   if (name %in% fa_tbl$name) {
 
@@ -155,14 +155,14 @@ fa <- function(name,
   title_tag <- ""
 
   # Generate accessibility attributes if either of
-  # the "decorative" or "semantic" cases are chosen
-  if (a11y == "n") {
+  # the "desc" or "sem" cases are chosen
+  if (a11y == "none") {
 
     if (!is.null(title)) {
       title_tag <- paste0("<title>", htmlEscape(title), "</title>")
     }
 
-  } else if (a11y == "d") {
+  } else if (a11y == "desc") {
 
     extra_attrs <- paste0("aria-hidden=\"true\" role=\"img\" ")
 
