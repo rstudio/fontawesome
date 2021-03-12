@@ -34,15 +34,15 @@
 #'   By default, `"0.2rem"` is used.
 #' @param position The value for the `position` style attribute. By default,
 #'   `"relative"` is used here.
-#' @param a11y_case Cases that distinguish the role of the icon and inform which
-#'   accessibility attributes to be used. Icons can either be `"decorative"`
-#'   (the default case) or `"semantic"`. Using `"none"` will result in no
-#'   accessibility features for the icon.
 #' @param title An option for populating the SVG `'title'` attribute, which
 #'   provides on-hover text for the icon. By default, no title text is given to
 #'   the icon. If `a11y_case == "semantic"` then title text will be
 #'   automatically given to the rendered icon, however, providing text here
 #'   will override that.
+#' @param a11y_case Cases that distinguish the role of the icon and inform which
+#'   accessibility attributes to be used. Icons can either be `"decorative"`
+#'   (the default case) or `"semantic"`. Using `"none"` will result in no
+#'   accessibility features for the icon.
 #'
 #' @return A `fontawesome` object.
 #'
@@ -54,6 +54,7 @@
 #'
 #' }
 #'
+#' @import htmltools
 #' @export
 fa <- function(name,
                fill = NULL,
@@ -65,8 +66,8 @@ fa <- function(name,
                width = NULL,
                margin_right = NULL,
                position = NULL,
-               a11y_case = c("decorative", "semantic", "none"),
-               title = NULL) {
+               title = NULL,
+               a11y_case = c("decorative", "semantic", "none")) {
 
   if (length(name) > 1) {
 
@@ -154,18 +155,24 @@ fa <- function(name,
   # the "decorative" or "semantic" cases are chosen
   if (a11y_case == "none") {
 
-    extra_attrs <- if (!is.null(title)) paste0("title=\"", title, "\" ")
-    title_id <- ""
+    extra_attrs <- ""
+
+    if (!is.null(title)) {
+      title_tag <- paste0("<title>", htmlEscape(title), "</title>")
+    } else {
+      title_tag <- ""
+    }
 
   } else if (a11y_case == "decorative") {
 
     extra_attrs <-
-      paste0(
-        if (!is.null(title)) paste0("title=\"", title, "\" "),
-        "aria-hidden=\"true\" role=\"img\" "
-      )
+      paste0("aria-hidden=\"true\" role=\"img\" ")
 
-    title_id <- ""
+    if (!is.null(title)) {
+      title_tag <- paste0("<title>", htmlEscape(title), "</title>")
+    } else {
+      title_tag <- ""
+    }
 
   } else {
 
@@ -175,21 +182,15 @@ fa <- function(name,
       title <- fa_tbl$label[idx][1]
     }
 
-    random_id <- random_id_title()
-
     extra_attrs <-
       paste0(
-        "title=\"", title, "\" ",
-        "aria-labelledby=\"svg-inline--fa-title-", random_id, "\" ",
+        "aria-label=\"",
+        htmlEscape(title, attribute = TRUE), "\" ",
         "role=\"img\" "
       )
 
-    title_id <-
-      paste0(
-        "<title id=\"svg-inline--fa-title-",
-        random_id,
-        "\">", title, "</title>"
-      )
+    title_tag <-
+      paste0("<title>", htmlEscape(title), "</title>")
   }
 
   svg <-
@@ -212,12 +213,12 @@ fa <- function(name,
       if (!is.null(stroke_opacity)) paste0("stroke-opacity:", stroke_opacity, ";"),
       "position:", position %||% "relative", ";",
       "\">",
-      title_id,
+      title_tag,
       svg_list$path,
       "</svg>"
     )
 
-  svg <- htmltools::HTML(svg)
+  svg <- HTML(svg)
 
   class(svg) <- c("fontawesome", "svg", class(svg))
 
@@ -227,3 +228,4 @@ fa <- function(name,
 random_id_title <- function() {
   paste(sample(c(LETTERS, letters, 0:9), size = 12), collapse = "")
 }
+
