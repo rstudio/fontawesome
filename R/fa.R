@@ -193,7 +193,6 @@ fa <- function(name,
     paste0(
       "<svg ",
       extra_attrs,
-      "xmlns=\"http://www.w3.org/2000/svg\" ",
       "viewBox=\"", viewbox_value, "\" " ,
       "style=\"",
       "height:", height %||% "1em", ";",
