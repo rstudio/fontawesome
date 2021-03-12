@@ -36,10 +36,10 @@
 #'   `"relative"` is used here.
 #' @param title An option for populating the SVG `'title'` attribute, which
 #'   provides on-hover text for the icon. By default, no title text is given to
-#'   the icon. If `a11y_case == "semantic"` then title text will be
+#'   the icon. If `a11y == "semantic"` then title text will be
 #'   automatically given to the rendered icon, however, providing text here
 #'   will override that.
-#' @param a11y_case Cases that distinguish the role of the icon and inform which
+#' @param a11y Cases that distinguish the role of the icon and inform which
 #'   accessibility attributes to be used. Icons can either be `"decorative"`
 #'   (the default case) or `"semantic"`. Using `"none"` will result in no
 #'   accessibility features for the icon.
@@ -67,7 +67,7 @@ fa <- function(name,
                margin_right = NULL,
                position = NULL,
                title = NULL,
-               a11y_case = c("decorative", "semantic", "none")) {
+               a11y = c("decorative", "semantic", "none")) {
 
   if (length(name) > 1) {
 
@@ -89,7 +89,7 @@ fa <- function(name,
               width = width,
               margin_right = margin_right,
               position = position,
-              a11y_case = a11y_case
+              a11y = a11y
             )
           )
         }
@@ -101,7 +101,7 @@ fa <- function(name,
     return(svg)
   }
 
-  a11y_case <- match.arg(a11y_case, choices = c("decorative", "semantic", "none"))
+  a11y <- match.arg(a11y, choices = c("decorative", "semantic", "none"))
 
   if (name %in% fa_tbl$name) {
 
@@ -153,7 +153,7 @@ fa <- function(name,
 
   # Generate accessibility attributes if either of
   # the "decorative" or "semantic" cases are chosen
-  if (a11y_case == "none") {
+  if (a11y == "none") {
 
     extra_attrs <- ""
 
@@ -163,7 +163,7 @@ fa <- function(name,
       title_tag <- ""
     }
 
-  } else if (a11y_case == "decorative") {
+  } else if (a11y == "decorative") {
 
     extra_attrs <-
       paste0("aria-hidden=\"true\" role=\"img\" ")

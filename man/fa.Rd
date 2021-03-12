@@ -16,7 +16,7 @@ fa(
   margin_right = NULL,
   position = NULL,
   title = NULL,
-  a11y_case = c("decorative", "semantic", "none")
+  a11y = c("decorative", "semantic", "none")
 )
 }
 \arguments{
@@ -58,11 +58,11 @@ By default, \code{"0.2rem"} is used.}
 
 \item{title}{An option for populating the SVG \code{'title'} attribute, which
 provides on-hover text for the icon. By default, no title text is given to
-the icon. If \code{a11y_case == "semantic"} then title text will be
+the icon. If \code{a11y == "semantic"} then title text will be
 automatically given to the rendered icon, however, providing text here
 will override that.}
 
-\item{a11y_case}{Cases that distinguish the role of the icon and inform which
+\item{a11y}{Cases that distinguish the role of the icon and inform which
 accessibility attributes to be used. Icons can either be \code{"decorative"}
 (the default case) or \code{"semantic"}. Using \code{"none"} will result in no
 accessibility features for the icon.}
