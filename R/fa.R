@@ -151,27 +151,23 @@ fa <- function(name,
   # Get the width attribute through simple calculation
   width_attr <- paste0(round(svg_list$width / 512, 2), "em")
 
+  extra_attrs <- ""
+  title_tag <- ""
+
   # Generate accessibility attributes if either of
   # the "decorative" or "semantic" cases are chosen
   if (a11y == "n") {
 
-    extra_attrs <- ""
-
     if (!is.null(title)) {
       title_tag <- paste0("<title>", htmlEscape(title), "</title>")
-    } else {
-      title_tag <- ""
     }
 
   } else if (a11y == "d") {
 
-    extra_attrs <-
-      paste0("aria-hidden=\"true\" role=\"img\" ")
+    extra_attrs <- paste0("aria-hidden=\"true\" role=\"img\" ")
 
     if (!is.null(title)) {
       title_tag <- paste0("<title>", htmlEscape(title), "</title>")
-    } else {
-      title_tag <- ""
     }
 
   } else {
