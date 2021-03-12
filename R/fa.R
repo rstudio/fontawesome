@@ -219,7 +219,3 @@ fa <- function(name,
 
   svg
 }
-
-random_id_title <- function() {
-  paste(sample(c(LETTERS, letters, 0:9), size = 12), collapse = "")
-}
