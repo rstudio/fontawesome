@@ -34,9 +34,9 @@ knit_print.fontawesome <- function(x, ..., options, inline = FALSE) {
       formats$renderer(raw_fa, file = icon_file)
       knitr::asis_output(sprintf("![](%s){%s}", icon_file, "height=0.8em"))
     } else {
-      warning("fontawesome does not supported this output. Icon(s) will not show.",
+      warning("fontawesome does not support this output. Icon(s) will not show.",
               call. = FALSE)
-      ""
+      NULL
     }
   }
   # nocov end
