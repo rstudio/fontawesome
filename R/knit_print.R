@@ -27,7 +27,7 @@ knit_print.fontawesome <- function(x, ..., options, inline = FALSE) {
       if (!dir.exists(d <- dirname(pdf_icon))) dir.create(d, recursive = TRUE)
       raw_fa <- charToRaw(as.character(x))
       rsvg::rsvg_pdf(raw_fa, file = pdf_icon)
-      knitr::asis_output(sprintf("\\includegraphics[height=0.8em]{%s}", pdf_icon))
+      knitr::asis_output(sprintf("![](%s){%s}", pdf_icon, "height=0.8em"))
     } else {
       warning("fontawesome does not supported this output. Icon(s) will not show.",
               call. = FALSE)
