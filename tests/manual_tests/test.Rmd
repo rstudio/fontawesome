@@ -1,6 +1,9 @@
 ---
 title: "Font Awesome in R Markdown"
-output: html_document
+output: 
+  html_document: default
+  word_document: default
+  pdf_document: default
 ---
 
 ```{r load_packages, message=FALSE, warning=FALSE, include=FALSE} 
@@ -23,7 +26,9 @@ It works well in headings...
 
 ...and works equally well within inline text: `r fa("r-project", fill = "steelblue")`.
 
+```{asis, echo = knitr::is_html_output()}
 Here are all of the icons:
+```
 
-`r fa(fa_metadata()$icon_names)`
+`r if (knitr::is_html_output()) fa(fa_metadata()$icon_names)`
 
