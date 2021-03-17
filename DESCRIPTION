@@ -24,6 +24,7 @@ RoxygenNote: 7.1.1
 Depends: 
     R (>= 3.3.0)
 Imports:
+    rlang (>= 0.4.10),
     htmltools (>= 0.5.1.1)
 Suggests: 
     covr,
