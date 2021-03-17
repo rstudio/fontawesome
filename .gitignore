@@ -37,3 +37,5 @@ rsconnect/
 .Rproj.user
 
 .DS_Store
+
+tests/manual_tests/*.html
