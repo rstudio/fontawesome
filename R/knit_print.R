@@ -20,15 +20,13 @@ knit_print.fontawesome <- function(x, ..., options, inline = FALSE) {
              " * It can be installed with `install.packages(\"rsvg\")`.",
              call. = FALSE)
       }
-      # create the icon in a tempfile and copy to fig.path for knitting
-      tmp_pdf <- tempfile("fa-icon-", fileext = ".pdf")
-      on.exit(unlink(tmp_pdf), add = TRUE)
-      raw_fa <- charToRaw(as.character(x))
-      rsvg::rsvg_pdf(raw_fa, file = tmp_pdf)
-      knitr_fig_path <- options$fig.path
-      pdf_icon <- file.path(knitr_fig_path, basename(tmp_pdf))
+      pdf_icon <- paste0(
+        options$fig.path,
+        basename(tempfile("fa-icon-", fileext = ".pdf"))
+      )
       if (!dir.exists(d <- dirname(pdf_icon))) dir.create(d, recursive = TRUE)
-      file.copy(tmp_pdf, pdf_icon)
+      raw_fa <- charToRaw(as.character(x))
+      rsvg::rsvg_pdf(raw_fa, file = pdf_icon)
       knitr::asis_output(sprintf("\\includegraphics[height=0.8em]{%s}", pdf_icon))
     } else {
       warning("fontawesome does not supported this output. Icon(s) will not show.",
