@@ -26,7 +26,7 @@ knit_print.fontawesome <- function(x, ..., options, inline = FALSE) {
     icon_file <- paste0(
       options$fig.path,
       "fa-icon-",
-      rlang::hash(as.character(x)),
+      rlang::hash(x),
       formats$ext
     )
     if (!file.exists(icon_file)) {
