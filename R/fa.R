@@ -69,36 +69,8 @@ fa <- function(name,
                title = NULL,
                a11y = c("desc", "sem", "none")) {
 
-  if (length(name) > 1) {
-
-    svg <-
-      vapply(
-        name,
-        FUN.VALUE = character(1),
-        USE.NAMES = FALSE,
-        FUN = function(x) {
-          as.character(
-            fa(
-              name = x,
-              fill = fill,
-              fill_opacity = fill_opacity,
-              stroke = stroke,
-              stroke_width = stroke_width,
-              stroke_opacity = stroke_opacity,
-              height = height,
-              width = width,
-              margin_right = margin_right,
-              position = position,
-              a11y = a11y
-            )
-          )
-        }
-      )
-
-    svg <- paste0(svg, collapse = "")
-
-    class(svg) <- c("fontawesome", "svg", class(svg))
-    return(svg)
+  if (length(name) != 1) {
+    stop("The number of icons specified in `name` must be 1.", call. = FALSE)
   }
 
   a11y <- match.arg(a11y, choices = c("desc", "sem", "none"))
