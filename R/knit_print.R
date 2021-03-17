@@ -14,20 +14,25 @@ knit_print.fontawesome <- function(x, ..., options, inline = FALSE) {
   if (requireNamespace("knitr", quietly = TRUE)) {
     if (knitr::is_html_output()) {
       NextMethod()
-    } else if (knitr::is_latex_output()) {
+    } else if (knitr::pandoc_to(c("latex", "beamer", "docx"))) {
       if (!requireNamespace("rsvg", quietly = TRUE)) {
-        stop("Using fontawesome in PDF output requires the rsvg package:\n",
+        stop("Using fontawesome with non HTML output requires the rsvg package:\n",
              " * It can be installed with `install.packages(\"rsvg\")`.",
              call. = FALSE)
       }
-      pdf_icon <- paste0(
-        options$fig.path,
-        basename(tempfile("fa-icon-", fileext = ".pdf"))
+      formats <- switch(knitr::pandoc_to(),
+                        beamer = ,
+                        latex = list(ext = ".pdf", renderer = rsvg::rsvg_pdf),
+                        docx = list(ext = ".png", renderer = rsvg::rsvg_png)
       )
-      if (!dir.exists(d <- dirname(pdf_icon))) dir.create(d, recursive = TRUE)
+      icon_file <- paste0(
+        options$fig.path,
+        basename(tempfile("fa-icon-", fileext = formats$ext))
+      )
+      if (!dir.exists(d <- dirname(icon_file))) dir.create(d, recursive = TRUE)
       raw_fa <- charToRaw(as.character(x))
-      rsvg::rsvg_pdf(raw_fa, file = pdf_icon)
-      knitr::asis_output(sprintf("![](%s){%s}", pdf_icon, "height=0.8em"))
+      formats$renderer(raw_fa, file = icon_file)
+      knitr::asis_output(sprintf("![](%s){%s}", icon_file, "height=0.8em"))
     } else {
       warning("fontawesome does not supported this output. Icon(s) will not show.",
               call. = FALSE)
