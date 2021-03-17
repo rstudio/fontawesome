@@ -25,10 +25,3 @@ It works well in headings...
 ##### `r fa("r-project", fill = "steelblue")`H5 Heading
 
 ...and works equally well within inline text: `r fa("r-project", fill = "steelblue")`.
-
-```{asis, echo = knitr::is_html_output()}
-Here are all of the icons:
-```
-
-`r if (knitr::is_html_output()) fa(fa_metadata()$icon_names)`
-
