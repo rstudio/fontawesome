@@ -13,7 +13,7 @@ knit_print.fontawesome <- function(x, ..., options, inline = FALSE) {
   if (knitr::pandoc_to(c("html", "html4", "html5", "slidy", "revealjs", "markdown"))) {
     # this formats support inline svg
     NextMethod()
-  } else if (knitr::pandoc_to(c("latex", "beamer", "docx"))) {
+  } else if (knitr::pandoc_to(c("latex", "beamer", "docx", "gfm", "markdown_github"))) {
     if (!requireNamespace("rsvg", quietly = TRUE)) {
       stop("Using fontawesome with non HTML output requires the rsvg package:\n",
            " * It can be installed with `install.packages(\"rsvg\")`.",
@@ -22,7 +22,9 @@ knit_print.fontawesome <- function(x, ..., options, inline = FALSE) {
     formats <- switch(knitr::pandoc_to(),
                       beamer = ,
                       latex = list(ext = ".pdf", renderer = rsvg::rsvg_pdf),
-                      docx = list(ext = ".png", renderer = rsvg::rsvg_png)
+                      docx = list(ext = ".png", renderer = rsvg::rsvg_png),
+                      `markdown_github` = ,
+                      gfm = list(ext = ".svg", renderer = rsvg::rsvg_svg)
     )
     icon_file <- paste0(
       options$fig.path,
