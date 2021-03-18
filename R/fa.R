@@ -153,6 +153,11 @@ fa <- function(name,
   } else {
     # Case where both the `height` and `width` are provided
 
+    # Invoke `get_length_value_unit()` to validate
+    # the CSS length units in `height` and `width`
+    get_length_value_unit(css_length = height)
+    get_length_value_unit(css_length = width)
+
     extra_attrs <- "preserveAspectRatio=\"none\" "
 
     height_attr <- height
@@ -235,8 +240,23 @@ get_length_value_unit <- function(css_length) {
     )
   }
 
+  unit <- sub("^[0-9]+", "", css_length)
+
+  if (!(unit %in% css_length_units)) {
+    stop(
+      "The provided CSS length unit is not valid.",
+      call. = FALSE
+    )
+  }
+
   list(
     value = as.numeric(sub("[a-z]+$", "", css_length)),
-    unit = sub("^[0-9]+", "", css_length)
+    unit = unit
   )
 }
+
+css_length_units <-
+  c(
+    "cm", "mm", "in", "px", "pt", "pc", "em", "ex",
+    "ch", "rem", "vw", "vh", "vmin", "vmax", "%"
+  )
