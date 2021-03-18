@@ -32,7 +32,12 @@ knit_print.fontawesome <- function(x, ..., options, inline = FALSE) {
     if (!file.exists(icon_file)) {
       d <- dirname(icon_file)
       if (!dir.exists(d)) dir.create(d, recursive = TRUE)
-      formats$renderer(charToRaw(as.character(x)), file = icon_file)
+      formats$renderer(
+        charToRaw(as.character(x)),
+        width = attr(x, "viewbox")[["width"]] / 2,
+        height = attr(x, "viewbox")[["height"]] / 2,
+        file = icon_file
+      )
     }
     knitr::asis_output(sprintf("![](%s){%s}", icon_file, "height=1em"))
   } else {

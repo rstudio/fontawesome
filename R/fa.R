@@ -118,7 +118,7 @@ fa <- function(name,
 
   # Generate the viewBox value through use of the only
   # changing value: the width
-  viewbox_value <- paste0("0 0 ", svg_list$width, " 512")
+  viewbox_value <- c(`min-x` = 0, `min-y` = 0, width = svg_list$width, height = 512)
 
   # Get the width attribute through simple calculation
   width_attr <- paste0(round(svg_list$width / 512, 2), "em")
@@ -165,7 +165,7 @@ fa <- function(name,
     paste0(
       "<svg ",
       extra_attrs,
-      "viewBox=\"", viewbox_value, "\" " ,
+      "viewBox=\"", paste0(viewbox_value, collapse = " "), "\" " ,
       "style=\"",
       "height:", height %||% "1em", ";",
       "width:", width %||% width_attr, ";",
@@ -187,7 +187,8 @@ fa <- function(name,
 
   svg <- HTML(svg)
 
-  class(svg) <- c("fontawesome", "svg", class(svg))
-
-  svg
+  structure(svg,
+            class = c("fontawesome", "svg", class(svg)),
+            viewbox = viewbox_value
+  )
 }
