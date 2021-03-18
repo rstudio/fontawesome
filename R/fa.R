@@ -116,6 +116,10 @@ fa <- function(name,
     stop("This Font Awesome icon ('", name, "') does not exist", call. = FALSE)
   }
 
+  # Initialize vectors for extra SVG attributes and for the <title> tag
+  extra_attrs <- ""
+  title_tag <- ""
+
   # Generate the viewBox value through use of the only
   # changing value: the width
   viewbox_value <- paste0("0 0 ", svg_list$width, " 512")
@@ -148,12 +152,12 @@ fa <- function(name,
 
   } else {
     # Case where both the `height` and `width` are provided
+
+    extra_attrs <- "preserveAspectRatio=\"none\" "
+
     height_attr <- height
     width_attr <- width
   }
-
-  extra_attrs <- ""
-  title_tag <- ""
 
   # Generate accessibility attributes if either of
   # the "desc" or "sem" cases are chosen
@@ -165,14 +169,13 @@ fa <- function(name,
 
   } else if (a11y == "desc") {
 
-    extra_attrs <- paste0("aria-hidden=\"true\" role=\"img\" ")
+    extra_attrs <- paste0(extra_attrs, "aria-hidden=\"true\" role=\"img\" ")
 
     if (!is.null(title)) {
       title_tag <- paste0("<title>", htmlEscape(title), "</title>")
     }
 
   } else {
-
     # The 'semantic' case
 
     if (is.null(title)) {
@@ -181,6 +184,7 @@ fa <- function(name,
 
     extra_attrs <-
       paste0(
+        extra_attrs,
         "aria-label=\"",
         htmlEscape(title, attribute = TRUE), "\" ",
         "role=\"img\" "
