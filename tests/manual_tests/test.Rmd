@@ -1,8 +1,8 @@
 ---
 title: "Font Awesome in R Markdown"
 output: 
-  html_document: default
   word_document: default
+  html_document: default
   pdf_document: default
 ---
 
@@ -25,3 +25,5 @@ It works well in headings...
 ##### `r fa("r-project", fill = "steelblue")`H5 Heading
 
 ...and works equally well within inline text: `r fa("r-project", fill = "steelblue")`.
+
+We can also change size, like this icon `r fa("r-project", fill = "steelblue", height = "7em")` or this one `r fa("r-project", fill = "steelblue", height = "4em", width = "4em")` or this one `r fa("r-project", fill = "steelblue", width = "6em")`
