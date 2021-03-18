@@ -39,7 +39,13 @@ knit_print.fontawesome <- function(x, ..., options, inline = FALSE) {
         file = icon_file
       )
     }
-    knitr::asis_output(sprintf("![](%s){%s}", icon_file, "height=1em"))
+    knitr::asis_output(
+      sprintf("![](%s){height=%s width=%s}",
+              icon_file,
+              attr(x, "size")[["h"]],
+              attr(x, "size")[["w"]]
+      )
+    )
   } else {
     warning("fontawesome does not support this output. Icon(s) will not show.",
             call. = FALSE)

@@ -161,14 +161,16 @@ fa <- function(name,
       paste0("<title>", htmlEscape(title), "</title>")
   }
 
+  height <- height %||% "1em"
+  width <- width %||% width_attr
   svg <-
     paste0(
       "<svg ",
       extra_attrs,
       "viewBox=\"", paste0(viewbox_value, collapse = " "), "\" " ,
       "style=\"",
-      "height:", height %||% "1em", ";",
-      "width:", width %||% width_attr, ";",
+      "height:", height, ";",
+      "width:", width, ";",
       "vertical-align:-0.125em;",
       "margin-right:0.2em;",
       "font-size:inherit;",
@@ -189,6 +191,7 @@ fa <- function(name,
 
   structure(svg,
             class = c("fontawesome", "svg", class(svg)),
-            viewbox = viewbox_value
+            viewbox = viewbox_value,
+            size = c(h = height, w = width)
   )
 }
