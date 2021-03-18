@@ -116,15 +116,53 @@ fa <- function(name,
     stop("This Font Awesome icon ('", name, "') does not exist", call. = FALSE)
   }
 
+  # Initialize vectors for extra SVG attributes and for the <title> tag
+  extra_attrs <- ""
+  title_tag <- ""
+
   # Generate the viewBox value through use of the only
   # changing value: the width
   viewbox_value <- paste0("0 0 ", svg_list$width, " 512")
 
-  # Get the width attribute through simple calculation
-  width_attr <- paste0(round(svg_list$width / 512, 2), "em")
+  # Generate the appropriate height and width attributes based on
+  # user input and the SVG viewBox dimensions
+  if (is.null(height) && is.null(width)) {
+    # Case where height and width are not user-provided
 
-  extra_attrs <- ""
-  title_tag <- ""
+    height_attr <- "1em"
+    width_attr <- paste0(round(svg_list$width / 512, 2), "em")
+
+  } else if (!is.null(height) && is.null(width)) {
+    # Case where height is user-provided but `width` is not
+
+    dim_list <- get_length_value_unit(css_length = height)
+
+    height_attr <- height
+    width_attr <-
+      paste0(round((svg_list$width / 512) * dim_list$value, 2), dim_list$unit)
+
+  } else if (is.null(height) && !is.null(width)) {
+    # Case where width is user-provided but `height` is not
+
+    dim_list <- get_length_value_unit(css_length = width)
+
+    height_attr <-
+      paste0(round(dim_list$value / (svg_list$width / 512), 2), dim_list$unit)
+    width_attr <- width
+
+  } else {
+    # Case where both the `height` and `width` are provided
+
+    # Invoke `get_length_value_unit()` to validate
+    # the CSS length units in `height` and `width`
+    get_length_value_unit(css_length = height)
+    get_length_value_unit(css_length = width)
+
+    extra_attrs <- "preserveAspectRatio=\"none\" "
+
+    height_attr <- height
+    width_attr <- width
+  }
 
   # Generate accessibility attributes if either of
   # the "desc" or "sem" cases are chosen
@@ -136,14 +174,13 @@ fa <- function(name,
 
   } else if (a11y == "desc") {
 
-    extra_attrs <- paste0("aria-hidden=\"true\" role=\"img\" ")
+    extra_attrs <- paste0(extra_attrs, "aria-hidden=\"true\" role=\"img\" ")
 
     if (!is.null(title)) {
       title_tag <- paste0("<title>", htmlEscape(title), "</title>")
     }
 
   } else {
-
     # The 'semantic' case
 
     if (is.null(title)) {
@@ -152,6 +189,7 @@ fa <- function(name,
 
     extra_attrs <-
       paste0(
+        extra_attrs,
         "aria-label=\"",
         htmlEscape(title, attribute = TRUE), "\" ",
         "role=\"img\" "
@@ -167,8 +205,8 @@ fa <- function(name,
       extra_attrs,
       "viewBox=\"", viewbox_value, "\" " ,
       "style=\"",
-      "height:", height %||% "1em", ";",
-      "width:", width %||% width_attr, ";",
+      "height:", height_attr, ";",
+      "width:", width_attr, ";",
       "vertical-align:-0.125em;",
       "margin-right:0.2em;",
       "font-size:inherit;",
@@ -191,3 +229,34 @@ fa <- function(name,
 
   svg
 }
+
+get_length_value_unit <- function(css_length) {
+
+  if (!grepl("^[0-9]+[a-z]+$", css_length)) {
+
+    stop(
+      "Values provided to `height` and `width` must have a value followed by a length unit",
+      call. = FALSE
+    )
+  }
+
+  unit <- sub("^[0-9]+", "", css_length)
+
+  if (!(unit %in% css_length_units)) {
+    stop(
+      "The provided CSS length unit is not valid.",
+      call. = FALSE
+    )
+  }
+
+  list(
+    value = as.numeric(sub("[a-z]+$", "", css_length)),
+    unit = unit
+  )
+}
+
+css_length_units <-
+  c(
+    "cm", "mm", "in", "px", "pt", "pc", "em", "ex",
+    "ch", "rem", "vw", "vh", "vmin", "vmax", "%"
+  )
