@@ -120,8 +120,37 @@ fa <- function(name,
   # changing value: the width
   viewbox_value <- paste0("0 0 ", svg_list$width, " 512")
 
-  # Get the width attribute through simple calculation
-  width_attr <- paste0(round(svg_list$width / 512, 2), "em")
+  # Generate the appropriate height and width attributes based on
+  # user input and the SVG viewBox dimensions
+  if (is.null(height) && is.null(width)) {
+    # Case where height and width are not user-provided
+
+    height_attr <- "1em"
+    width_attr <- paste0(round(svg_list$width / 512, 2), "em")
+
+  } else if (!is.null(height) && is.null(width)) {
+    # Case where height is user-provided but `width` is not
+
+    dim_list <- get_length_value_unit(css_length = height)
+
+    height_attr <- height
+    width_attr <-
+      paste0(round((svg_list$width / 512) * dim_list$value, 2), dim_list$unit)
+
+  } else if (is.null(height) && !is.null(width)) {
+    # Case where width is user-provided but `height` is not
+
+    dim_list <- get_length_value_unit(css_length = width)
+
+    height_attr <-
+      paste0(round(dim_list$value / (svg_list$width / 512), 2), dim_list$unit)
+    width_attr <- width
+
+  } else {
+    # Case where both the `height` and `width` are provided
+    height_attr <- height
+    width_attr <- width
+  }
 
   extra_attrs <- ""
   title_tag <- ""
@@ -167,8 +196,8 @@ fa <- function(name,
       extra_attrs,
       "viewBox=\"", viewbox_value, "\" " ,
       "style=\"",
-      "height:", height %||% "1em", ";",
-      "width:", width %||% width_attr, ";",
+      "height:", height_attr, ";",
+      "width:", width_attr, ";",
       "vertical-align:-0.125em;",
       "margin-right:0.2em;",
       "font-size:inherit;",
@@ -190,4 +219,18 @@ fa <- function(name,
   class(svg) <- c("fontawesome", "svg", class(svg))
 
   svg
+}
+
+get_length_value_unit <- function(css_length) {
+
+  m_val <- gregexpr('[0-9]+', css_length)
+  value <- as.numeric(unlist(regmatches(css_length, m_val))[1])
+
+  m_unit <- gregexpr('[a-z]+', css_length)
+  unit <- unlist(regmatches(css_length, m_unit))
+
+  list(
+    value = value,
+    unit = unit
+  )
 }
