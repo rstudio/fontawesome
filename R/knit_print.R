@@ -10,7 +10,8 @@
 knit_print.fontawesome <- function(x, ..., options, inline = FALSE) {
 
   # nocov start
-  if (knitr::is_html_output()) {
+  if (knitr::pandoc_to(c("html", "html4", "html5", "slidy", "revealjs", "markdown"))) {
+    # this formats support inline svg
     NextMethod()
   } else if (knitr::pandoc_to(c("latex", "beamer", "docx"))) {
     if (!requireNamespace("rsvg", quietly = TRUE)) {
