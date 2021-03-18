@@ -223,14 +223,16 @@ fa <- function(name,
 
 get_length_value_unit <- function(css_length) {
 
-  m_val <- gregexpr('[0-9]+', css_length)
-  value <- as.numeric(unlist(regmatches(css_length, m_val))[1])
+  if (!grepl("^[0-9]+[a-z]+$", css_length)) {
 
-  m_unit <- gregexpr('[a-z]+', css_length)
-  unit <- unlist(regmatches(css_length, m_unit))
+    stop(
+      "Values provided to `height` and `width` must have a value followed by a length unit",
+      call. = FALSE
+    )
+  }
 
   list(
-    value = value,
-    unit = unit
+    value = as.numeric(sub("[a-z]+$", "", css_length)),
+    unit = sub("^[0-9]+", "", css_length)
   )
 }
