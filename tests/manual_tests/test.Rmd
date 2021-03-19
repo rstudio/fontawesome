@@ -1,9 +1,14 @@
 ---
 title: "Font Awesome in R Markdown"
-output: 
-  word_document: default
+output:
+  github_document: default
   html_document: default
   pdf_document: default
+  word_document: default
+  slidy_presentation: default
+  docx_document: default
+  beamer_presentation: default
+  ioslides_presentation: default
 ---
 
 ```{r load_packages, message=FALSE, warning=FALSE, include=FALSE} 
