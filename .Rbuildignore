@@ -7,4 +7,5 @@
 ^/tools$
 ^codecov\.yml$
 ^data-raw$
+^tests/manual_tests$
 index.md

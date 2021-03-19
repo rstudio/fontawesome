@@ -11,6 +11,7 @@ library(stringr)
 library(pointblank)
 library(jsonlite)
 library(yaml)
+library(readr)
 library(usethis)
 
 # Read in the `icons.json` file
@@ -409,4 +410,43 @@ filenames <- c(
   file.path("webfonts", dir(file.path(source_dir, "webfonts")))
 )
 
+# Copy the complete set of CSS and font files to `inst/fontawesome`
 copy_files(source_dir, dest_dir, filenames)
+
+# Remove font files that won't be supported in this package
+file.remove(
+  "inst/fontawesome/webfonts/fa-brands-400.eot",
+  "inst/fontawesome/webfonts/fa-brands-400.svg",
+  "inst/fontawesome/webfonts/fa-brands-400.ttf",
+  "inst/fontawesome/webfonts/fa-brands-400.woff2",
+  "inst/fontawesome/webfonts/fa-regular-400.eot",
+  "inst/fontawesome/webfonts/fa-regular-400.svg",
+  "inst/fontawesome/webfonts/fa-regular-400.ttf",
+  "inst/fontawesome/webfonts/fa-regular-400.woff2",
+  "inst/fontawesome/webfonts/fa-solid-900.eot",
+  "inst/fontawesome/webfonts/fa-solid-900.svg",
+  "inst/fontawesome/webfonts/fa-solid-900.ttf",
+  "inst/fontawesome/webfonts/fa-solid-900.woff2"
+)
+
+# Patch the `all.css` file to remove entries for all but `woff` icon files
+all_css <-
+  readr::read_file(file = "inst/fontawesome/css/all.css") %>%
+  gsub(
+    "src: url\\(.../webfonts/fa-([^.]+).*?}",
+    "src: url(\"../webfonts/fa-\\1.woff\") format(\"woff\"); }",
+    .
+  )
+readr::write_file(all_css, file = "inst/fontawesome/css/all.css")
+
+# Patch the `all.min.css` file to remove entries for all but `woff` icon files
+all_css_min <-
+  readr::read_file(file = "inst/fontawesome/css/all.min.css") %>%
+  gsub(
+    "src:url\\(../webfonts/fa-([^.]+).*?}",
+    "src:url(\"../webfonts/fa-\\1.woff\") format(\"woff\");}",
+    .
+  )
+
+readr::write_file(all_css_min, file = "inst/fontawesome/css/all.min.css")
+
