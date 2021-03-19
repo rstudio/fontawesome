@@ -433,18 +433,8 @@ file.remove(
 all_css <-
   readr::read_file(file = "inst/fontawesome/css/all.css") %>%
   gsub(
-    "src: url\\(.../webfonts/fa-brands-400.*?\\}",
-    "src: url(\"../webfonts/fa-brands-400.woff\") format(\"woff\"); }",
-    .
-  ) %>%
-  gsub(
-    "src: url\\(.../webfonts/fa-regular-400.*?\\}",
-    "src: url(\"../webfonts/fa-regular-400.woff\") format(\"woff\"); }",
-    .
-  ) %>%
-  gsub(
-    "src: url\\(.../webfonts/fa-solid-900.*?\\}",
-    "src: url(\"../webfonts/fa-solid-900.woff\") format(\"woff\"); }",
+    "src: url\\(.../webfonts/fa-([^.]+).*?}",
+    "src: url(\"../webfonts/fa-\\1.woff\") format(\"woff\"); }",
     .
   )
 readr::write_file(all_css, file = "inst/fontawesome/css/all.css")
@@ -453,18 +443,8 @@ readr::write_file(all_css, file = "inst/fontawesome/css/all.css")
 all_css_min <-
   readr::read_file(file = "inst/fontawesome/css/all.min.css") %>%
   gsub(
-    "src:url\\(../webfonts/fa-brands-400.*?\\}",
-    "src:url(\"../webfonts/fa-brands-400.woff\") format(\"woff\");}",
-    .
-  ) %>%
-  gsub(
-    "src:url\\(../webfonts/fa-regular-400.*?\\}",
-    "src:url(\"../webfonts/fa-regular-400.woff\") format(\"woff\");}",
-    .
-  ) %>%
-  gsub(
-    "src:url\\(../webfonts/fa-solid-900.*?\\}",
-    "src:url(\"../webfonts/fa-solid-900.woff\") format(\"woff\");}",
+    "src:url\\(../webfonts/fa-([^.]+).*?}",
+    "src:url(\"../webfonts/fa-\\1.woff\") format(\"woff\");}",
     .
   )
 
