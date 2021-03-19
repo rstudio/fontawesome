@@ -453,9 +453,20 @@ readr::write_file(all_css, file = "inst/fontawesome/css/all.css")
 all_css_min <-
   readr::read_file(file = "inst/fontawesome/css/all.min.css") %>%
   gsub(
-    "@font-face.*$",
-    "@font-face{font-family:\"Font Awesome 5 Brands\";font-style:normal;font-weight:400;font-display:block;url(../webfonts/fa-brands-400.woff) format(\"woff\")}.fab{font-family:\"Font Awesome 5 Brands\"}@font-face{font-family:\"Font Awesome 5 Free\";font-style:normal;font-weight:400;font-display:block;url(../webfonts/fa-regular-400.woff) format(\"woff\")}.fab,.far{font-weight:400}@font-face{font-family:\"Font Awesome 5 Free\";font-style:normal;font-weight:900;font-display:block;url(../webfonts/fa-solid-900.woff) format(\"woff\")}.fa,.far,.fas{font-family:\"Font Awesome 5 Free\"}.fa,.fas{font-weight:900}",
+    "src:url\\(../webfonts/fa-brands-400.*?\\}",
+    "src:url(\"../webfonts/fa-brands-400.woff\") format(\"woff\");}",
+    .
+  ) %>%
+  gsub(
+    "src:url\\(../webfonts/fa-regular-400.*?\\}",
+    "src:url(\"../webfonts/fa-regular-400.woff\") format(\"woff\");}",
+    .
+  ) %>%
+  gsub(
+    "src:url\\(../webfonts/fa-solid-900.*?\\}",
+    "src:url(\"../webfonts/fa-solid-900.woff\") format(\"woff\");}",
     .
   )
+
 readr::write_file(all_css_min, file = "inst/fontawesome/css/all.min.css")
 
