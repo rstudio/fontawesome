@@ -6,7 +6,7 @@ library(fontawesome)
 unminified_css_dep <-
   htmltools::htmlDependency(
     name = "font-awesome",
-    version = fontawesome:::version_fontawesome,
+    version = fontawesome:::fa_version,
     src = "fontawesome",
     package = "fontawesome",
     stylesheet = c("css/all.css", "css/v4-shims.css")
