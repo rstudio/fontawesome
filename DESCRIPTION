@@ -30,7 +30,7 @@ Imports:
     htmltools (>= 0.5.1.1)
 Suggests: 
     covr,
-    knitr (>= 1.31),
+    knitr,
     testthat,
     rsvg
 Roxygen: list(markdown = TRUE)
