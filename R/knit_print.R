@@ -11,7 +11,7 @@ knit_print.fontawesome <- function(x, ..., options, inline = FALSE) {
 
   # nocov start
 
-  # get pandoc output format
+  # TODO: use `knitr::pandoc_to()` in the future
   to <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 
   # these formats support inline svg so use next method (i.e htmltools::knit_print.html)
