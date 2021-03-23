@@ -12,7 +12,6 @@ library(pointblank)
 library(jsonlite)
 library(yaml)
 library(readr)
-library(usethis)
 
 # Read in the `icons.json` file
 fa_list <-
@@ -165,6 +164,14 @@ for (i in seq_along(fa_list)) {
 
   fa_tbl <- as.data.frame(fa_tbl)
 }
+
+# Use `iconv()` to perform transliteration to ASCII and also remove all
+# generated/extant single and double quotes
+fa_tbl <-
+  fa_tbl %>%
+  dplyr::mutate(label = iconv(label, "UTF-8", "ASCII//TRANSLIT")) %>%
+  dplyr::mutate(label = stringr::str_replace_all(label, "'", "" )) %>%
+  dplyr::mutate(label = stringr::str_replace_all(label, '"', "" ))
 
 # Generate an empty table for the v4/v5 names in `shims.yml`
 fa_tbl_shims <-
