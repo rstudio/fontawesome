@@ -1,4 +1,4 @@
-# fontawesome (development version)
+# fontawesome 0.2.0
 
 # fontawesome 0.1.0
 
