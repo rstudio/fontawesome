@@ -4,12 +4,14 @@
 
 <br />
 <!-- badges: start -->
-<a href="https://cran.r-project.org/package=fontawesome"><img src="https://www.r-pkg.org/badges/version/fontawesome" alt="CRAN status" /></a>
-[![R-CMD-check](https://github.com/rstudio/fontawesome/workflows/R-CMD-check/badge.svg)](https://github.com/rstudio/fontawesome/actions)
-<a href="https://github.com/rstudio/fontawesome/actions"><img src="https://github.com/rstudio/fontawesome/workflows/pkgdown/badge.svg" alt="Package Site" /></a>
-<a href="https://codecov.io/gh/rstudio/fontawesome?branch=master"><img src="https://codecov.io/gh/rstudio/fontawesome/branch/master/graph/badge.svg" alt="Coverage status" /></a>
 
-<a href="https://www.contributor-covenant.org/version/2/0/code_of_conduct/"><img src="https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg" alt="Contributor Covenant" /></a>
+[![CRAN status](https://www.r-pkg.org/badges/version/fontawesome)](https://CRAN.R-project.org/package=fontawesome)
+[![R-CMD-check](https://github.com/rstudio/fontawesome/workflows/R-CMD-check/badge.svg)](https://github.com/rstudio/fontawesome/actions)
+[![Package Site](https://github.com/rstudio/fontawesome/workflows/pkgdown/badge.svg)](https://github.com/rstudio/fontawesome/actions)
+[![Coverage status](https://codecov.io/gh/rstudio/fontawesome/branch/master/graph/badge.svg)](https://codecov.io/gh/rstudio/fontawesome?branch=master)
+
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](https://www.contributor-covenant.org/version/2/0/code_of_conduct/)
+
 <!-- badges: end -->
 <br />
 </div>
