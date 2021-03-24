@@ -5,7 +5,7 @@
 <br />
 <!-- badges: start -->
 <a href="https://cran.r-project.org/package=fontawesome"><img src="https://www.r-pkg.org/badges/version/fontawesome" alt="CRAN status" /></a>
-<a href="https://github.com/rstudio/fontawesome/actions"><img src="https://github.com/rstudio/fontawesome/workflows/R-CMD-check/badge.svg" alt="R build status" /></a>
+[![R-CMD-check](https://github.com/rstudio/fontawesome/workflows/R-CMD-check/badge.svg)](https://github.com/rstudio/fontawesome/actions)
 <a href="https://github.com/rstudio/fontawesome/actions"><img src="https://github.com/rstudio/fontawesome/workflows/pkgdown/badge.svg" alt="Package Site" /></a>
 <a href="https://codecov.io/gh/rstudio/fontawesome?branch=master"><img src="https://codecov.io/gh/rstudio/fontawesome/branch/master/graph/badge.svg" alt="Coverage status" /></a>
 
