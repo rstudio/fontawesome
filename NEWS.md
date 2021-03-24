@@ -1,16 +1,16 @@
 # fontawesome 0.2.0
 
-* Support for additional R Markdown output formats with `fa()`: `pdf_document`, `word_document`, `github_document`, `slidy_presentation`, `beamer_presentation`, and `ioslides_presentation`
+* Closed #42: Support for additional R Markdown output formats with `fa()`: `pdf_document`, `word_document`, `github_document`, `slidy_presentation`, `beamer_presentation`, and `ioslides_presentation`. (#43)
 
-* Add accessibility features to SVG icons produced by `fa()` with its new `a11y` argument.
+* Closed #38: Add accessibility features to SVG icons produced by `fa()` with its new `a11y` argument. (#41)
 
-* Fixes a rendering issue with SVG icons in IE11.
+* Fixes a rendering issue with SVG icons in IE11. (#40)
 
 * Tooltips can be added to SVG icons prepared by `fa()` by using the new `title` argument.
 
-* The collection of font files that support the use of `fa_i()` has been trimmed down to just the '.woff' variety.
+* Closed #44: The collection of font files that support the use of `fa_i()` has been trimmed down to just the '.woff' variety. (#45)
 
-* Package dependencies have been greatly reduced.
+* Closed #32, #33: Package dependencies have been greatly reduced. (#35)
 
 # fontawesome 0.1.0
 
