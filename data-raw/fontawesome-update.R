@@ -13,16 +13,25 @@ library(jsonlite)
 library(yaml)
 library(readr)
 
+# This is the tag to fetch from the FortAwesome/Font-Awesome repo.
+version_tag <- "5.15.3"
+
 # Read in the `icons.json` file
 fa_list <-
   jsonlite::fromJSON(
-    txt = "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/metadata/icons.json"
+    txt = sprintf(
+      "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/%s/metadata/icons.json",
+      version_tag
+    )
   )
 
 # Read in the `package.json` file
 package_meta <-
   jsonlite::fromJSON(
-    txt = "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/js-packages/%40fortawesome/fontawesome-free/package.json"
+    txt = sprintf(
+      "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/%s/js-packages/%%40fortawesome/fontawesome-free/package.json",
+      version_tag
+    )
   )
 
 fa_version <- package_meta[["version"]]
@@ -30,7 +39,10 @@ fa_version <- package_meta[["version"]]
 # Read in the `shims.yml` file
 shims <-
   yaml::read_yaml(
-    file = "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/metadata/shims.yml"
+    file = sprintf(
+      "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/%s/metadata/shims.yml",
+      version_tag
+    )
   )
 
 # Generate an empty table
