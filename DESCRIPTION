@@ -21,7 +21,6 @@ License: MIT + file LICENSE
 URL: https://github.com/rstudio/fontawesome
 BugReports: https://github.com/rstudio/fontawesome/issues
 Encoding: UTF-8
-LazyData: true
 ByteCompile: true
 RoxygenNote: 7.1.1
 Depends: 
