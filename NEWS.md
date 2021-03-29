@@ -1,3 +1,5 @@
+# fontawesome (development version)
+
 # fontawesome 0.2.0
 
 * Closed #42: Support for additional R Markdown output formats with `fa()`: `pdf_document`, `word_document`, `github_document`, `slidy_presentation`, `beamer_presentation`, and `ioslides_presentation`. (#43)

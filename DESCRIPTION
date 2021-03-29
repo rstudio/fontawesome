@@ -1,6 +1,6 @@
 Type: Package
 Package: fontawesome
-Version: 0.2.0
+Version: 0.2.0.9000
 Title: Easily Work with 'Font Awesome' Icons
 Description: Easily and flexibly insert 'Font Awesome' icons into 'R Markdown'
     documents and 'Shiny' apps. These icons can be inserted into HTML content
