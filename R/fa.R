@@ -13,9 +13,7 @@
 #'   will be internally translated to the Version 5 icon name and a Version 5
 #'   icon will be returned. A data frame containing the short names that changed
 #'   from version 4 (`v4_name`) to version 5 (`v5_name`) can be obtained by
-#'   using `fa_metadata()$v4_v5_name_tbl`. If multiple names are provided as
-#'   a character vector, then multiple icons will be produced by concatenating
-#'   together the SVG tags.
+#'   using `fa_metadata()$v4_v5_name_tbl`.
 #' @param fill,fill_opacity The fill color of the icon can be set with `fill`.
 #'   If not provided then the default value of `"currentColor"` is applied so
 #'   that the SVG fill matches the color of the parent HTML element's `color`
