@@ -30,8 +30,9 @@
 #'   SVG. If nothing is provided for `height` then a default value of `"1em"`
 #'   will be applied. If a `width` isn't given, then it will be calculated in
 #'   units of `"em"` on the basis of the icon's SVG `"viewBox"` dimensions.
-#' @param margin_right The length value for the margin that's right of the icon.
-#'   By default, `"0.2rem"` is used.
+#' @param margin_left,margin_right The length value for the margin that's either
+#'   left or right of the icon. By default, `"0.2em"` is used for both
+#'   properties.
 #' @param position The value for the `position` style attribute. By default,
 #'   `"relative"` is used here.
 #' @param title An option for populating the SVG `'title'` attribute, which
