@@ -50,8 +50,9 @@ will be applied. If a \code{width} isn't given, then it will be calculated in
 units of \code{"em"} on the basis of the icon's SVG \code{"viewBox"} dimensions.}
 
 \item{margin_left, margin_right}{The length value for the margin that's either
-left or right of the icon. By default, \code{"0.2em"} is used for both
-properties.}
+left or right of the icon. By default, \code{"auto"} is used for both
+properties. If space is needed on either side then a length of \code{"0.2em"} is
+recommended as a starting point.}
 
 \item{position}{The value for the \code{position} style attribute. By default,
 \code{"relative"} is used here.}
