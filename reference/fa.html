@@ -141,6 +141,7 @@ used directly within inline evaluations of R code in R Markdown documents.</p>
   stroke_opacity <span class='op'>=</span> <span class='cn'>NULL</span>,
   height <span class='op'>=</span> <span class='cn'>NULL</span>,
   width <span class='op'>=</span> <span class='cn'>NULL</span>,
+  margin_left <span class='op'>=</span> <span class='cn'>NULL</span>,
   margin_right <span class='op'>=</span> <span class='cn'>NULL</span>,
   position <span class='op'>=</span> <span class='cn'>NULL</span>,
   title <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -161,9 +162,7 @@ the <code><a href='fa_metadata.html'>fa_metadata()</a></code> function with <cod
 will be internally translated to the Version 5 icon name and a Version 5
 icon will be returned. A data frame containing the short names that changed
 from version 4 (<code>v4_name</code>) to version 5 (<code>v5_name</code>) can be obtained by
-using <code>fa_metadata()$v4_v5_name_tbl</code>. If multiple names are provided as
-a character vector, then multiple icons will be produced by concatenating
-together the SVG tags.</p></td>
+using <code>fa_metadata()$v4_v5_name_tbl</code>.</p></td>
     </tr>
     <tr>
       <th>fill, fill_opacity</th>
@@ -189,9 +188,11 @@ will be applied. If a <code>width</code> isn't given, then it will be calculated
 units of <code>"em"</code> on the basis of the icon's SVG <code>"viewBox"</code> dimensions.</p></td>
     </tr>
     <tr>
-      <th>margin_right</th>
-      <td><p>The length value for the margin that's right of the icon.
-By default, <code>"0.2rem"</code> is used.</p></td>
+      <th>margin_left, margin_right</th>
+      <td><p>The length value for the margin that's either
+left or right of the icon. By default, <code>"auto"</code> is used for both
+properties. If space is needed on either side then a length of <code>"0.2em"</code> is
+recommended as a starting point.</p></td>
     </tr>
     <tr>
       <th>position</th>
