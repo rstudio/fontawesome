@@ -40,7 +40,7 @@
 #'   automatically given to the rendered icon, however, providing text here
 #'   will override that.
 #' @param a11y Cases that distinguish the role of the icon and inform which
-#'   accessibility attributes to be used. Icons can either be `"desc"`
+#'   accessibility attributes to be used. Icons can either be `"deco"`
 #'   (decorative, the default case) or `"sem"` (semantic). Using `"none"` will
 #'   result in no accessibility features for the icon.
 #'
@@ -68,13 +68,13 @@ fa <- function(name,
                margin_right = NULL,
                position = NULL,
                title = NULL,
-               a11y = c("desc", "sem", "none")) {
+               a11y = c("deco", "sem", "none")) {
 
   if (length(name) != 1) {
     stop("The number of icons specified in `name` must be 1.", call. = FALSE)
   }
 
-  a11y <- match.arg(a11y, choices = c("desc", "sem", "none"))
+  a11y <- match.arg(a11y, choices = c("deco", "sem", "none"))
 
   if (name %in% fa_tbl$name) {
 
@@ -166,14 +166,14 @@ fa <- function(name,
   }
 
   # Generate accessibility attributes if either of
-  # the "desc" or "sem" cases are chosen
+  # the "deco" or "sem" cases are chosen
   if (a11y == "none") {
 
     if (!is.null(title)) {
       title_tag <- paste0("<title>", htmlEscape(title), "</title>")
     }
 
-  } else if (a11y == "desc") {
+  } else if (a11y == "deco") {
 
     extra_attrs <- paste0(extra_attrs, "aria-hidden=\"true\" role=\"img\" ")
 
