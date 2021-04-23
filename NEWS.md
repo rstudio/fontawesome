@@ -1,3 +1,5 @@
+# fontawesome (development version)
+
 # fontawesome 0.2.1
 
 * Closed #53: The `margin_right` argument of `fa()` is now functional, defaulting to the `"auto"` margin; a `margin_left` argument was also added with the same default. (#54)
