@@ -35,7 +35,7 @@ test_that("the `fa_i()` function returns an icon object", {
 
   icon <- fa_i(name = "r-project")
 
-  expect_snapshot(icon)
+  expect_snapshot(cat(as.character(icon)))
 
   # Expect that the `icon` object is a `shiny.tag`
   expect_s3_class(icon, "shiny.tag")
@@ -62,7 +62,7 @@ test_that("the `fa_i()` function returns an icon object", {
 
   # Expect the style property to render in the `<i>` tag
   expect_snapshot(
-    fa_i(name = "r-project", height = "20px")
+    cat(as.character(fa_i(name = "r-project", height = "20px", title = "R project")))
   )
 })
 

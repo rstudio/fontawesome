@@ -19,10 +19,14 @@
 # the `fa_i()` function returns an icon object
 
     Code
-      icon
+      cat(as.character(icon))
+    Output
+      <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i>
 
 ---
 
     Code
-      fa_i(name = "r-project", height = "20px")
+      cat(as.character(fa_i(name = "r-project", height = "20px", title = "R project")))
+    Output
+      <i class="fab fa-r-project" role="presentation" aria-label="r-project icon" height="20px" title="R project"></i>
 
