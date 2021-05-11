@@ -6,7 +6,7 @@
 
 extract_group <- function(x, pattern, which = 1) {
   matches <- regmatches(x, regexec(pattern, x))
-  na.omit(sapply(matches, "[", which + 1))
+  vapply(matches, function(x) x[which + 1], character(1))
 }
 
 # nocov end
