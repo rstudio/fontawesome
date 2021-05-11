@@ -154,7 +154,7 @@ fa <- function(name,
     get_length_value_unit(css_length = height)
     get_length_value_unit(css_length = width)
 
-    svg_attrs <- c(svg_attrs, list(preserveAspectRatio = "none"))
+    svg_attrs$preserveAspectRatio <- "none"
 
     height_attr <- height
     width_attr <- width
