@@ -164,21 +164,15 @@ fa <- function(name,
   # the "deco" or "sem" cases are chosen
    if (a11y == "deco") {
 
-     svg_attrs <- c(svg_attrs, list("aria-hidden" = "true", role = "img"))
+
+     svg_attrs[["aria-hidden"]] <- "true"
+     svg_attrs$role <- "img"
 
   } else if (a11y == "sem") {
 
-    if (is.null(title)) {
-      title <- fa_tbl$label[idx][1]
-    }
-
-    svg_attrs <- c(
-      svg_attrs,
-      list(
-        "aria-label" = htmlEscape(title, attribute = TRUE),
-        role = "img"
-      )
-    )
+    title <- title %||% fa_tbl$label[idx][1]
+    svg_attrs[["aria-label"]] <- htmlEscape(title, attribute = TRUE)
+    svg_attrs$role <- "img"
 
   }
 
