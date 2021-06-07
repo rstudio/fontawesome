@@ -19,21 +19,65 @@ test_that("getting a basic FA icon works", {
   expect_error(fa(name = "fas fa-files"))
 })
 
-test_that("inserting the fill attribute works for an FA icon works", {
+test_that("inserting attributes and styles works for FA icons", {
 
   # Expect that the `fill = "purple"` CSS rule is rendered
   expect_match(
     as.character(fa(name = "file", fill = "purple")),
     "fill:purple;"
   )
-})
 
-test_that("inserting the height attribute works for an FA icon works", {
+  # Expect that the `fill_opacity = 0.5` CSS rule is rendered
+  expect_match(
+    as.character(fa(name = "file", fill = "purple", fill_opacity = 0.5)),
+    "fill:purple;overflow:visible;fill-opacity:0.5;"
+  )
+
+  # Expect that the stroke CSS rules are rendered
+  expect_match(
+    as.character(
+      fa(
+        name = "file",
+        stroke = "blue",
+        stroke_width = "2px",
+        stroke_opacity = 0.5
+        )
+      ),
+    "stroke:blue;stroke-width:2px;stroke-opacity:0.5;"
+  )
 
   # Expect that the `height = "30em"` CSS rule is rendered
   expect_match(
     as.character(fa(name = "file", height = "30em")),
     "height:30em;"
+  )
+  # Expect a default height of 1em
+  expect_match(
+    as.character(fa(name = "file")),
+    "height:1em;"
+  )
+
+  # Expect that the `width = "1em"` CSS rule is rendered
+  expect_match(
+    as.character(fa(name = "file", width = "1em")),
+    "width:1em;"
+  )
+  # Expect a default width of 0.75em
+  expect_match(
+    as.character(fa(name = "file")),
+    "width:0.75em;"
+  )
+
+  # Expect that the `margin_left = "1em"` and `margin_right = "1em"`
+  # CSS rules are rendered
+  expect_match(
+    as.character(fa(name = "file", margin_left = "1em", margin_right = "1em")),
+    "margin-left:1em;margin-right:1em;"
+  )
+  # Expect default values of "auto" for both rules
+  expect_match(
+    as.character(fa(name = "file")),
+    "margin-left:auto;margin-right:auto;"
   )
 })
 
