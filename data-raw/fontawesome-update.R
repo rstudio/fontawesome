@@ -497,14 +497,17 @@ copy_files(source_dir, dest_dir, filenames)
 file.remove(
   "inst/fontawesome/webfonts/fa-brands-400.eot",
   "inst/fontawesome/webfonts/fa-brands-400.svg",
+  ## Remove this line once phantomjs is not supported
   # "inst/fontawesome/webfonts/fa-brands-400.ttf",
   "inst/fontawesome/webfonts/fa-brands-400.woff2",
   "inst/fontawesome/webfonts/fa-regular-400.eot",
   "inst/fontawesome/webfonts/fa-regular-400.svg",
+  ## Remove this line once phantomjs is not supported
   # "inst/fontawesome/webfonts/fa-regular-400.ttf",
   "inst/fontawesome/webfonts/fa-regular-400.woff2",
   "inst/fontawesome/webfonts/fa-solid-900.eot",
   "inst/fontawesome/webfonts/fa-solid-900.svg",
+  ## Remove this line once phantomjs is not supported
   # "inst/fontawesome/webfonts/fa-solid-900.ttf",
   "inst/fontawesome/webfonts/fa-solid-900.woff2"
 )
