@@ -391,7 +391,7 @@ gen_csv_df_code <- function(varname, data) {
 '  )
   tc <- textConnection(csv_content)
   on.exit(close(tc))
-  read.table(tc, header = TRUE, quote = "", sep = ";", stringsAsFactors = FALSE)
+  utils::read.table(tc, header = TRUE, quote = "", sep = ";", stringsAsFactors = FALSE)
 })
 ',
     file = outfile,
@@ -497,15 +497,18 @@ copy_files(source_dir, dest_dir, filenames)
 file.remove(
   "inst/fontawesome/webfonts/fa-brands-400.eot",
   "inst/fontawesome/webfonts/fa-brands-400.svg",
-  "inst/fontawesome/webfonts/fa-brands-400.ttf",
+  ## Remove this line once phantomjs is not supported
+  # "inst/fontawesome/webfonts/fa-brands-400.ttf",
   "inst/fontawesome/webfonts/fa-brands-400.woff2",
   "inst/fontawesome/webfonts/fa-regular-400.eot",
   "inst/fontawesome/webfonts/fa-regular-400.svg",
-  "inst/fontawesome/webfonts/fa-regular-400.ttf",
+  ## Remove this line once phantomjs is not supported
+  # "inst/fontawesome/webfonts/fa-regular-400.ttf",
   "inst/fontawesome/webfonts/fa-regular-400.woff2",
   "inst/fontawesome/webfonts/fa-solid-900.eot",
   "inst/fontawesome/webfonts/fa-solid-900.svg",
-  "inst/fontawesome/webfonts/fa-solid-900.ttf",
+  ## Remove this line once phantomjs is not supported
+  # "inst/fontawesome/webfonts/fa-solid-900.ttf",
   "inst/fontawesome/webfonts/fa-solid-900.woff2"
 )
 
@@ -514,7 +517,7 @@ all_css <-
   readr::read_file(file = "inst/fontawesome/css/all.css") %>%
   gsub(
     "src: url\\(.../webfonts/fa-([^.]+).*?}",
-    "src: url(\"../webfonts/fa-\\1.woff\") format(\"woff\"); }",
+    'src: url("../webfonts/fa-\\1.woff") format("woff"), url("../webfonts/fa-\\1.ttf") format("truetype"); }',
     .
   )
 readr::write_file(all_css, file = "inst/fontawesome/css/all.css")
@@ -524,7 +527,7 @@ all_css_min <-
   readr::read_file(file = "inst/fontawesome/css/all.min.css") %>%
   gsub(
     "src:url\\(../webfonts/fa-([^.]+).*?}",
-    "src:url(\"../webfonts/fa-\\1.woff\") format(\"woff\");}",
+    'src: url("../webfonts/fa-\\1.woff") format("woff"), url("../webfonts/fa-\\1.ttf") format("truetype"); }',
     .
   )
 readr::write_file(all_css_min, file = "inst/fontawesome/css/all.min.css")

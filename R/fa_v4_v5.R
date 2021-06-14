@@ -117,5 +117,5 @@ fa_v4_v5 <- local({
   )
   tc <- textConnection(csv_content)
   on.exit(close(tc))
-  read.table(tc, header = TRUE, quote = "", sep = ";", stringsAsFactors = FALSE)
+  utils::read.table(tc, header = TRUE, quote = "", sep = ";", stringsAsFactors = FALSE)
 })
