@@ -1,5 +1,7 @@
 # fontawesome 0.2.2
 
+* .ttf font files (and associated CSS) have been added back to the pared down selection of included webfonts (includes .woff and .ttf); this was to re-enable compatibility with the webshot package in Windows. (#61)
+
 # fontawesome 0.2.1
 
 * Closed #53: The `margin_right` argument of `fa()` is now functional, defaulting to the `"auto"` margin; a `margin_left` argument was also added with the same default. (#54)
