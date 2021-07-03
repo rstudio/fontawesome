@@ -1,3 +1,5 @@
+# fontawesome (development version)
+
 # fontawesome 0.2.2
 
 * .ttf font files (and associated CSS) have been added back to the pared down selection of included webfonts (includes .woff and .ttf); this was to re-enable compatibility with the webshot package in Windows. (#61)
