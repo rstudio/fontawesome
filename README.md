@@ -8,7 +8,7 @@
 [![CRAN status](https://www.r-pkg.org/badges/version/fontawesome)](https://CRAN.R-project.org/package=fontawesome)
 [![R-CMD-check](https://github.com/rstudio/fontawesome/workflows/R-CMD-check/badge.svg)](https://github.com/rstudio/fontawesome/actions)
 [![Package Site](https://github.com/rstudio/fontawesome/workflows/pkgdown/badge.svg)](https://github.com/rstudio/fontawesome/actions)
-[![Coverage status](https://codecov.io/gh/rstudio/fontawesome/branch/master/graph/badge.svg)](https://codecov.io/gh/rstudio/fontawesome?branch=master)
+[![Coverage status](https://codecov.io/gh/rstudio/fontawesome/branch/main/graph/badge.svg)](https://codecov.io/gh/rstudio/fontawesome?branch=main)
 
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](https://www.contributor-covenant.org/version/2/0/code_of_conduct/)
 
