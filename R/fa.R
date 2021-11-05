@@ -236,15 +236,16 @@ fa <- function(name,
 
 get_length_value_unit <- function(css_length) {
 
-  if (!grepl("^[0-9]+[a-z]+$", css_length)) {
+  if (!grepl("^[0-9\\.]+?[a-z]+$", css_length)) {
 
     stop(
-      "Values provided to `height` and `width` must have a value followed by a length unit",
+      "Values provided to `height` and `width` must have a value ",
+      "followed by a length unit.",
       call. = FALSE
     )
   }
 
-  unit <- sub("^[0-9]+", "", css_length)
+  unit <- gsub("[0-9\\.]+?", "", css_length)
 
   if (!(unit %in% css_length_units)) {
     stop(
@@ -254,7 +255,7 @@ get_length_value_unit <- function(css_length) {
   }
 
   list(
-    value = as.numeric(sub("[a-z]+$", "", css_length)),
+    value = as.numeric(gsub("[a-z]+$", "", css_length)),
     unit = unit
   )
 }
