@@ -256,8 +256,18 @@ get_length_value_unit <- function(css_length) {
     )
   }
 
+  value <- gsub("[a-z]+$", "", css_length)
+
+  if (value == ".") {
+
+    stop(
+      "The numerical portion of `height` and `width` must be a valid number.",
+      call. = FALSE
+    )
+  }
+
   list(
-    value = as.numeric(gsub("[a-z]+$", "", css_length)),
+    value = as.numeric(value),
     unit = unit
   )
 }
