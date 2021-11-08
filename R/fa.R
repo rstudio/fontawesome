@@ -241,7 +241,7 @@ get_length_value_unit <- function(css_length) {
   if (!grepl("^[0-9\\.]+[a-z]+$", css_length)) {
 
     stop(
-      "Values provided to `height` and `width` must have a value ",
+      "Values provided to `height` and `width` must have a numerical value ",
       "followed by a length unit.",
       call. = FALSE
     )
