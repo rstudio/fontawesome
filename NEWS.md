@@ -1,5 +1,7 @@
 # fontawesome (development version)
 
+* Closed #66 and #73: CSS length values (supplied to the `height` or `width` options of the `fa()` function) are now correctly handled when they contain decimals. (#74) 
+
 # fontawesome 0.2.2
 
 * .ttf font files (and associated CSS) have been added back to the pared down selection of included webfonts (includes .woff and .ttf); this was to re-enable compatibility with the webshot package in Windows. (#61)
