@@ -134,22 +134,24 @@ fa <- function(name,
     width_attr <- paste0(round(svg_list$width / 512, 2), "em")
 
   } else if (!is.null(height) && is.null(width)) {
-    # Case where height is user-provided but `width` is not
+
+    # Case where `height` is user-provided but `width` is not
 
     dim_list <- get_length_value_unit(css_length = height)
 
-    height_attr <- height
+    height_attr <- paste0(dim_list$value, dim_list$unit)
     width_attr <-
       paste0(round((svg_list$width / 512) * dim_list$value, 2), dim_list$unit)
 
   } else if (is.null(height) && !is.null(width)) {
-    # Case where width is user-provided but `height` is not
+
+    # Case where `width` is user-provided but `height` is not
 
     dim_list <- get_length_value_unit(css_length = width)
 
     height_attr <-
       paste0(round(dim_list$value / (svg_list$width / 512), 2), dim_list$unit)
-    width_attr <- width
+    width_attr <- paste0(dim_list$value, dim_list$unit)
 
   } else {
     # Case where both the `height` and `width` are provided
@@ -236,15 +238,16 @@ fa <- function(name,
 
 get_length_value_unit <- function(css_length) {
 
-  if (!grepl("^[0-9]+[a-z]+$", css_length)) {
+  if (!grepl("^^[0-9]*\\.?[0-9]+[a-z]+$", css_length)) {
 
     stop(
-      "Values provided to `height` and `width` must have a value followed by a length unit",
+      "Values provided to `height` and `width` must have a numerical value ",
+      "followed by a length unit.",
       call. = FALSE
     )
   }
 
-  unit <- sub("^[0-9]+", "", css_length)
+  unit <- gsub("[0-9\\.]+?", "", css_length)
 
   if (!(unit %in% css_length_units)) {
     stop(
@@ -254,7 +257,7 @@ get_length_value_unit <- function(css_length) {
   }
 
   list(
-    value = as.numeric(sub("[a-z]+$", "", css_length)),
+    value = as.numeric(gsub("[a-z]+$", "", css_length)),
     unit = unit
   )
 }
