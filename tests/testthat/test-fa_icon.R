@@ -166,6 +166,15 @@ test_that("the `fa_i()` function returns an icon object", {
     as.character(icon_2),
     "<i class=\"fab fa-r-project\" role=\"presentation\" aria-label=\"r-project icon\" height=\"20px\"></i>"
   )
+
+  # Use a valid, fully-qualified icon name
+  icon <- fa_i(name = "fab fa-r-project")
+
+  # Expect that the same icon tag is produced
+  expect_equal(
+    as.character(fa_i(name = "r-project")),
+    "<i class=\"fab fa-r-project\" role=\"presentation\" aria-label=\"r-project icon\"></i>"
+  )
 })
 
 test_that("the user can quell messages in `fa_i()`", {
