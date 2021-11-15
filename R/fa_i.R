@@ -61,10 +61,19 @@ fa_i <- function(name,
     prefix_class <- "fab"
   }
 
-  iconClass <- paste0(prefix_class, " ", prefix, "-", name)
+  if (grepl("^fa[a-z] fa-[a-z-]+$", name)) {
+    # Case where fully-qualified icon name is provided
 
-  if (!is.null(class)) {
-    iconClass <- paste(iconClass, class)
+    iconClass <- name
+
+  } else {
+    # Case where short icon name is provided
+
+    iconClass <- paste0(prefix_class, " ", prefix, "-", name)
+
+    if (!is.null(class)) {
+      iconClass <- paste(iconClass, class)
+    }
   }
 
   icon_tag <-
