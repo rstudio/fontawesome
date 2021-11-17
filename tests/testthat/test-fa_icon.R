@@ -170,9 +170,10 @@ test_that("the `fa_i()` function returns an icon object", {
   # Use a valid, fully-qualified icon name
   icon <- fa_i(name = "fab fa-r-project")
 
-  # Expect that the same icon tag is produced
+  # Expect that the same icon tag is produced with the fully-qualified
+  # name compared to the short name
   expect_equal(
-    as.character(fa_i(name = "r-project")),
+    as.character(icon),
     "<i class=\"fab fa-r-project\" role=\"presentation\" aria-label=\"r-project icon\"></i>"
   )
 })
