@@ -1,5 +1,7 @@
 # fontawesome (development version)
 
+* Closed #68: full icon names (e.g., `"fab fa-r-project"`) are now properly parsed and verified in the `fa_i()` function. (#77) 
+
 * Closed #66 and #73: CSS length values (supplied to the `height` or `width` options of the `fa()` function) are now correctly handled when they contain decimals. (#74) 
 
 # fontawesome 0.2.2
