@@ -80,7 +80,7 @@ fa_i <- function(name,
     htmltools::tags$i(
       class = iconClass,
       role = "presentation",
-      `aria-label` = paste(name, "icon"),
+      `aria-label` = paste(gsub("^fa[a-z]* fa-", "", name), "icon"),
       ...
     )
 
