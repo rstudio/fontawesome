@@ -118,12 +118,7 @@ fa <- function(name,
   }
 
   # Initialize vectors for extra SVG attributes and for the <title> tag
-  extra_attrs <- ""
-  title_tag <- ""
-
-  # Generate the viewBox value through use of the only
-  # changing value: the width
-  viewbox_value <- c(`min-x` = 0, `min-y` = 0, width = svg_list$width, height = 512)
+  svg_attrs <- list()
 
   # Generate the appropriate height and width attributes based on
   # user input and the SVG viewBox dimensions
@@ -161,7 +156,7 @@ fa <- function(name,
     get_length_value_unit(css_length = height)
     get_length_value_unit(css_length = width)
 
-    extra_attrs <- "preserveAspectRatio=\"none\" "
+    svg_attrs$preserveAspectRatio <- "none"
 
     height_attr <- height
     width_attr <- width
@@ -169,69 +164,54 @@ fa <- function(name,
 
   # Generate accessibility attributes if either of
   # the "deco" or "sem" cases are chosen
-  if (a11y == "none") {
+   if (a11y == "deco") {
 
-    if (!is.null(title)) {
-      title_tag <- paste0("<title>", htmlEscape(title), "</title>")
-    }
 
-  } else if (a11y == "deco") {
+     svg_attrs[["aria-hidden"]] <- "true"
+     svg_attrs$role <- "img"
 
-    extra_attrs <- paste0(extra_attrs, "aria-hidden=\"true\" role=\"img\" ")
+  } else if (a11y == "sem") {
 
-    if (!is.null(title)) {
-      title_tag <- paste0("<title>", htmlEscape(title), "</title>")
-    }
+    title <- title %||% fa_tbl$label[idx][1]
+    svg_attrs[["aria-label"]] <- htmlEscape(title, attribute = TRUE)
+    svg_attrs$role <- "img"
 
-  } else {
-    # The 'semantic' case
-
-    if (is.null(title)) {
-      title <- fa_tbl$label[idx][1]
-    }
-
-    extra_attrs <-
-      paste0(
-        extra_attrs,
-        "aria-label=\"",
-        htmlEscape(title, attribute = TRUE), "\" ",
-        "role=\"img\" "
-      )
-
-    title_tag <-
-      paste0("<title>", htmlEscape(title), "</title>")
   }
 
-  svg <-
-    paste0(
-      "<svg ",
-      extra_attrs,
-      "viewBox=\"", paste0(viewbox_value, collapse = " "), "\" " ,
-      "style=\"",
-      "height:", height_attr, ";",
-      "width:", width_attr, ";",
-      "vertical-align:-0.125em;",
-      "margin-left:", margin_left %||% "auto", ";",
-      "margin-right:", margin_right %||% "auto", ";",
-      "font-size:inherit;",
-      "fill:", fill %||% "currentColor", ";",
-      "overflow:visible;",
-      if (!is.null(fill_opacity)) paste0("fill-opacity:", fill_opacity, ";"),
-      if (!is.null(stroke)) paste0("stroke:", stroke, ";"),
-      if (!is.null(stroke_width)) paste0("stroke-width:", stroke_width, ";"),
-      if (!is.null(stroke_opacity)) paste0("stroke-opacity:", stroke_opacity, ";"),
-      "position:", position %||% "relative", ";",
-      "\">",
-      title_tag,
-      svg_list$path,
-      "</svg>"
-    )
+  # Generate the viewBox value through use of the only
+  # changing value: the width
+  viewbox <- c(`min-x` = 0, `min-y` = 0, width = svg_list$width, height = 512)
 
-  svg <- HTML(svg)
+  svg <- tags$svg(
+    !!!svg_attrs,
+    viewBox = paste0(viewbox, collapse = " "),
+    style = css(
+      height = height_attr,
+      width = width_attr,
+      vertical_align = "-0.125em",
+      margin_left = margin_left %||% "auto",
+      margin_right = margin_right %||% "auto",
+      font_size = "inherit",
+      fill = fill %||% "currentColor",
+      overflow = "visible",
+      fill_opacity = fill_opacity,
+      stroke = stroke,
+      stroke_width = stroke_width,
+      stroke_opacity = stroke_opacity,
+      position = position %||% "relative"
+    )
+  )
+
+  if (!is.null(title)) {
+    svg <- tagAppendChild(svg, tags$title(title))
+  }
+
+  path_d <- extract_group(svg_list$path, 'path d="(.+)"')
+  svg <- tagAppendChild(svg, tags$path(d = path_d))
 
   structure(svg,
             class = c("fontawesome", "svg", class(svg)),
-            viewbox = viewbox_value,
+            viewbox = viewbox,
             size = c(h = height_attr, w = width_attr)
   )
 }
