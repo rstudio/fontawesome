@@ -26,6 +26,7 @@ devtools::install_github("rstudio/fontawesome")
 
 If you encounter a bug, have usage questions, or want to share ideas to make this package better, feel free to file an [issue](https://github.com/rstudio/fontawesome/issues).
 
+
 ### Let's Discuss!
 
 Let's talk about this package in [**fontawesome** Discussions](https://github.com/rstudio/fontawesome/discussions)! It's a great place to ask questions about how to use the package, discuss some ideas, engage with others, and much more!
