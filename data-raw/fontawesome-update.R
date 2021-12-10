@@ -67,14 +67,8 @@ fa_tbl <- icons %>%
 # Add shim info
 fa_tbl <- fa_tbl %>%
   left_join(fa_tbl_shims, by = "name") %>%
-  mutate(v4_name = ifelse(is.na(v4_name), name, v4_name))
-
-
-# Generate a table that has the changes in short names
-# from version 4 to version 5 of FA
-fa_v4_v5 <- select(fa_tbl, v4_name, v5_name = name) %>%
-  filter(v4_name != v5_name) %>%
-  distinct()
+  mutate(v4_name = ifelse(is.na(v4_name), name, v4_name)) %>%
+  as_tibble()
 
 # Generate the `font_awesome_brands` vector for faster retrieval
 # in `fa_i()`
@@ -157,7 +151,7 @@ expect_col_vals_gt(
 
 # Expect these column names in the table
 expect_col_vals_in_set(
-  dplyr::tibble(col_names = colnames(fa_tbl)),
+  tibble(col_names = colnames(fa_tbl)),
   columns = vars(col_names),
   set = c(
     "name", "style", "full_name", "svg", "path",
@@ -179,9 +173,7 @@ expect_col_is_integer(fa_tbl, vars(min_x, min_y, width, height))
 # Save the icon info to disk
 # ==============================================================================
 
-usethis::use_data(fa_tbl, overwrite = TRUE)
-usethis::use_data(fa_v4_v5, overwrite = TRUE)
-
+usethis::use_data(fa_tbl, overwrite = TRUE, internal = TRUE)
 # For other projects to consume, if they wish
 readr::write_csv(fa_tbl, find_package_root_file("data-raw/fa_tbl.csv"))
 

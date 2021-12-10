@@ -41,6 +41,12 @@ fa_metadata <- function() {
   icon_names_full_fas <- unique(fa_tbl$full_name[grepl("fas ", fa_tbl$full_name)])
   icon_names_full_fab <- unique(fa_tbl$full_name[grepl("fab ", fa_tbl$full_name)])
 
+  # Generate a table that has the changes in short names
+  # from version 4 to version 5 of FA
+  fa_v4_v5 <- subset(fa_tbl[c("v4_name", "name")], v4_name != name)
+  names(fa_v4_v5) <- c("v4_name", "v5_name")
+  fa_v4_v5 <- fa_v4_v5[!duplicated(fa_v4_v5), ]
+
   list(
     version = fa_version,
     icon_count = length(icon_names),
