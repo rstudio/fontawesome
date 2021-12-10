@@ -9,4 +9,3 @@
 ^data-raw$
 ^tests/manual_tests$
 index.md
-^inst/node_modules$

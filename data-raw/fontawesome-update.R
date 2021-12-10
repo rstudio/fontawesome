@@ -12,27 +12,17 @@ library(purrr)
 library(tibble)
 library(withr)
 
-if (Sys.which("yarn") == "") {
-  stop("The yarn CLI must be installed and in your PATH")
-}
+version_tag <- "5.15.3"
+base_url <- file.path(
+  "https://raw.githubusercontent.com/FortAwesome/Font-Awesome", version_tag
+)
 
-with_dir(
-  find_package_root_file("inst"), {
-    system("yarn install --production")
-    with_dir(
-      "node_modules/@fortawesome/fontawesome-free", {
-        # Installed version
-        fa_version <- jsonlite::fromJSON("package.json")$version
-        # FA4 -> FA5 shims
-        shims <- yaml::read_yaml("metadata/shims.yml")
-        # Unfortunately the installed package doesn't distribute this
-        # JSON file, which contains all the SVG info we need
-        icons <- jsonlite::fromJSON(sprintf(
-            "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/%s/metadata/icons.json", fa_version
-        ))
-      }
-    )
-})
+# FA4 -> FA5 shims
+shims <- yaml::read_yaml(file.path(base_url, "metadata/shims.yml"))
+# All icon info
+icons <- jsonlite::fromJSON(file.path(base_url, "metadata/icons.json"))
+# Actualy version (should, in theory, match version_tag)
+fa_version <- jsonlite::fromJSON(file.path(base_url, "js-packages/@fortawesome/fontawesome-free/package.json"))$version
 
 
 # Tidy shims
@@ -204,10 +194,19 @@ with_dir(
 # Copy over 'css' and 'webfonts' assets
 # ==============================================================================
 
+zip_file <- file.path(tempdir(), paste0("font-awesome-", fa_version, ".zip"))
+
+url <- paste0(
+  "https://github.com/FortAwesome/Font-Awesome/releases/download/",
+  fa_version, "/fontawesome-free-", fa_version, "-web.zip"
+)
+download.file(url, zip_file)
+
+unzip(zip_file, exdir = tempdir())
+source_dir <- file.path(tempdir(), paste0("fontawesome-free-", fa_version, "-web"))
+
 dest_dir <- find_package_root_file("inst/fontawesome")
 unlink(dest_dir, recursive = TRUE)
-
-source_dir <- find_package_root_file("inst/node_modules/@fortawesome/fontawesome-free")
 
 copy_files <- function(srcdir, destdir, filenames) {
 
