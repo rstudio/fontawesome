@@ -4,7 +4,13 @@
 \alias{fa_i}
 \title{Generate a Font Awesome \verb{<i>} tag}
 \usage{
-fa_i(name, class = NULL, ..., html_dependency = NULL, verify_fa = TRUE)
+fa_i(
+  name,
+  class = NULL,
+  ...,
+  html_dependency = fa_html_dependency(),
+  verify_fa = TRUE
+)
 }
 \arguments{
 \item{name}{The name of the Font Awesome icon. This could be as a short name
