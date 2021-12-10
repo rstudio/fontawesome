@@ -1,3 +1,6 @@
+# @staticimports pkg:staticimports
+#   s3_register
+
 # nocov start
 
 `%||%` <- function(x, y) {
