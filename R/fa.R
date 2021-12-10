@@ -98,7 +98,7 @@ fa <- function(name,
   # If both height and width are specified, don't preserve aspect ratio
   svg_attrs <- ""
   if (!is.null(height) && !is.null(width)) {
-    svg_attrs <- paste0(svg_attrs, "preserveAspectRatio='none' ")
+    svg_attrs <- paste0(svg_attrs, 'preserveAspectRatio="none" ')
   }
 
   # Validate the CSS length unit on height/width (if specified),
@@ -133,11 +133,11 @@ fa <- function(name,
   # the "deco" or "sem" cases are chosen
   a11y <- match.arg(a11y)
   if (a11y == "deco") {
-    svg_attrs <- paste0(svg_attrs, "aria-hidden='true' role='img' ")
+    svg_attrs <- paste0(svg_attrs, 'aria-hidden="true" role="img" ')
   } else if (a11y == "sem") {
     title <- title %||% icon_label
     svg_attrs <- paste0(
-      svg_attrs, sprintf("aria-label='%s' role='img' ", htmlEscape(title, attribute = TRUE))
+      svg_attrs, sprintf('aria-label="%s" role="img" ', htmlEscape(title, attribute = TRUE))
     )
   }
 
@@ -163,14 +163,14 @@ fa <- function(name,
 
   svg_attrs <- paste0(
     svg_attrs, sprintf(
-      "viewBox='%s' style='%s'",
+      'viewBox="%s" style="%s"',
       paste0(viewbox, collapse = " "),
       style_attr
     )
   )
 
   svg <- HTML(sprintf(
-      "<svg %s>%s<path d='%s'/></svg>",
+      '<svg %s>%s<path d="%s"/></svg>',
       svg_attrs,
       if (is.null(title)) "" else paste0("<title>", htmlEscape(title), "</title>"),
       icon_path

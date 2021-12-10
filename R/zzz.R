@@ -1,7 +1,7 @@
 #nocov start
 
 .onLoad <- function(...) {
-  s3_register("knitr", "knit_print", "fontawesome")
+  s3_register("knitr::knit_print", "fontawesome")
 
   fa_dependency_obj <<-
     htmltools::htmlDependency(
