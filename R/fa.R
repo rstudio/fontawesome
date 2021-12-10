@@ -91,12 +91,14 @@ fa <- function(name,
     )
   }
 
-  icon_info <- fa_tbl[idx, ]
+  icon_width <- fa_tbl$width[idx]
+  icon_label <- fa_tbl$label[idx]
+  icon_path <- fa_tbl$path[idx]
 
   # If both height and width are specified, don't preserve aspect ratio
-  svg_attrs <- list()
+  svg_attrs <- ""
   if (!is.null(height) && !is.null(width)) {
-    svg_attrs[["preserveAspectRatio"]] <- 'none'
+    svg_attrs <- paste0(svg_attrs, "preserveAspectRatio='none' ")
   }
 
   # Validate the CSS length unit on height/width (if specified),
@@ -108,12 +110,12 @@ fa <- function(name,
   if (is.null(height) && is.null(width)) {
 
     height <- "1em"
-    width <- paste0(round(icon_info$width / 512, 2), "em")
+    width <- paste0(round(icon_width / 512, 2), "em")
 
   } else if (!is.null(height) && is.null(width)) {
 
     width <- paste0(
-      round((icon_info$width / 512) * height, 2),
+      round((icon_width / 512) * height, 2),
       attr(height, "unit")
     )
     height <- paste0(height, attr(height, "unit"))
@@ -121,7 +123,7 @@ fa <- function(name,
   } else if (is.null(height) && !is.null(width)) {
 
     height <- paste0(
-      round(width / (icon_info$width / 512), 2),
+      round(width / (icon_width / 512), 2),
       attr(width, "unit")
     )
     width <- paste0(width, attr(width, "unit"))
@@ -131,40 +133,47 @@ fa <- function(name,
   # the "deco" or "sem" cases are chosen
   a11y <- match.arg(a11y)
   if (a11y == "deco") {
-    svg_attrs[["aria-hidden"]] <- 'true'
-    svg_attrs[["role"]] <- 'img'
+    svg_attrs <- paste0(svg_attrs, "aria-hidden='true' role='img' ")
   } else if (a11y == "sem") {
-    title <- title %||% icon_info$label
-    svg_attrs[["aria-label"]] <- htmlEscape(title, attribute = TRUE)
-    svg_attrs[["role"]] <- "img"
+    title <- title %||% icon_label
+    svg_attrs <- paste0(
+      svg_attrs, sprintf("aria-label='%s' role='img' ", htmlEscape(title, attribute = TRUE))
+    )
   }
 
   # Generate the viewBox value through use of the only
   # changing value: the width
-  viewbox <- c(`min-x` = 0, `min-y` = 0, width = icon_info$width, height = 512)
-  svg_attrs[["viewBox"]] <- paste0(viewbox, collapse = " ")
+  viewbox <- c(`min-x` = 0, `min-y` = 0, width = icon_width, height = 512)
 
-  svg_attrs[["style"]] <- htmltools::css(
-    height = height,
-    width = width,
-    vertical_align = "-0.125em",
-    margin_left = margin_left %||% "auto",
-    margin_right = margin_right %||% "auto",
-    font_size = "inherit",
-    fill = fill %||% "currentColor",
-    overflow = "visible",
-    fill_opacity = fill_opacity,
-    stroke = stroke,
-    stroke_width = stroke_width,
-    stroke_opacity = stroke_opacity,
-    position = position %||% "relative"
+  style_attr <- paste0(
+    "height:", height, ";",
+    "width:", width, ";",
+    "vertical-align:-0.125em;",
+    "margin-left:", margin_left %||% "auto", ";",
+    "margin-right:", margin_right %||% "auto", ";",
+    "font-size:inherit;",
+    "fill:", fill %||% "currentColor", ";",
+    "overflow:visible;",
+    if (!is.null(fill_opacity)) paste0("fill-opacity:", fill_opacity, ";"),
+    if (!is.null(stroke)) paste0("stroke:", stroke, ";"),
+    if (!is.null(stroke_width)) paste0("stroke-width:", stroke_width, ";"),
+    if (!is.null(stroke_opacity)) paste0("stroke-opacity:", stroke_opacity, ";"),
+    "position:", position %||% "relative", ";"
+   )
+
+  svg_attrs <- paste0(
+    svg_attrs, sprintf(
+      "viewBox='%s' style='%s'",
+      paste0(viewbox, collapse = " "),
+      style_attr
+    )
   )
 
   svg <- HTML(sprintf(
       "<svg %s>%s<path d='%s'/></svg>",
-      paste0(names(svg_attrs), "='", svg_attrs, "'", collapse = " "),
+      svg_attrs,
       if (is.null(title)) "" else paste0("<title>", htmlEscape(title), "</title>"),
-      icon_info$path
+      icon_path
   ))
 
   structure(
