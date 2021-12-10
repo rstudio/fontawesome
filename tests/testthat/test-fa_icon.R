@@ -71,12 +71,12 @@ test_that("inserting attributes and styles works for FA icons", {
   )
   expect_match(
     as.character(fa(name = "file", width = ".75em")),
-    "width:0.75em;"
+    "width:.75em;"
   )
 
   expect_match(
     as.character(fa(name = "file", width = ".756789em")),
-    "width:0.756789em;"
+    "width:.756789em;"
   )
 
   # Expect that not supplying a width value will result in an error
@@ -112,6 +112,17 @@ test_that("inserting attributes and styles works for FA icons", {
     as.character(fa(name = "file")),
     "width:0.75em;"
   )
+
+  expect_match(
+    as.character(fa(name = "file", height = "4em", width = "4em")),
+    "width:4em;"
+  )
+
+  expect_match(
+    as.character(fa(name = "file", height = "4em", width = "4em")),
+    "height:4em;"
+  )
+
 
   # Expect that the `margin_left = "1em"` and `margin_right = "1em"`
   # CSS rules are rendered

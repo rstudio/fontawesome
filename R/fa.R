@@ -103,8 +103,8 @@ fa <- function(name,
 
   # Validate the CSS length unit on height/width (if specified),
   # and return a number with the unit attached as an attribute
-  height <- parse_length_unit(height)
-  width <- parse_length_unit(width)
+  height_num <- parse_length_unit(height)
+  width_num <- parse_length_unit(width)
 
   # Fill in height/width defaults
   if (is.null(height) && is.null(width)) {
@@ -115,18 +115,17 @@ fa <- function(name,
   } else if (!is.null(height) && is.null(width)) {
 
     width <- paste0(
-      round((icon_width / 512) * height, 2),
-      attr(height, "unit")
+      round((icon_width / 512) * height_num, 2),
+      attr(height_num, "unit")
     )
-    height <- paste0(height, attr(height, "unit"))
 
   } else if (is.null(height) && !is.null(width)) {
 
     height <- paste0(
-      round(width / (icon_width / 512), 2),
-      attr(width, "unit")
+      round(width_num / (icon_width / 512), 2),
+      attr(width_num, "unit")
     )
-    width <- paste0(width, attr(width, "unit"))
+
   }
 
   # Generate accessibility attributes if either of
