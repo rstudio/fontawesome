@@ -47,7 +47,7 @@
 fa_i <- function(name,
                  class = NULL,
                  ...,
-                 html_dependency = NULL,
+                 html_dependency = fa_html_dependency(),
                  verify_fa = TRUE) {
 
   prefix <- "fa"
@@ -76,37 +76,17 @@ fa_i <- function(name,
     }
   }
 
-  icon_tag <-
-    htmltools::tags$i(
-      class = iconClass,
-      role = "presentation",
-      `aria-label` = paste(gsub("^fa[a-z]* fa-", "", name), "icon"),
-      ...
-    )
+  icon_tag <- browsable(tags$i(
+    class = iconClass,
+    role = "presentation",
+    `aria-label` = paste(gsub("^fa[a-z]* fa-", "", name), "icon"),
+    ...
+  ))
 
-  if (!is.null(html_dependency)) {
-
-    if (!inherits(html_dependency, "html_dependency")) {
-
-      # Stop the function if the object isn't
-      # actually an `html_dependency`
-      stop(
-        "The object supplied to `htmlDependency` must be an object ",
-        "of class `html_dependency`:\n",
-        "* Use `htmltools::htmlDependency() to generate the object\n",
-        "* Ensure that version number is set higher than any other dependency of the same type",
-        call. = FALSE
-      )
-    }
-
-    icon_tag <- htmltools::attachDependencies(icon_tag, html_dependency)
-    icon_tag <- htmltools::browsable(icon_tag)
-
-    return(icon_tag)
-  }
+  icon_tag <- attachDependencies(icon_tag, html_dependency)
 
   # Perform verifications on `name` if `verify_fa` is TRUE
-  if (verify_fa) {
+  if (verify_fa && identical(html_dependency, fa_html_dependency())) {
 
     # Determine if the `name` is a Font Awesome v4
     # icon name and provide a message
@@ -139,17 +119,5 @@ fa_i <- function(name,
     }
   }
 
-  icon_tag <-
-    htmltools::attachDependencies(
-      icon_tag,
-      htmltools::htmlDependency(
-        name = "font-awesome",
-        version = fa_version,
-        src = "fontawesome",
-        package = "fontawesome",
-        stylesheet = c("css/all.min.css", "css/v4-shims.min.css")
-      )
-    )
-
-  htmltools::browsable(icon_tag)
+  icon_tag
 }

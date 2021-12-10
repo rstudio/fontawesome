@@ -2,15 +2,6 @@
 
 .onLoad <- function(...) {
   register_s3_method("knitr", "knit_print", "fontawesome")
-
-  fa_dependency_obj <<-
-    htmltools::htmlDependency(
-      name = "font-awesome",
-      version = fa_version,
-      src = "fontawesome",
-      package = "fontawesome",
-      stylesheet = c("css/all.min.css", "css/v4-shims.min.css")
-    )
 }
 
 register_s3_method <- function(pkg, generic, class, fun = NULL) {

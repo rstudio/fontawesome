@@ -39,3 +39,6 @@ rsconnect/
 .DS_Store
 
 tests/manual_tests/*.html
+
+inst/node_modules
+

@@ -1,5 +1,3 @@
-fa_dependency_obj <- NULL
-
 #' Use a Font Awesome `html_dependency`
 #'
 #' The `fa_html_dependency()` function adds a `html_dependency` object into a
@@ -36,5 +34,11 @@ fa_dependency_obj <- NULL
 #'
 #' @export
 fa_html_dependency <- function() {
-  fa_dependency_obj
+  htmltools::htmlDependency(
+    name = "font-awesome",
+    version = fa_version,
+    src = "fontawesome",
+    package = "fontawesome",
+    stylesheet = c("css/all.min.css", "css/v4-shims.min.css")
+  )
 }

@@ -34,3 +34,4 @@ Suggests:
     testthat,
     rsvg
 Roxygen: list(markdown = TRUE)
+LazyData: true
