@@ -74,169 +74,119 @@ fa <- function(name,
     stop("The number of icons specified in `name` must be 1.", call. = FALSE)
   }
 
-  a11y <- match.arg(a11y, choices = c("deco", "sem", "none"))
-
-  if (name %in% fa_tbl$name) {
-
-    idx <- fa_tbl$name == name
-
-    svg_list <- list(
-      width = fa_tbl$width[idx][1],
-      path  = fa_tbl$path[idx][1]
-    )
-
-  } else if (name %in% fa_tbl$full_name) {
-
-    idx <- fa_tbl$full_name == name
-
-    svg_list <- list(
-      width = fa_tbl$width[idx][1],
-      path  = fa_tbl$path[idx][1]
-    )
-
-  } else if (name %in% fa_tbl$v4_name) {
-
-    idx <- fa_tbl$v4_name == name
-
-    svg_list <- list(
-      width = fa_tbl$width[idx][1],
-      path  = fa_tbl$path[idx][1],
-      name  = fa_tbl$name[idx][1],
-      full_name  = fa_tbl$full_name[idx][1]
-    )
-
-    # Warn that the v4 icon name should be changed to a v5 one
+  idx <- match(name, fa_tbl$name)
+  if (is_na(idx)) {
+    idx <- match(name, fa_tbl$full_name)
+  }
+  if (is_na(idx)) {
+    idx <- match(name, fa_tbl$v4_name)
+    if (is_na(idx)) {
+      stop("This Font Awesome icon ('", name, "') does not exist", call. = FALSE)
+    }
     warning(
-      "The `name` provided ('", name ,"') is deprecated in Font Awesome v5:\n",
-      "* please consider using '", svg_list$name,
-      "' or '", svg_list$full_name, "' instead",
+      "The `name` provided ('", name, "') is deprecated in Font Awesome v5:\n",
+      "* please consider using '", fa_tbl[idx, "name"],
+      "' or '", fa_tbl[idx, "full_name"], "' instead",
       call. = FALSE
     )
-
-  } else {
-    stop("This Font Awesome icon ('", name, "') does not exist", call. = FALSE)
   }
 
-  # Initialize vectors for extra SVG attributes and for the <title> tag
-  extra_attrs <- ""
-  title_tag <- ""
+  icon_width <- fa_tbl$width[idx]
+  icon_label <- fa_tbl$label[idx]
+  icon_path <- fa_tbl$path[idx]
 
-  # Generate the viewBox value through use of the only
-  # changing value: the width
-  viewbox_value <- c(`min-x` = 0, `min-y` = 0, width = svg_list$width, height = 512)
+  # If both height and width are specified, don't preserve aspect ratio
+  svg_attrs <- ""
+  if (!is.null(height) && !is.null(width)) {
+    svg_attrs <- paste0(svg_attrs, 'preserveAspectRatio="none" ')
+  }
 
-  # Generate the appropriate height and width attributes based on
-  # user input and the SVG viewBox dimensions
+  # Validate the CSS length unit on height/width (if specified),
+  # and return a number with the unit attached as an attribute
+  height_num <- parse_length_unit(height)
+  width_num <- parse_length_unit(width)
+
+  # Fill in height/width defaults
   if (is.null(height) && is.null(width)) {
-    # Case where height and width are not user-provided
 
-    height_attr <- "1em"
-    width_attr <- paste0(round(svg_list$width / 512, 2), "em")
+    height <- "1em"
+    width <- paste0(round(icon_width / 512, 2), "em")
 
   } else if (!is.null(height) && is.null(width)) {
 
-    # Case where `height` is user-provided but `width` is not
-
-    dim_list <- get_length_value_unit(css_length = height)
-
-    height_attr <- paste0(dim_list$value, dim_list$unit)
-    width_attr <-
-      paste0(round((svg_list$width / 512) * dim_list$value, 2), dim_list$unit)
+    width <- paste0(
+      round((icon_width / 512) * height_num, 2),
+      attr(height_num, "unit")
+    )
 
   } else if (is.null(height) && !is.null(width)) {
 
-    # Case where `width` is user-provided but `height` is not
+    height <- paste0(
+      round(width_num / (icon_width / 512), 2),
+      attr(width_num, "unit")
+    )
 
-    dim_list <- get_length_value_unit(css_length = width)
-
-    height_attr <-
-      paste0(round(dim_list$value / (svg_list$width / 512), 2), dim_list$unit)
-    width_attr <- paste0(dim_list$value, dim_list$unit)
-
-  } else {
-    # Case where both the `height` and `width` are provided
-
-    # Invoke `get_length_value_unit()` to validate
-    # the CSS length units in `height` and `width`
-    get_length_value_unit(css_length = height)
-    get_length_value_unit(css_length = width)
-
-    extra_attrs <- "preserveAspectRatio=\"none\" "
-
-    height_attr <- height
-    width_attr <- width
   }
 
   # Generate accessibility attributes if either of
   # the "deco" or "sem" cases are chosen
-  if (a11y == "none") {
-
-    if (!is.null(title)) {
-      title_tag <- paste0("<title>", htmlEscape(title), "</title>")
-    }
-
-  } else if (a11y == "deco") {
-
-    extra_attrs <- paste0(extra_attrs, "aria-hidden=\"true\" role=\"img\" ")
-
-    if (!is.null(title)) {
-      title_tag <- paste0("<title>", htmlEscape(title), "</title>")
-    }
-
-  } else {
-    # The 'semantic' case
-
-    if (is.null(title)) {
-      title <- fa_tbl$label[idx][1]
-    }
-
-    extra_attrs <-
-      paste0(
-        extra_attrs,
-        "aria-label=\"",
-        htmlEscape(title, attribute = TRUE), "\" ",
-        "role=\"img\" "
-      )
-
-    title_tag <-
-      paste0("<title>", htmlEscape(title), "</title>")
+  a11y <- match.arg(a11y)
+  if (a11y == "deco") {
+    svg_attrs <- paste0(svg_attrs, 'aria-hidden="true" role="img" ')
+  } else if (a11y == "sem") {
+    title <- title %||% icon_label
+    svg_attrs <- paste0(
+      svg_attrs, sprintf('aria-label="%s" role="img" ', htmlEscape(title, attribute = TRUE))
+    )
   }
 
-  svg <-
-    paste0(
-      "<svg ",
-      extra_attrs,
-      "viewBox=\"", paste0(viewbox_value, collapse = " "), "\" " ,
-      "style=\"",
-      "height:", height_attr, ";",
-      "width:", width_attr, ";",
-      "vertical-align:-0.125em;",
-      "margin-left:", margin_left %||% "auto", ";",
-      "margin-right:", margin_right %||% "auto", ";",
-      "font-size:inherit;",
-      "fill:", fill %||% "currentColor", ";",
-      "overflow:visible;",
-      if (!is.null(fill_opacity)) paste0("fill-opacity:", fill_opacity, ";"),
-      if (!is.null(stroke)) paste0("stroke:", stroke, ";"),
-      if (!is.null(stroke_width)) paste0("stroke-width:", stroke_width, ";"),
-      if (!is.null(stroke_opacity)) paste0("stroke-opacity:", stroke_opacity, ";"),
-      "position:", position %||% "relative", ";",
-      "\">",
-      title_tag,
-      svg_list$path,
-      "</svg>"
+  # Generate the viewBox value through use of the only
+  # changing value: the width
+  viewbox <- c(`min-x` = 0, `min-y` = 0, width = icon_width, height = 512)
+
+  style_attr <- paste0(
+    "height:", height, ";",
+    "width:", width, ";",
+    "vertical-align:-0.125em;",
+    "margin-left:", margin_left %||% "auto", ";",
+    "margin-right:", margin_right %||% "auto", ";",
+    "font-size:inherit;",
+    "fill:", fill %||% "currentColor", ";",
+    "overflow:visible;",
+    if (!is.null(fill_opacity)) paste0("fill-opacity:", fill_opacity, ";"),
+    if (!is.null(stroke)) paste0("stroke:", stroke, ";"),
+    if (!is.null(stroke_width)) paste0("stroke-width:", stroke_width, ";"),
+    if (!is.null(stroke_opacity)) paste0("stroke-opacity:", stroke_opacity, ";"),
+    "position:", position %||% "relative", ";"
+   )
+
+  svg_attrs <- paste0(
+    svg_attrs, sprintf(
+      'viewBox="%s" style="%s"',
+      paste0(viewbox, collapse = " "),
+      style_attr
     )
+  )
 
-  svg <- HTML(svg)
+  svg <- HTML(sprintf(
+      '<svg %s>%s<path d="%s"/></svg>',
+      svg_attrs,
+      if (is.null(title)) "" else paste0("<title>", htmlEscape(title), "</title>"),
+      icon_path
+  ))
 
-  structure(svg,
-            class = c("fontawesome", "svg", class(svg)),
-            viewbox = viewbox_value,
-            size = c(h = height_attr, w = width_attr)
+  structure(
+    svg, viewbox = viewbox,
+    size = c(h = height, w = width),
+    class = c("fontawesome", "svg", class(svg))
   )
 }
 
-get_length_value_unit <- function(css_length) {
+parse_length_unit <- function(css_length) {
+
+  if (is.null(css_length)) {
+    return(NULL)
+  }
 
   if (!grepl("^^[0-9]*\\.?[0-9]+[a-z]+$", css_length)) {
 
@@ -256,14 +206,12 @@ get_length_value_unit <- function(css_length) {
     )
   }
 
-  list(
-    value = as.numeric(gsub("[a-z]+$", "", css_length)),
-    unit = unit
-  )
+  value <- as.numeric(gsub("[a-z]+$", "", css_length))
+  attr(value, "unit") <- unit
+  value
 }
 
-css_length_units <-
-  c(
-    "cm", "mm", "in", "px", "pt", "pc", "em", "ex",
-    "ch", "rem", "vw", "vh", "vmin", "vmax", "%"
-  )
+css_length_units <- c(
+  "cm", "mm", "in", "px", "pt", "pc", "em", "ex",
+  "ch", "rem", "vw", "vh", "vmin", "vmax", "%"
+)

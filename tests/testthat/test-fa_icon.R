@@ -1,17 +1,17 @@
 test_that("getting a basic FA icon works", {
 
   # Emit a Font Awesome icon (`file`) as SVG within `svg` tags;
-  # refer to the icon with the 'short' name
+  # refer to the icon with the "short" name
   expect_equal(
     as.character(fa(name = "file")),
-    "<svg aria-hidden=\"true\" role=\"img\" viewBox=\"0 0 384 512\" style=\"height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;\"><path d=\"M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm160-14.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z\"/></svg>"
+    '<svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm160-14.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"/></svg>'
   )
 
   # Emit a Font Awesome icon (`file`) as SVG within `<svg>` tags;
-  # refer to the icon with the 'long' name
+  # refer to the icon with the "long" name
   expect_equal(
     as.character(fa(name = "fas fa-file")),
-    "<svg aria-hidden=\"true\" role=\"img\" viewBox=\"0 0 384 512\" style=\"height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;\"><path d=\"M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm160-14.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z\"/></svg>"
+    '<svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm160-14.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"/></svg>'
   )
 
   # In that case that an icon cannot be retrieved,
@@ -71,12 +71,12 @@ test_that("inserting attributes and styles works for FA icons", {
   )
   expect_match(
     as.character(fa(name = "file", width = ".75em")),
-    "width:0.75em;"
+    "width:.75em;"
   )
 
   expect_match(
     as.character(fa(name = "file", width = ".756789em")),
-    "width:0.756789em;"
+    "width:.756789em;"
   )
 
   # Expect that not supplying a width value will result in an error
@@ -112,6 +112,17 @@ test_that("inserting attributes and styles works for FA icons", {
     as.character(fa(name = "file")),
     "width:0.75em;"
   )
+
+  expect_match(
+    as.character(fa(name = "file", height = "4em", width = "4em")),
+    "width:4em;"
+  )
+
+  expect_match(
+    as.character(fa(name = "file", height = "4em", width = "4em")),
+    "height:4em;"
+  )
+
 
   # Expect that the `margin_left = "1em"` and `margin_right = "1em"`
   # CSS rules are rendered
@@ -153,7 +164,7 @@ test_that("the `fa_i()` function returns an icon object", {
   # Expect there are certain attributes available
   icon_attributes <- attributes(icon)
 
-  expect_equal(
+  expect_setequal(
     names(icon_attributes),
     c("names", "class", "html_dependencies", "browsable_html")
   )
@@ -194,6 +205,7 @@ test_that("the user can quell messages in `fa_i()`", {
 
   # Providing an `html_dependency` object will also avoid checks that
   # would otherwise yield messages
-  expect_message(regexp = NA, fa_i("eur", html_dependency = fa_html_dependency()))
-  expect_message(regexp = NA, fa_i("euroz", html_dependency = fa_html_dependency()))
+  fake_dep <- htmltools::htmlDependency("fa", "1.0", "")
+  expect_message(regexp = NA, fa_i("eur", html_dependency = fake_dep))
+  expect_message(regexp = NA, fa_i("euroz", html_dependency = fake_dep))
 })
