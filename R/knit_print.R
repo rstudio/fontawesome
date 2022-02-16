@@ -11,8 +11,14 @@ knit_print.fontawesome <- function(x, ..., options, inline = FALSE) {
 
   # nocov start
 
-  # TODO: use `knitr::pandoc_to()` in the future
-  to <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+  to <- knitr::pandoc_to()
+
+  if (is.null(to)) {
+    warning("fontawesome can be used with rmarkdown output formats only and not knitr only. ",
+            "Icon(s) will not show.",
+            call. = FALSE)
+    return(NULL)
+  }
 
   # these formats support inline svg so use next method (i.e htmltools::knit_print.html)
   if (to %in% c("html", "html4", "html5", "slidy", "revealjs", "markdown")) {
