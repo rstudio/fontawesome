@@ -21,7 +21,7 @@ test_that("Getting a basic FA icon works", {
   # the full name or short name is used
 
   fa_names_counts <-
-    fa_tbl %>%
+    fontawesome:::fa_tbl %>%
     dplyr::select(name) %>%
     dplyr::group_by(name) %>%
     dplyr::summarize(n = n())
@@ -36,17 +36,17 @@ test_that("Getting a basic FA icon works", {
     dplyr::filter(n > 1) %>%
     dplyr::pull(name)
 
-  fa_tbl_single_i <- which(fa_tbl$name %in% fa_names_single)
+  fa_tbl_single_i <- which(fontawesome:::fa_tbl$name %in% fa_names_single)
 
   for (i in fa_tbl_single_i) {
 
     expect_true(
-      grepl("^.svg.*svg.$", as.character(fa(name = fontawesome::fa_tbl[[i, "name"]])))
+      grepl("^.svg.*svg.$", as.character(fa(name = fontawesome:::fa_tbl[[i, "name"]])))
     )
 
     expect_equal(
-      as.character(fa(fontawesome::fa_tbl[[i, "name"]])),
-      as.character(fa(fontawesome::fa_tbl[[i, "full_name"]]))
+      as.character(fa(fontawesome:::fa_tbl[[i, "name"]])),
+      as.character(fa(fontawesome:::fa_tbl[[i, "full_name"]]))
     )
   }
 
