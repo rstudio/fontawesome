@@ -246,3 +246,10 @@ test_that("the user can quell messages in `fa_i()`", {
   expect_message(regexp = NA, fa_i("eur", html_dependency = fake_dep))
   expect_message(regexp = NA, fa_i("euroz", html_dependency = fake_dep))
 })
+
+test_that("The `fa_metadata()` function returns a list of metadata elements", {
+
+  metadata <- fa_metadata()
+
+  expect_type(metadata, "list")
+})
