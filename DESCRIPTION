@@ -31,6 +31,7 @@ Imports:
 Suggests:
     covr,
     knitr (>= 1.31),
-    testthat,
+    testthat (>= 3.0.0),
     rsvg
 Roxygen: list(markdown = TRUE)
+Config/testthat/edition: 3
