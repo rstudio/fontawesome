@@ -229,7 +229,7 @@ test_that("the `fa_i()` function returns an icon object", {
 test_that("the user can quell messages in `fa_i()`", {
 
   # There are messages when using FA 4 short names or invalid names
-  expect_message(regexp = "deprecated in Font Awesome 5", fa_i("eur"))
+  expect_message(regexp = "deprecated in Font Awesome 6", fa_i("eur"))
   expect_message(regexp = "does not exist", fa_i("euroz"))
 
   # If using a FA 5 name then no message is seen
