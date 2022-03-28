@@ -1,3 +1,5 @@
+library(dplyr)
+
 test_that("Getting a basic FA icon works", {
 
   # Emit a Font Awesome icon (`file`) as SVG within `svg` tags;
@@ -22,7 +24,7 @@ test_that("Getting a basic FA icon works", {
     fa_tbl %>%
     dplyr::select(name) %>%
     dplyr::group_by(name) %>%
-    dplyr::summarize(n = dplyr::n())
+    dplyr::summarize(n = n())
 
   fa_names_single <-
     fa_names_counts %>%

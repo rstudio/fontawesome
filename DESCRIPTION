@@ -30,6 +30,7 @@ Imports:
     htmltools (>= 0.5.1.1)
 Suggests:
     covr,
+    dplyr (>= 1.0.8),
     knitr (>= 1.31),
     testthat (>= 3.0.0),
     rsvg
