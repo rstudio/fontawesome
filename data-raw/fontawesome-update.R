@@ -220,7 +220,7 @@ download.file(url, zip_file)
 unzip(zip_file, exdir = tempdir())
 source_dir <- file.path(tempdir(), paste0("fontawesome-free-", fa_version, "-web"))
 
-dest_dir <- find_package_root_file("inst/fontawesome")
+dest_dir <- rprojroot::find_package_root_file("inst/fontawesome")
 unlink(dest_dir, recursive = TRUE)
 
 copy_files <- function(srcdir, destdir, filenames) {
@@ -257,23 +257,10 @@ copy_files(source_dir, dest_dir, filenames)
 # Remove font files that won't be supported in this package
 # Note: v6+ discontinues support for .woff in favor of .woff2
 withr::with_dir(dest_dir, {
+
+  # `fa-v4compatibility.*` files included in v6+
   file.remove(
-    # "webfonts/fa-brands-400.eot", # .eot and SVG webfonts not included in v6+
-    # "webfonts/fa-brands-400.svg",
-    ## Remove this line once phantomjs is not supported
-    # "inst/fontawesome/webfonts/fa-brands-400.ttf",
-    "webfonts/fa-brands-400.woff2",
-    # "webfonts/fa-regular-400.eot",
-    # "webfonts/fa-regular-400.svg",
-    ## Remove this line once phantomjs is not supported
-    # "inst/fontawesome/webfonts/fa-regular-400.ttf",
-    "webfonts/fa-regular-400.woff2",
-    # "webfonts/fa-solid-900.eot",
-    # "webfonts/fa-solid-900.svg",
-    ## Remove this line once phantomjs is not supported
-    # "inst/fontawesome/webfonts/fa-solid-900.ttf",
-    "webfonts/fa-solid-900.woff2",
-    "webfonts/fa-v4compatibility.ttf", # fa-v4compatibility files included in v6+
+    "webfonts/fa-v4compatibility.ttf",
     "webfonts/fa-v4compatibility.woff2"
   )
 
@@ -281,7 +268,7 @@ withr::with_dir(dest_dir, {
   readr::read_file(file = "css/all.css") %>%
     gsub(
       "src: url\\(.../webfonts/fa-([^.]+).*?}",
-      'src: url("../webfonts/fa-\\1.woff") format("woff"), url("../webfonts/fa-\\1.ttf") format("truetype"); }',
+      'src: url("../webfonts/fa-\\1.woff2") format("woff2"), url("../webfonts/fa-\\1.ttf") format("truetype"); }',
       .
     ) %>%
     readr::write_file(file = "css/all.css")
@@ -290,7 +277,7 @@ withr::with_dir(dest_dir, {
  readr::read_file(file = "css/all.min.css") %>%
    gsub(
      "src:url\\(../webfonts/fa-([^.]+).*?}",
-     'src: url("../webfonts/fa-\\1.woff") format("woff"), url("../webfonts/fa-\\1.ttf") format("truetype"); }',
+     'src: url("../webfonts/fa-\\1.woff2") format("woff2"), url("../webfonts/fa-\\1.ttf") format("truetype"); }',
      .
    ) %>%
    readr::write_file(file = "css/all.min.css")
