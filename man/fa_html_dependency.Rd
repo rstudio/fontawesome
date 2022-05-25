@@ -17,14 +17,16 @@ these tags and also add the \code{html_dependency} to the document.
 }
 \details{
 The \code{html_dependency} object is created internally with the following
-invocation:\preformatted{htmltools::htmlDependency(
+invocation:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{htmltools::htmlDependency(
   name = "font-awesome",
   version = fa_version,
   src = "fontawesome",
   package = "fontawesome",
   stylesheet = c("css/all.min.css", "css/v4-shims.min.css")
 )
-}
+}\if{html}{\out{</div>}}
 
 The \code{fa_version} object is an internal object that provides the released
 version number for the Font Awesome icons. This can be inspected by using
