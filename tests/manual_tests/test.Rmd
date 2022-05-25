@@ -15,7 +15,7 @@ output:
 library(fontawesome)
 ```
 
-# Just a few tests with `r fa("font-awesome-logo-full", fill = "forestgreen")`
+# Just a few tests with `r fa("font-awesome", fill = "forestgreen")`
 
 It works well in headings...
 

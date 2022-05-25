@@ -97,16 +97,16 @@ fa_i <- function(name,
       v5_name <- fa_tbl[fa_tbl$v4_name == name, ][1, "name"]
       v5_name_full <- fa_tbl[fa_tbl$v4_name == name, ][1, "full_name"]
 
-      # State that the v4 icon name should be changed to a v5 one
+      # State that the v4 icon name should be changed to a v6 one
       message(
-        "The `name` provided ('", name ,"') is deprecated in Font Awesome 5:\n",
+        "The `name` provided ('", name ,"') is deprecated in Font Awesome 6:\n",
         "* please consider using '", v5_name, "' or '", v5_name_full, "' instead\n",
         "* use the `verify_fa = FALSE` to deactivate these messages"
       )
     }
 
     # Provide a message if the icon name can't be resolved from
-    # any Font Awesome 4 or 5 names
+    # any Font Awesome 4 or 6 names
     if (!(name %in% fa_tbl$full_name) &&
         !(name %in% fa_tbl$name) &&
         !(name %in% fa_tbl$v4_name)

@@ -12,60 +12,69 @@ library(purrr)
 library(tibble)
 library(withr)
 
-version_tag <- "5.15.3"
+version_tag <- "6.1.1"
+
 base_url <- file.path(
   "https://raw.githubusercontent.com/FortAwesome/Font-Awesome", version_tag
 )
 
-# FA4 -> FA5 shims
+# FA4 -> FA6 shims
 shims <- yaml::read_yaml(file.path(base_url, "metadata/shims.yml"))
+
 # All icon info
 icons <- jsonlite::fromJSON(file.path(base_url, "metadata/icons.json"))
-# Actualy version (should, in theory, match version_tag)
-fa_version <- jsonlite::fromJSON(file.path(base_url, "js-packages/@fortawesome/fontawesome-free/package.json"))$version
 
+# Reported version (should match `version_tag`)
+fa_version <-
+  jsonlite::fromJSON(
+    file.path(base_url, "js-packages/@fortawesome/fontawesome-free/package.json")
+  )$version
 
-# Tidy shims
-fa_tbl_shims <- shims %>%
-  enframe("v4_name", "name") %>%
-  mutate(
-    name = map_chr(name, function(x) x[["name"]] %||% NA)
+# Tidy the `shims` table
+fa_tbl_shims <-
+  shims %>%
+  tibble::enframe("v4_name", "current_name") %>%
+  dplyr::mutate(
+    v4_prefix = map_chr(current_name, function(x) x[["prefix"]] %||% NA),
+    current_name = map_chr(current_name, function(x) x[["name"]] %||% NA)
   ) %>%
-  filter(!is.na(name))
+  dplyr::select(current_name, v4_name, v4_prefix)
 
 
-# Tidy icon info
-fa_tbl <- icons %>%
-  enframe("name", "info") %>%
-  mutate(
-    label = map_chr(info, "label"),
-    svg = map(info, function(x) enframe(x$svg, "style", "svg_info"))
+# Tidy the `icons` table
+fa_tbl <-
+  icons %>%
+  tibble::enframe("name", "info") %>%
+  dplyr::mutate(
+    label = purrr::map_chr(info, "label"),
+    svg = purrr::map(info, function(x) tibble::enframe(x$svg, "style", "svg_info"))
   ) %>%
-  select(-info) %>%
+  dplyr::select(-info) %>%
   tidyr::unnest(svg) %>%
-  mutate(
+  dplyr::mutate(
     path = map_chr(svg_info, "path"),
-    min_x = as.integer(map_chr(svg_info, ~.x$viewBox[1])),
-    min_y = as.integer(map_chr(svg_info, ~.x$viewBox[2])),
-    width = as.integer(map_chr(svg_info, ~.x$viewBox[3])),
-    height = as.integer(map_chr(svg_info, ~.x$viewBox[4]))
+    min_x = as.integer(purrr::map_chr(svg_info, ~.x$viewBox[1])),
+    min_y = as.integer(purrr::map_chr(svg_info, ~.x$viewBox[2])),
+    width = as.integer(purrr::map_chr(svg_info, ~.x$viewBox[3])),
+    height = as.integer(purrr::map_chr(svg_info, ~.x$viewBox[4]))
   ) %>%
-  select(-svg_info) %>%
-  mutate(full_name = paste0("fa", substr(style, 1, 1), " fa-", name))
+  dplyr::select(-svg_info) %>%
+  dplyr::mutate(full_name = paste0("fa", substr(style, 1, 1), " fa-", name)) %>%
+  dplyr::mutate(prefix = paste0("fa", substr(style, 1, 1))) %>%
+  dplyr::select(name, prefix, full_name, everything())
 
 
-# Add shim info
-fa_tbl <- fa_tbl %>%
-  left_join(fa_tbl_shims, by = "name") %>%
-  mutate(v4_name = ifelse(is.na(v4_name), name, v4_name)) %>%
-  as_tibble()
+# Add shim info to `icons` table
+fa_tbl <-
+  fa_tbl %>%
+  dplyr::left_join(fa_tbl_shims, by = c("name" = "current_name")) %>%
+  dplyr::mutate(v4_name = ifelse(is.na(v4_name), name, v4_name)) %>%
+  dplyr::mutate(v4_prefix = ifelse(is.na(v4_prefix), name, v4_prefix)) %>%
+  dplyr::as_tibble()
 
 # Generate the `font_awesome_brands` vector for faster retrieval
 # in `fa_i()`
-font_awesome_brands <- unique(
-  fa_tbl$name[grepl("fab ", fa_tbl$full_name)]
-)
-
+font_awesome_brands <- unique(fa_tbl$name[grepl("fab ", fa_tbl$full_name)])
 
 # ==============================================================================
 # Perform validation testing before writing data
@@ -76,42 +85,43 @@ font_awesome_brands <- unique(
 expect_rows_distinct(fa_tbl)
 
 # Expect that no values are missing
-expect_col_vals_not_null(fa_tbl, vars(name))
-expect_col_vals_not_null(fa_tbl, vars(style))
-expect_col_vals_not_null(fa_tbl, vars(full_name))
-expect_col_vals_not_null(fa_tbl, vars(path))
-expect_col_vals_not_null(fa_tbl, vars(min_x))
-expect_col_vals_not_null(fa_tbl, vars(min_y))
-expect_col_vals_not_null(fa_tbl, vars(width))
-expect_col_vals_not_null(fa_tbl, vars(height))
-expect_col_vals_not_null(fa_tbl, vars(v4_name))
-expect_col_vals_not_null(fa_tbl, vars(label))
+expect_col_vals_not_null(fa_tbl, "name")
+expect_col_vals_not_null(fa_tbl, "style")
+expect_col_vals_not_null(fa_tbl, "full_name")
+expect_col_vals_not_null(fa_tbl, "path")
+expect_col_vals_not_null(fa_tbl, "min_x")
+expect_col_vals_not_null(fa_tbl, "min_y")
+expect_col_vals_not_null(fa_tbl, "width")
+expect_col_vals_not_null(fa_tbl, "height")
+expect_col_vals_not_null(fa_tbl, "v4_name")
+expect_col_vals_not_null(fa_tbl, "v4_prefix")
+expect_col_vals_not_null(fa_tbl, "label")
 
 # Expect that the `style` column contains 3 types of values
 expect_col_vals_in_set(
   fa_tbl,
-  columns = vars(style),
+  columns = "style",
   set = c("regular", "solid", "brands")
 )
 
 # Expect that the `name` column only has a certain character set
 expect_col_vals_regex(
   fa_tbl,
-  columns = vars(name),
+  columns = "name",
   regex = "^[a-z0-9-]*?$"
 )
 
 # Expect that the `v4_name` column only has a certain character set
 expect_col_vals_regex(
   fa_tbl,
-  columns = vars(v4_name),
+  columns = "v4_name",
   regex = "^[a-z0-9-]*?$"
 )
 
-# Expect the `full_name` column to adhere to a specific pattern
+# Expect values in the `full_name` column to adhere to a specific pattern
 expect_col_vals_regex(
   fa_tbl,
-  columns = vars(full_name),
+  columns = "full_name",
   regex = "^fa[brs] fa-[a-z0-9-]*?$"
 )
 
@@ -123,20 +133,19 @@ expect_col_vals_expr(fa_tbl, ~ case_when(
   style == "brands" ~ grepl("^fab", full_name)
 ))
 
-# Expect that the `name` value is contained inside the
-# `full_name` value
+# Expect that the `name` value is contained inside the `full_name` value
 expect_col_vals_equal(
   fa_tbl,
-  columns = vars(name),
+  columns = "name",
   value = vars(full_name),
   preconditions = ~ . %>% mutate(full_name = gsub("fa[rsb] fa-", "", full_name))
 )
 
-# Expect there to be more than 1600 rows to the table
+# Expect there to be more than 2000 rows in the table
 expect_col_vals_gt(
-  count(fa_tbl),
+  dplyr::count(fa_tbl),
   columns = vars(n),
-  value = 1600
+  value = 2000
 )
 
 # Expect these column names in the table
@@ -144,32 +153,36 @@ expect_col_vals_in_set(
   tibble(col_names = colnames(fa_tbl)),
   columns = vars(col_names),
   set = c(
-    "name", "style", "full_name", "svg", "path",
-    "min_x", "min_y", "width", "height",
-    "v4_name", "label"
+    "name", "prefix", "full_name", "label", "style", "path", "min_x",
+    "min_y", "width", "height", "v4_name", "v4_prefix"
   )
 )
 
 # Expect that columns relating to the SVG
 # viewBox have constant values
-expect_col_vals_equal(fa_tbl, vars(min_x), 0)
-expect_col_vals_equal(fa_tbl, vars(min_y), 0)
-expect_col_vals_equal(fa_tbl, vars(height), 512)
+expect_col_vals_equal(fa_tbl, "min_x", 0)
+expect_col_vals_equal(fa_tbl, "min_y", 0)
+expect_col_vals_equal(fa_tbl, "height", 512)
 
-# Expect that certain columns are integer
+# Expect that certain columns are of the integer class
 expect_col_is_integer(fa_tbl, vars(min_x, min_y, width, height))
 
 # ==============================================================================
 # Save the icon info to disk
 # ==============================================================================
 
+# Write the `fa_tbl` table to internal data ('R/sysdata.rda')
 usethis::use_data(fa_tbl, overwrite = TRUE, internal = TRUE)
-# For other projects to consume, if they wish
-readr::write_csv(fa_tbl, find_package_root_file("data-raw/fa_tbl.csv"))
+
+# Write a CSV to the `data-raw` folder for other projects to consume
+readr::write_csv(
+  fa_tbl,
+  rprojroot::find_package_root_file("data-raw/fa_tbl.csv")
+)
 
 
-with_dir(
-  find_package_root_file("R"), {
+withr::with_dir(
+  rprojroot::find_package_root_file("R"), {
 
     cat(
       "# Generated by fontawesome-update.R: do not edit by hand\n\n",
@@ -196,16 +209,18 @@ with_dir(
 
 zip_file <- file.path(tempdir(), paste0("font-awesome-", fa_version, ".zip"))
 
-url <- paste0(
-  "https://github.com/FortAwesome/Font-Awesome/releases/download/",
-  fa_version, "/fontawesome-free-", fa_version, "-web.zip"
-)
+url <-
+  paste0(
+    "https://github.com/FortAwesome/Font-Awesome/releases/download/",
+    fa_version, "/fontawesome-free-", fa_version, "-web.zip"
+  )
+
 download.file(url, zip_file)
 
 unzip(zip_file, exdir = tempdir())
 source_dir <- file.path(tempdir(), paste0("fontawesome-free-", fa_version, "-web"))
 
-dest_dir <- find_package_root_file("inst/fontawesome")
+dest_dir <- rprojroot::find_package_root_file("inst/fontawesome")
 unlink(dest_dir, recursive = TRUE)
 
 copy_files <- function(srcdir, destdir, filenames) {
@@ -240,30 +255,20 @@ filenames <- c(
 copy_files(source_dir, dest_dir, filenames)
 
 # Remove font files that won't be supported in this package
+# Note: v6+ discontinues support for .woff in favor of .woff2
 withr::with_dir(dest_dir, {
+
+  # `fa-v4compatibility.*` files included in v6+
   file.remove(
-    "webfonts/fa-brands-400.eot",
-    "webfonts/fa-brands-400.svg",
-    ## Remove this line once phantomjs is not supported
-    # "inst/fontawesome/webfonts/fa-brands-400.ttf",
-    "webfonts/fa-brands-400.woff2",
-    "webfonts/fa-regular-400.eot",
-    "webfonts/fa-regular-400.svg",
-    ## Remove this line once phantomjs is not supported
-    # "inst/fontawesome/webfonts/fa-regular-400.ttf",
-    "webfonts/fa-regular-400.woff2",
-    "webfonts/fa-solid-900.eot",
-    "webfonts/fa-solid-900.svg",
-    ## Remove this line once phantomjs is not supported
-    # "inst/fontawesome/webfonts/fa-solid-900.ttf",
-    "webfonts/fa-solid-900.woff2"
+    "webfonts/fa-v4compatibility.ttf",
+    "webfonts/fa-v4compatibility.woff2"
   )
 
   # Patch the `all.css` file to remove entries for all but `woff` icon files
   readr::read_file(file = "css/all.css") %>%
     gsub(
       "src: url\\(.../webfonts/fa-([^.]+).*?}",
-      'src: url("../webfonts/fa-\\1.woff") format("woff"), url("../webfonts/fa-\\1.ttf") format("truetype"); }',
+      'src: url("../webfonts/fa-\\1.woff2") format("woff2"), url("../webfonts/fa-\\1.ttf") format("truetype"); }',
       .
     ) %>%
     readr::write_file(file = "css/all.css")
@@ -272,7 +277,7 @@ withr::with_dir(dest_dir, {
  readr::read_file(file = "css/all.min.css") %>%
    gsub(
      "src:url\\(../webfonts/fa-([^.]+).*?}",
-     'src: url("../webfonts/fa-\\1.woff") format("woff"), url("../webfonts/fa-\\1.ttf") format("truetype"); }',
+     'src: url("../webfonts/fa-\\1.woff2") format("woff2"), url("../webfonts/fa-\\1.ttf") format("truetype"); }',
      .
    ) %>%
    readr::write_file(file = "css/all.min.css")
