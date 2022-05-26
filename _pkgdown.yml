@@ -10,7 +10,7 @@ reference:
       best option is via the `fa()` function. Should you need a PNG version of
       the icon, then `fa_png()` is best for that. Want to know which icons are
       included in the package? Use `fa_info()` to get an informative table on
-      This.
+      this.
     contents:
     - fa
     - fa_png
