@@ -8,11 +8,14 @@ reference:
     desc: >
       If you'd like to insert a Font Awesome icon somewhere it's needed, the
       best option is via the `fa()` function. Should you need a PNG version of
-      the icon, then `fa_png()` is best for that.
+      the icon, then `fa_png()` is best for that. Want to know which icons are
+      included in the package? Use `fa_info()` to get an informative table on
+      This.
     contents:
     - fa
     - fa_png
     - fa_i
+    - fa_info
 
   - title: Extras
     contents:
