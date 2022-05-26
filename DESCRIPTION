@@ -26,8 +26,9 @@ RoxygenNote: 7.2.0
 Depends:
     R (>= 3.3.0)
 Imports:
+    htmltools (>= 0.5.1.1),
     rlang (>= 0.4.10),
-    htmltools (>= 0.5.1.1)
+    rstudioapi (>= 0.13)
 Suggests:
     covr,
     dplyr (>= 1.0.8),
