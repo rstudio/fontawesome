@@ -36,7 +36,7 @@ usage examples for details on supported styles).}
 custom \code{html_dependency} object is useful when you have paid icons from
 Font Awesome or would otherwise like to customize exactly which icon assets
 are used (e.g., woff, woff2, eot, etc.). By default, this is \code{NULL} where
-the function interally generates an \code{html_dependency}.}
+the function internally generates an \code{html_dependency}.}
 
 \item{verify_fa}{An option to verify the provided icon \code{name}. If \code{TRUE} (the
 default), internal checks will take place and issue messages should the
