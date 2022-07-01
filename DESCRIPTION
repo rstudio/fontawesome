@@ -18,7 +18,7 @@ Authors@R: c(
     person("RStudio", role = c("cph", "fnd"))
     )
 License: MIT + file LICENSE
-URL: https://github.com/rstudio/fontawesome
+URL: https://github.com/rstudio/fontawesome, https://rstudio.github.io/fontawesome/
 BugReports: https://github.com/rstudio/fontawesome/issues
 Encoding: UTF-8
 ByteCompile: true
