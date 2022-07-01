@@ -63,57 +63,68 @@ error message.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">fa_png</span><span class="op">(</span>
-  <span class="va">name</span>,
-  file <span class="op">=</span> <span class="cn">NULL</span>,
-  fill <span class="op">=</span> <span class="cn">NULL</span>,
-  fill_opacity <span class="op">=</span> <span class="cn">NULL</span>,
-  stroke <span class="op">=</span> <span class="cn">NULL</span>,
-  stroke_width <span class="op">=</span> <span class="cn">NULL</span>,
-  stroke_opacity <span class="op">=</span> <span class="cn">NULL</span>,
-  height <span class="op">=</span> <span class="cn">NULL</span>,
-  width <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fa_png</span><span class="op">(</span></span>
+<span>  <span class="va">name</span>,</span>
+<span>  file <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fill <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fill_opacity <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  stroke <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  stroke_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  stroke_opacity <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  width <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>name</dt>
 <dd><p>The name of the Font Awesome icon.</p></dd>
+
+
 <dt>file</dt>
 <dd><p>the path to the output file. If <code>NULL</code>, then filename will take
 the short name of the icon and a <code>.png</code> extension will be applied.</p></dd>
+
+
 <dt>fill, fill_opacity</dt>
 <dd><p>The fill color of the icon can be set with <code>fill</code>.
 If not provided then the default fill color will be black. The opacity
 level of the fill color can be controlled with a decimal value between <code>0</code>
 and <code>1</code>.</p></dd>
+
+
 <dt>stroke, stroke_width, stroke_opacity</dt>
 <dd><p>The stroke options allow for
 setting the color, width, and opacity of the outline stroke. By default,
 the stroke width is very small at <code>"1px"</code> so a size adjustment with
 <code>"stroke_width"</code> can be useful. The <code>"stroke_opacity"</code> value can be any
 decimal values between <code>0</code> and <code>1</code> (bounds included).</p></dd>
+
+
 <dt>height, width</dt>
 <dd><p>The output height and width of the rendered PNG. If
 nothing is provided then the output dimensions will match that of the input
 SVG viewBox.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A PNG file written to disk.</p>
+    
+
+<p>A PNG file written to disk.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Create a Font Awesome SVG icon as a</span></span>
-<span class="r-in"><span class="co"># PNG file on disk</span></span>
-<span class="r-in"><span class="fu">fa_png</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"r-project"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Create a Font Awesome SVG icon as a</span></span></span>
+<span class="r-in"><span><span class="co"># PNG file on disk</span></span></span>
+<span class="r-in"><span><span class="fu">fa_png</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"r-project"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -128,7 +139,7 @@ SVG viewBox.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

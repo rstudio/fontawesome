@@ -61,13 +61,13 @@ hosted in the <strong>fontawesome</strong> package.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">fa_i</span><span class="op">(</span>
-  <span class="va">name</span>,
-  class <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>,
-  html_dependency <span class="op">=</span> <span class="fu"><a href="fa_html_dependency.html">fa_html_dependency</a></span><span class="op">(</span><span class="op">)</span>,
-  verify_fa <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fa_i</span><span class="op">(</span></span>
+<span>  <span class="va">name</span>,</span>
+<span>  class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  html_dependency <span class="op">=</span> <span class="fu"><a href="fa_html_dependency.html">fa_html_dependency</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  verify_fa <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -83,11 +83,17 @@ will be internally translated to the Version 5 icon name and a Version 5
 icon will be returned. A data frame containing the short names that changed
 from version 4 (<code>v4_name</code>) to version 5 (<code>v5_name</code>) can be obtained by
 using <code>fa_metadata()$v4_v5_name_tbl</code>.</p></dd>
+
+
 <dt>class</dt>
 <dd><p>Additional classes to customize the style of the icon (see the
 usage examples for details on supported styles).</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Arguments passed to the <code>&lt;i&gt;</code> tag of <a href="https://rdrr.io/pkg/htmltools/man/builder.html" class="external-link">htmltools::tags</a>.</p></dd>
+
+
 <dt>html_dependency</dt>
 <dd><p>Provides an opportunity to use a custom
 <code>html_dependency</code> object (created via a call to
@@ -97,27 +103,32 @@ custom <code>html_dependency</code> object is useful when you have paid icons fr
 Font Awesome or would otherwise like to customize exactly which icon assets
 are used (e.g., woff, woff2, eot, etc.). By default, this is <code>NULL</code> where
 the function interally generates an <code>html_dependency</code>.</p></dd>
+
+
 <dt>verify_fa</dt>
 <dd><p>An option to verify the provided icon <code>name</code>. If <code>TRUE</code> (the
 default), internal checks will take place and issue messages should the
 <code>name</code> is a Font Awesome 4 icon name (the message will provide the Version
 5 name), or, if the icon name cannot be found in either Font Awesome 4 or
 5.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An icon element.</p>
+    
+
+<p>An icon element.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Create a Font Awesome icon object</span></span>
-<span class="r-in"><span class="fu">fa_i</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"r-project"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Create a Font Awesome icon object</span></span></span>
+<span class="r-in"><span><span class="fu">fa_i</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"r-project"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -132,7 +143,7 @@ default), internal checks will take place and issue messages should the
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>
