@@ -26,7 +26,7 @@
 #'   custom `html_dependency` object is useful when you have paid icons from
 #'   Font Awesome or would otherwise like to customize exactly which icon assets
 #'   are used (e.g., woff, woff2, eot, etc.). By default, this is `NULL` where
-#'   the function interally generates an `html_dependency`.
+#'   the function internally generates an `html_dependency`.
 #' @param verify_fa An option to verify the provided icon `name`. If `TRUE` (the
 #'   default), internal checks will take place and issue messages should the
 #'   `name` is a Font Awesome 4 icon name (the message will provide the Version
