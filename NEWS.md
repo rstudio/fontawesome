@@ -1,4 +1,4 @@
-# fontawesome (development version)
+# fontawesome 0.3.0
 
 * Closed #68: full icon names (e.g., `"fab fa-r-project"`) are now properly parsed and verified in the `fa_i()` function. (#77) 
 
