@@ -1,3 +1,5 @@
+# fontawesome (development version)
+
 # fontawesome 0.3.0
 
 * Closed #80: Updated icon set to that of FontAwesome 6.1. (#85)
