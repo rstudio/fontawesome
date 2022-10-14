@@ -56,19 +56,21 @@
 #'
 #' @import htmltools
 #' @export
-fa <- function(name,
-               fill = NULL,
-               fill_opacity = NULL,
-               stroke = NULL,
-               stroke_width = NULL,
-               stroke_opacity = NULL,
-               height = NULL,
-               width = NULL,
-               margin_left = NULL,
-               margin_right = NULL,
-               position = NULL,
-               title = NULL,
-               a11y = c("deco", "sem", "none")) {
+fa <- function(
+    name,
+    fill = NULL,
+    fill_opacity = NULL,
+    stroke = NULL,
+    stroke_width = NULL,
+    stroke_opacity = NULL,
+    height = NULL,
+    width = NULL,
+    margin_left = NULL,
+    margin_right = NULL,
+    position = NULL,
+    title = NULL,
+    a11y = c("deco", "sem", "none")
+) {
 
   if (length(name) != 1) {
     stop("The number of icons specified in `name` must be 1.", call. = FALSE)
