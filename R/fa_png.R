@@ -22,6 +22,11 @@
 #' @param height,width The output height and width of the rendered PNG. If
 #'   nothing is provided then the output dimensions will match that of the input
 #'   SVG viewBox.
+#' @param prefer_type Chooses the type of icon returned if: (1) providing a
+#'   short name, and (2) that icon has both solid and regular types.
+#'   For example, using `name = "address-book"` will result in two types of
+#'   icons for an Address Book. By default, this preference is set to
+#'   `"regular"` and the other option is `"solid"`.
 #'
 #' @return A PNG file written to disk.
 #'
@@ -35,15 +40,18 @@
 #' }
 #'
 #' @export
-fa_png <- function(name,
-                   file = NULL,
-                   fill = NULL,
-                   fill_opacity = NULL,
-                   stroke = NULL,
-                   stroke_width = NULL,
-                   stroke_opacity = NULL,
-                   height = NULL,
-                   width = NULL) {
+fa_png <- function(
+    name,
+    file = NULL,
+    fill = NULL,
+    fill_opacity = NULL,
+    stroke = NULL,
+    stroke_width = NULL,
+    stroke_opacity = NULL,
+    height = NULL,
+    width = NULL,
+    prefer_type = c("regular", "solid")
+) {
 
   # nocov start
 
@@ -65,7 +73,8 @@ fa_png <- function(name,
       fill_opacity = fill_opacity,
       stroke = stroke,
       stroke_width = stroke_width,
-      stroke_opacity = stroke_opacity
+      stroke_opacity = stroke_opacity,
+      prefer_type = prefer_type
     )
 
   # If `file` is `NULL` then construct a suitable

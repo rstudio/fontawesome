@@ -6,14 +6,12 @@
 #'
 #' @param name The name of the Font Awesome icon. This could be as a short name
 #'   (e.g., `"npm"`, `"drum"`, etc.), or, a full name (e.g., `"fab fa-npm"`,
-#'   `"fas fa-drum"`, etc.). The names should correspond to current Version 5
+#'   `"fas fa-drum"`, etc.). The names should correspond to current Version 6
 #'   Font Awesome names. A list of short and full names can be accessed through
 #'   the [fa_metadata()] function with `fa_metadata()$icon_names` and
-#'   `fa_metadata()$icon_names_full`. If supplying a Version 4 icon name, it
-#'   will be internally translated to the Version 5 icon name and a Version 5
-#'   icon will be returned. A data frame containing the short names that changed
-#'   from version 4 (`v4_name`) to version 5 (`v5_name`) can be obtained by
-#'   using `fa_metadata()$v4_v5_name_tbl`.
+#'   `fa_metadata()$icon_names_full`. If supplying a previous name associated
+#'   with the icon, it will be internally translated to the current name and a
+#'   Version 6 icon will be returned.
 #' @param fill,fill_opacity The fill color of the icon can be set with `fill`.
 #'   If not provided then the default value of `"currentColor"` is applied so
 #'   that the SVG fill matches the color of the parent HTML element's `color`
@@ -39,6 +37,11 @@
 #'   the icon. If `a11y == "semantic"` then title text will be
 #'   automatically given to the rendered icon, however, providing text here
 #'   will override that.
+#' @param prefer_type Chooses the type of icon returned if: (1) providing a
+#'   short name, and (2) that icon has both solid and regular types.
+#'   For example, using `name = "address-book"` will result in two types of
+#'   icons for an Address Book. By default, this preference is set to
+#'   `"regular"` and the other option is `"solid"`.
 #' @param a11y Cases that distinguish the role of the icon and inform which
 #'   accessibility attributes to be used. Icons can either be `"deco"`
 #'   (decorative, the default case) or `"sem"` (semantic). Using `"none"` will
@@ -69,6 +72,7 @@ fa <- function(
     margin_right = NULL,
     position = NULL,
     title = NULL,
+    prefer_type = c("regular", "solid"),
     a11y = c("deco", "sem", "none")
 ) {
 
@@ -76,19 +80,53 @@ fa <- function(
     stop("The number of icons specified in `name` must be 1.", call. = FALSE)
   }
 
-  idx <- match(name, fa_tbl$name)
+  prefer_type <- match.arg(prefer_type)
+  a11y <- match.arg(a11y)
+
+  # Attempt to match supplied `name` to short name in `fa_tbl$name`
+  idx <- which(fa_tbl$name == name)
+
+  # The possible use of a short name may result in a single match in the
+  # `name` column of `fa_tbl`, no match at all, or multiple matches (usually
+  # 2, but 3 in the case of `"font-awesome"`); resolve multiple matches with
+  # the `prefer_type` value
+  if (length(idx) > 1) {
+    idx <- which(fa_tbl$name == name & fa_tbl$style == prefer_type)
+  } else if (length(idx) < 1) {
+    idx <- NA
+  }
+
+  # An `NA` value means that no match was made so there will be
+  # another attempt to match against the full name in `fa_tbl$full_name`
   if (is_na(idx)) {
     idx <- match(name, fa_tbl$full_name)
   }
+
+  # If yet another `NA` value is received then there will be a final
+  # attempt to match against an alias name in `alias_tbl$alias`; it's important
+  # to note that these alias names are all short names (e.g., "vcard" is an
+  # alias to the canonical name `address-card`);
   if (is_na(idx)) {
-    idx <- match(name, fa_tbl$v4_name)
-    if (is_na(idx)) {
+
+    alias_idx <- match(name, alias_tbl$alias)
+
+    if (is_na(alias_idx)) {
       stop("This Font Awesome icon ('", name, "') does not exist", call. = FALSE)
     }
+
+    old_name <- name
+    name <- alias_tbl[alias_idx, ][["name"]]
+
+    idx <- which(fa_tbl$name == name)
+
+    if (length(idx) > 1) {
+      idx <- which(fa_tbl$name == name & fa_tbl$style == prefer_type)
+    }
+
     warning(
-      "The `name` provided ('", name, "') is deprecated in Font Awesome v5:\n",
-      "* please consider using '", fa_tbl[idx, "name"],
-      "' or '", fa_tbl[idx, "full_name"], "' instead",
+      "The `name` provided ('", old_name, "') is deprecated in Font Awesome v6:\n",
+      "* please consider using '", name,
+      "' or '", fa_tbl[idx, ][["full_name"]], "' instead",
       call. = FALSE
     )
   }
