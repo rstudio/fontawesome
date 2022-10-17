@@ -13,7 +13,8 @@ fa_png(
   stroke_width = NULL,
   stroke_opacity = NULL,
   height = NULL,
-  width = NULL
+  width = NULL,
+  prefer_type = c("regular", "solid")
 )
 }
 \arguments{
@@ -36,6 +37,12 @@ decimal values between \code{0} and \code{1} (bounds included).}
 \item{height, width}{The output height and width of the rendered PNG. If
 nothing is provided then the output dimensions will match that of the input
 SVG viewBox.}
+
+\item{prefer_type}{Chooses the type of icon returned if: (1) providing a
+short name, and (2) that icon has both solid and regular types.
+For example, using \code{name = "address-book"} will result in two types of
+icons for an Address Book. By default, this preference is set to
+\code{"regular"} and the other option is \code{"solid"}.}
 }
 \value{
 A PNG file written to disk.

@@ -17,20 +17,19 @@ fa(
   margin_right = NULL,
   position = NULL,
   title = NULL,
+  prefer_type = c("regular", "solid"),
   a11y = c("deco", "sem", "none")
 )
 }
 \arguments{
 \item{name}{The name of the Font Awesome icon. This could be as a short name
 (e.g., \code{"npm"}, \code{"drum"}, etc.), or, a full name (e.g., \code{"fab fa-npm"},
-\code{"fas fa-drum"}, etc.). The names should correspond to current Version 5
+\code{"fas fa-drum"}, etc.). The names should correspond to current Version 6
 Font Awesome names. A list of short and full names can be accessed through
 the \code{\link[=fa_metadata]{fa_metadata()}} function with \code{fa_metadata()$icon_names} and
-\code{fa_metadata()$icon_names_full}. If supplying a Version 4 icon name, it
-will be internally translated to the Version 5 icon name and a Version 5
-icon will be returned. A data frame containing the short names that changed
-from version 4 (\code{v4_name}) to version 5 (\code{v5_name}) can be obtained by
-using \code{fa_metadata()$v4_v5_name_tbl}.}
+\code{fa_metadata()$icon_names_full}. If supplying a previous name associated
+with the icon, it will be internally translated to the current name and a
+Version 6 icon will be returned.}
 
 \item{fill, fill_opacity}{The fill color of the icon can be set with \code{fill}.
 If not provided then the default value of \code{"currentColor"} is applied so
@@ -62,6 +61,12 @@ provides on-hover text for the icon. By default, no title text is given to
 the icon. If \code{a11y == "semantic"} then title text will be
 automatically given to the rendered icon, however, providing text here
 will override that.}
+
+\item{prefer_type}{Chooses the type of icon returned if: (1) providing a
+short name, and (2) that icon has both solid and regular types.
+For example, using \code{name = "address-book"} will result in two types of
+icons for an Address Book. By default, this preference is set to
+\code{"regular"} and the other option is \code{"solid"}.}
 
 \item{a11y}{Cases that distinguish the role of the icon and inform which
 accessibility attributes to be used. Icons can either be \code{"deco"}
