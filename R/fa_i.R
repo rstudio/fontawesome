@@ -44,11 +44,13 @@
 #' }
 #'
 #' @export
-fa_i <- function(name,
-                 class = NULL,
-                 ...,
-                 html_dependency = fa_html_dependency(),
-                 verify_fa = TRUE) {
+fa_i <- function(
+    name,
+    class = NULL,
+    ...,
+    html_dependency = fa_html_dependency(),
+    verify_fa = TRUE
+) {
 
   prefix <- "fa"
   iconClass <- ""
