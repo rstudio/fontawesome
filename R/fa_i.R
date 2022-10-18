@@ -77,7 +77,7 @@ fa_i <- function(
         name = name,
         prefer_type = prefer_type,
         verify = verify_fa && identical(html_dependency, fa_html_dependency()),
-        warning_or_message = "message",
+        warning_or_message = message,
         fail_on_unknown_name = FALSE,
         msg_on_unknown_name = verify_fa && identical(html_dependency, fa_html_dependency())
       )
