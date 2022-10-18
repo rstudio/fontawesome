@@ -295,8 +295,7 @@ get_icon_idx <- function(
       notify_fn(
         "The `name` provided ('", old_name, "') is deprecated in Font Awesome v6:\n",
         "* please consider using '", name,
-        "' or '", fa_tbl[idx, ][["full_name"]], "' instead",
-        call. = FALSE
+        "' or '", fa_tbl[idx, ][["full_name"]], "' instead"
       )
     }
   }
