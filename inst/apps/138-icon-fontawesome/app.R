@@ -37,13 +37,13 @@ showIcons <- function(icons) {
 }
 
 ui <- fluidPage(
-  tags$h2("FontAwesome 4 Icons"),
+  tags$h2("Font Awesome 4 Icons"),
   p("The following icons are from FontAwesome 4. They should display properly below."),
   showIcons(fa4icons),
-  tags$h2("FontAwesome 6 Icons"),
+  tags$h2("Font Awesome 6 Icons"),
   p("The following icons are from FontAwesome 6. They should display properly below."),
   showIcons(fa6icons),
-  tags$h2("FontAwesome 6 Brand icons"),
+  tags$h2("Font Awesome 6 Brand icons"),
   p("The following icons are from the FontAwesome 6 Brand set. They should display properly below."),
   showIcons(fabicons)
 )
