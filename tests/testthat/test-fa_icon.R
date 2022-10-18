@@ -168,7 +168,6 @@ test_that("Inserting attributes and styles works for FA icons", {
     "height:4em;"
   )
 
-
   # Expect that the `margin_left = "1em"` and `margin_right = "1em"`
   # CSS rules are rendered
   expect_match(
@@ -233,6 +232,17 @@ test_that("the `fa_i()` function returns an icon object", {
     as.character(icon),
     "<i class=\"fab fa-r-project\" role=\"presentation\" aria-label=\"r-project icon\"></i>"
   )
+
+  # Expect an error if providing invalid input (non-character, length not one)
+  # for `name`, independent of the `verify_fa` value
+  expect_error(fa_i(1, verify_fa = TRUE))
+  expect_error(fa_i(1, verify_fa = FALSE))
+  expect_error(fa_i(TRUE, verify_fa = TRUE))
+  expect_error(fa_i(FALSE, verify_fa = TRUE))
+  expect_error(fa_i(c("0", "1"), verify_fa = TRUE))
+  expect_error(fa_i(c("0", "1"), verify_fa = FALSE))
+  expect_error(fa_i(character(0), verify_fa = TRUE))
+  expect_error(fa_i(character(0), verify_fa = FALSE))
 })
 
 test_that("the user can quell messages in `fa_i()`", {
