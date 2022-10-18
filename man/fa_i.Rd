@@ -9,8 +9,7 @@ fa_i(
   class = NULL,
   ...,
   prefer_type = c("regular", "solid"),
-  html_dependency = fa_html_dependency(),
-  verify_fa = TRUE
+  html_dependency = fa_html_dependency()
 )
 }
 \arguments{
@@ -42,12 +41,6 @@ custom \code{html_dependency} object is useful when you have paid icons from
 Font Awesome or would otherwise like to customize exactly which icon assets
 are used (e.g., \code{woff}, \code{woff2}, \code{eot}, etc.). By default, this is \code{NULL}
 where the function internally generates an \code{html_dependency}.}
-
-\item{verify_fa}{An option to verify the provided icon \code{name}. If \code{TRUE} (the
-default), internal checks will take place and issue messages should the
-\code{name} correspond to a previously known icon name (i.e., an alias name).
-The resulting message will either provide the current name or state that
-the supplied value for \code{name} cannot be resolved.}
 }
 \value{
 An icon element.

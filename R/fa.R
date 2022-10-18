@@ -86,9 +86,7 @@ fa <- function(
   idx <-
     get_icon_idx(
       name = name,
-      prefer_type = prefer_type,
-      verify = TRUE,
-      warning_or_message = warning
+      prefer_type = prefer_type
     )
 
   # Extract the icon width, its label, and its path
@@ -226,8 +224,7 @@ css_length_units <- c(
 # * Length 0: No results found
 # * Length 1: Found exactly one type
 # * Length >1: This icon comes in multiple types
-get_icon_idx_all_types <- function(name, warn_on_alias,
-  warning_or_message = message) {
+get_icon_idx_all_types <- function(name) {
 
   # Attempt to match supplied `name` to short name in `fa_tbl$name`
   idx <- match(name, fa_tbl$full_name)
@@ -246,17 +243,9 @@ get_icon_idx_all_types <- function(name, warn_on_alias,
   # alias name in `alias_tbl$alias`; it's important to note that these alias
   # names are all short names (e.g., "vcard" is an alias to the canonical name
   # `address-card`);
-  canonical_name <- alias_tbl[alias_tbl$alias == name, "name", drop=TRUE]
+  canonical_name <- alias_tbl[alias_tbl$alias == name, "name", drop = TRUE]
   if (length(canonical_name) > 0) {
     idx <- which(fa_tbl$name == canonical_name)
-
-    if (warn_on_alias && is.function(warning_or_message)) {
-      warning_or_message(
-        "The `name` provided ('", name, "') is deprecated in Font Awesome v6:\n",
-        "* please consider using '", canonical_name, "' instead"
-      )
-    }
-
     return(idx)
   }
 
@@ -267,18 +256,12 @@ get_icon_idx_all_types <- function(name, warn_on_alias,
 get_icon_idx <- function(
     name,
     prefer_type,
-    verify,
-    warning_or_message = message,
     fail_on_unknown_name = TRUE,
     msg_on_unknown_name = TRUE
 ) {
 
   # Get all fa_tbl indices that match--if any
-  idx <- get_icon_idx_all_types(
-    name,
-    warn_on_alias = verify,
-    warning_or_message = warning_or_message
-  )
+  idx <- get_icon_idx_all_types(name = name)
 
   if (length(idx) == 0) {
     if (!fail_on_unknown_name) {

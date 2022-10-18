@@ -234,36 +234,21 @@ test_that("the `fa_i()` function returns an icon object", {
   )
 
   # Expect an error if providing invalid input (non-character, length not one)
-  # for `name`, independent of the `verify_fa` value
-  expect_error(fa_i(1, verify_fa = TRUE))
-  expect_error(fa_i(1, verify_fa = FALSE))
-  expect_error(fa_i(TRUE, verify_fa = TRUE))
-  expect_error(fa_i(FALSE, verify_fa = TRUE))
-  expect_error(fa_i(c("0", "1"), verify_fa = TRUE))
-  expect_error(fa_i(c("0", "1"), verify_fa = FALSE))
-  expect_error(fa_i(character(0), verify_fa = TRUE))
-  expect_error(fa_i(character(0), verify_fa = FALSE))
-})
+  # for `name`
+  expect_error(fa_i(1))
+  expect_error(fa_i(TRUE))
+  expect_error(fa_i(c("0", "1")))
+  expect_error(fa_i(character(0)))
 
-test_that("the user can quell messages in `fa_i()`", {
-
-  # There are messages when using FA short names or invalid names
-  expect_message(regexp = "is deprecated in Font Awesome v6", fa_i("eur"))
-  expect_message(regexp = "does not correspond to a known icon", fa_i("euroz"))
-
-  # If using a canonical short name then no message is seen
+  # There are *no* messages when using short name aliases or valid short
+  # or long names
+  expect_message(regexp = NA, fa_i("eur"))
+  expect_message(regexp = NA, fa_i("vcard"))
   expect_message(regexp = NA, fa_i("euro-sign"))
   expect_message(regexp = NA, fa_i("fas fa-euro-sign"))
 
-  # If using `verify_fontawesome = FALSE`, no messages will be shown for
-  # icon names that are not canonical
-  expect_message(regexp = NA, fa_i("eur", verify_fa = FALSE))
-  expect_message(regexp = NA, fa_i("vcard", verify_fa = FALSE))
-
-  # If using `verify_fontawesome = FALSE`, no messages will be shown for
-  # icon names that cannot be resolved
-  expect_message(regexp = NA, fa_i("euroz", verify_fa = FALSE))
-  expect_message(regexp = NA, fa_i("", verify_fa = FALSE))
+  # There is a message given when using an invalid name
+  expect_message(regexp = "does not correspond to a known icon", fa_i("euroz"))
 
   # Providing an `html_dependency` object will also avoid checks that
   # would otherwise yield messages
@@ -277,19 +262,12 @@ test_that("Known alias names (for short name) result in retrival of icons", {
   # Get the complete set of known alias names for the included icons
   alias_names <- alias_tbl$alias
 
-  # Expect that using each known alias with `fa()` will result in:
-  # (1) a returned SVG string
-  # (2) a warning
-  # (3) no error
+  # Expect that using each known alias with `fa()` will result in
+  # an SVG string returned
   for (a_name in alias_names) {
 
-    expect_error(
-      regexp = NA,
-      expect_warning(
-        expect_true(
-          grepl("^.svg.*svg.$", as.character(fa(name = a_name)))
-        )
-      )
+    expect_true(
+      grepl("^.svg.*svg.$", as.character(fa(name = a_name)))
     )
   }
 })

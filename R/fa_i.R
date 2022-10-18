@@ -30,11 +30,6 @@
 #'   Font Awesome or would otherwise like to customize exactly which icon assets
 #'   are used (e.g., `woff`, `woff2`, `eot`, etc.). By default, this is `NULL`
 #'   where the function internally generates an `html_dependency`.
-#' @param verify_fa An option to verify the provided icon `name`. If `TRUE` (the
-#'   default), internal checks will take place and issue messages should the
-#'   `name` correspond to a previously known icon name (i.e., an alias name).
-#'   The resulting message will either provide the current name or state that
-#'   the supplied value for `name` cannot be resolved.
 #'
 #' @return An icon element.
 #'
@@ -52,8 +47,7 @@ fa_i <- function(
     class = NULL,
     ...,
     prefer_type = c("regular", "solid"),
-    html_dependency = fa_html_dependency(),
-    verify_fa = TRUE
+    html_dependency = fa_html_dependency()
 ) {
 
   prefer_type <- match.arg(prefer_type)
@@ -76,10 +70,8 @@ fa_i <- function(
       get_icon_idx(
         name = name,
         prefer_type = prefer_type,
-        verify = verify_fa && identical(html_dependency, fa_html_dependency()),
-        warning_or_message = message,
         fail_on_unknown_name = FALSE,
-        msg_on_unknown_name = verify_fa && identical(html_dependency, fa_html_dependency())
+        msg_on_unknown_name = identical(html_dependency, fa_html_dependency())
       )
 
     if (is_na(idx)) {

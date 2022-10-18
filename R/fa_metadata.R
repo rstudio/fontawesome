@@ -15,8 +15,6 @@
 #' solid (`"s"`), and brand (`"b"`) groups
 #' - `icon_names_full_fa(r|s|b)`: Vectors with the full names of icons within
 #' the regular (`"r"`), solid (`"s"`), and brand (`"b"`) groups
-#' - `v4_v5_name_tbl`: A data frame containing the short names that changed
-#' from version 4 (`v4_name`) to version 5 (`v5_name`) of Font Awesome
 #'
 #' @return A list with metadata for the included Font Awesome assets.
 #'
