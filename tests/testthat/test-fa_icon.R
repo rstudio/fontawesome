@@ -260,6 +260,11 @@ test_that("the user can quell messages in `fa_i()`", {
   expect_message(regexp = NA, fa_i("eur", verify_fa = FALSE))
   expect_message(regexp = NA, fa_i("vcard", verify_fa = FALSE))
 
+  # If using `verify_fontawesome = FALSE`, no messages will be shown for
+  # icon names that cannot be resolved
+  expect_message(regexp = NA, fa_i("euroz", verify_fa = FALSE))
+  expect_message(regexp = NA, fa_i("", verify_fa = FALSE))
+
   # Providing an `html_dependency` object will also avoid checks that
   # would otherwise yield messages
   fake_dep <- htmltools::htmlDependency("fa", "1.0", "")
