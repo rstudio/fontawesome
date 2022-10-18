@@ -8,6 +8,7 @@ fa_i(
   name,
   class = NULL,
   ...,
+  prefer_type = c("regular", "solid"),
   html_dependency = fa_html_dependency(),
   verify_fa = TRUE
 )
@@ -24,10 +25,15 @@ icon will be returned. A data frame containing the short names that changed
 from version 4 (\code{v4_name}) to version 5 (\code{v5_name}) can be obtained by
 using \code{fa_metadata()$v4_v5_name_tbl}.}
 
-\item{class}{Additional classes to customize the style of the icon (see the
-usage examples for details on supported styles).}
+\item{class}{Additional classes to customize the style of the icon.}
 
 \item{...}{Arguments passed to the \verb{<i>} tag of \link[htmltools:builder]{htmltools::tags}.}
+
+\item{prefer_type}{Chooses the type of icon returned if: (1) providing a
+short name, and (2) that icon has both solid and regular types.
+For example, using \code{name = "address-book"} will result in two types of
+icons for an Address Book. By default, this preference is set to
+\code{"regular"} and the other option is \code{"solid"}.}
 
 \item{html_dependency}{Provides an opportunity to use a custom
 \code{html_dependency} object (created via a call to
