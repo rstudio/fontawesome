@@ -16,9 +16,13 @@
 #'   icon will be returned. A data frame containing the short names that changed
 #'   from version 4 (`v4_name`) to version 5 (`v5_name`) can be obtained by
 #'   using `fa_metadata()$v4_v5_name_tbl`.
-#' @param class Additional classes to customize the style of the icon (see the
-#'   usage examples for details on supported styles).
+#' @param class Additional classes to customize the style of the icon.
 #' @param ... Arguments passed to the `<i>` tag of [htmltools::tags].
+#' @param prefer_type Chooses the type of icon returned if: (1) providing a
+#'   short name, and (2) that icon has both solid and regular types.
+#'   For example, using `name = "address-book"` will result in two types of
+#'   icons for an Address Book. By default, this preference is set to
+#'   `"regular"` and the other option is `"solid"`.
 #' @param html_dependency Provides an opportunity to use a custom
 #'   `html_dependency` object (created via a call to
 #'   [htmltools::htmlDependency()]) instead of one supplied by the function
@@ -48,20 +52,17 @@ fa_i <- function(
     name,
     class = NULL,
     ...,
+    prefer_type = c("regular", "solid"),
     html_dependency = fa_html_dependency(),
     verify_fa = TRUE
 ) {
 
-  prefix <- "fa"
+  prefer_type <- match.arg(prefer_type)
+
+  # Ensure that the `name` value passes basic validation checks
+  check_name_vec(name = name)
+
   iconClass <- ""
-
-  prefix_class <- prefix
-
-  # Change the `prefix_class` to `"fab"` if the `name` is found in
-  # the internal vector of `font_awesome_brands`
-  if (prefix_class == "fa" && name %in% font_awesome_brands) {
-    prefix_class <- "fab"
-  }
 
   if (grepl("^fa[a-z] fa-[a-z-]+$", name)) {
     # Case where fully-qualified icon name is provided
@@ -71,55 +72,47 @@ fa_i <- function(
   } else {
     # Case where short icon name is provided
 
-    iconClass <- paste0(prefix_class, " ", prefix, "-", name)
+    # Get the icon index value in `fa_tbl`
+    idx <-
+      get_icon_idx(
+        name = name,
+        prefer_type = prefer_type,
+        verify = verify_fa && identical(html_dependency, fa_html_dependency()),
+        warning_or_message = "message",
+        fail_on_unknown_name = FALSE,
+        msg_on_unknown_name = verify_fa && identical(html_dependency, fa_html_dependency())
+      )
 
+    if (is_na(idx)) {
+
+      # Generate `iconClass` value for name that results in an NA
+      # value for `idx` (i.e., doesn't correspond to an entry in the
+      # `fa_tbl`)
+
+      iconClass <- paste0("fa", substr(prefer_type, 1, 1), " fa-", name)
+
+    } else {
+
+      # Get the fully-qualified icon name from `fa_tbl`
+      name <- iconClass <- fa_tbl[idx, ][["full_name"]]
+    }
+
+    # Append any provided `class` values to the icon name
     if (!is.null(class)) {
-      iconClass <- paste(iconClass, class)
+      iconClass <- paste(name, class)
     }
+
   }
 
-  icon_tag <- browsable(tags$i(
-    class = iconClass,
-    role = "presentation",
-    `aria-label` = paste(gsub("^fa[a-z]* fa-", "", name), "icon"),
-    ...
-  ))
-
-  icon_tag <- attachDependencies(icon_tag, html_dependency)
-
-  # Perform verifications on `name` if `verify_fa` is TRUE
-  if (verify_fa && identical(html_dependency, fa_html_dependency())) {
-
-    # Determine if the `name` is a Font Awesome v4
-    # icon name and provide a message
-    if (name %in% fa_tbl$v4_name && !(name %in% fa_tbl$name)) {
-
-      # Obtain the version 5 `name` and `full_name`
-      # for messaging purposes
-      v5_name <- fa_tbl[fa_tbl$v4_name == name, ][1, "name"]
-      v5_name_full <- fa_tbl[fa_tbl$v4_name == name, ][1, "full_name"]
-
-      # State that the v4 icon name should be changed to a v6 one
-      message(
-        "The `name` provided ('", name ,"') is deprecated in Font Awesome 6:\n",
-        "* please consider using '", v5_name, "' or '", v5_name_full, "' instead\n",
-        "* use the `verify_fa = FALSE` to deactivate these messages"
+  icon_tag <-
+    browsable(
+      tags$i(
+        class = iconClass,
+        role = "presentation",
+        `aria-label` = paste(gsub("^fa[a-z]* fa-", "", name), "icon"),
+        ...
       )
-    }
+    )
 
-    # Provide a message if the icon name can't be resolved from
-    # any Font Awesome 4 or 6 names
-    if (!(name %in% fa_tbl$full_name) &&
-        !(name %in% fa_tbl$name) &&
-        !(name %in% fa_tbl$v4_name)
-    ) {
-      message(
-        "This Font Awesome icon ('", name, "') does not exist:\n",
-        "* if providing a custom `html_dependency` these `name` checks can \n",
-        "  be deactivated with `verify_fa = FALSE`"
-      )
-    }
-  }
-
-  icon_tag
+  attachDependencies(icon_tag, html_dependency)
 }
