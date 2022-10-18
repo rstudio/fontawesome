@@ -272,6 +272,28 @@ test_that("the user can quell messages in `fa_i()`", {
   expect_message(regexp = NA, fa_i("euroz", html_dependency = fake_dep))
 })
 
+test_that("Known alias names (for short name) result in retrival of icons", {
+
+  # Get the complete set of known alias names for the included icons
+  alias_names <- alias_tbl$alias
+
+  # Expect that using each known alias with `fa()` will result in:
+  # (1) a returned SVG string
+  # (2) a warning
+  # (3) no error
+  for (a_name in alias_names) {
+
+    expect_error(
+      regexp = NA,
+      expect_warning(
+        expect_true(
+          grepl("^.svg.*svg.$", as.character(fa(name = a_name)))
+        )
+      )
+    )
+  }
+})
+
 test_that("The `fa_metadata()` function returns a list of metadata elements", {
 
   metadata <- fa_metadata()
