@@ -76,61 +76,22 @@ fa <- function(
     a11y = c("deco", "sem", "none")
 ) {
 
-  if (length(name) != 1) {
-    stop("The number of icons specified in `name` must be 1.", call. = FALSE)
-  }
-
   prefer_type <- match.arg(prefer_type)
   a11y <- match.arg(a11y)
 
-  # Attempt to match supplied `name` to short name in `fa_tbl$name`
-  idx <- which(fa_tbl$name == name)
+  # Ensure that the `name` value passes basic validation checks
+  check_name_vec(name = name)
 
-  # The possible use of a short name may result in a single match in the
-  # `name` column of `fa_tbl`, no match at all, or multiple matches (usually
-  # 2, but 3 in the case of `"font-awesome"`); resolve multiple matches with
-  # the `prefer_type` value
-  if (length(idx) > 1) {
-    idx <- which(fa_tbl$name == name & fa_tbl$style == prefer_type)
-  } else if (length(idx) < 1) {
-    idx <- NA
-  }
-
-  # An `NA` value means that no match was made so there will be
-  # another attempt to match against the full name in `fa_tbl$full_name`
-  if (is_na(idx)) {
-    idx <- match(name, fa_tbl$full_name)
-  }
-
-  # If yet another `NA` value is received then there will be a final
-  # attempt to match against an alias name in `alias_tbl$alias`; it's important
-  # to note that these alias names are all short names (e.g., "vcard" is an
-  # alias to the canonical name `address-card`);
-  if (is_na(idx)) {
-
-    alias_idx <- match(name, alias_tbl$alias)
-
-    if (is_na(alias_idx)) {
-      stop("This Font Awesome icon ('", name, "') does not exist", call. = FALSE)
-    }
-
-    old_name <- name
-    name <- alias_tbl[alias_idx, ][["name"]]
-
-    idx <- which(fa_tbl$name == name)
-
-    if (length(idx) > 1) {
-      idx <- which(fa_tbl$name == name & fa_tbl$style == prefer_type)
-    }
-
-    warning(
-      "The `name` provided ('", old_name, "') is deprecated in Font Awesome v6:\n",
-      "* please consider using '", name,
-      "' or '", fa_tbl[idx, ][["full_name"]], "' instead",
-      call. = FALSE
+  # Get the icon index value in `fa_tbl`
+  idx <-
+    get_icon_idx(
+      name = name,
+      prefer_type = prefer_type,
+      verify = TRUE,
+      warning_or_message = "warning"
     )
-  }
 
+  # Extract the icon width, its label, and its path
   icon_width <- fa_tbl$width[idx]
   icon_label <- fa_tbl$label[idx]
   icon_path <- fa_tbl$path[idx]
@@ -154,18 +115,19 @@ fa <- function(
 
   } else if (!is.null(height) && is.null(width)) {
 
-    width <- paste0(
-      round((icon_width / 512) * height_num, 2),
-      attr(height_num, "unit")
-    )
+    width <-
+      paste0(
+        round((icon_width / 512) * height_num, 2),
+        attr(height_num, "unit")
+      )
 
   } else if (is.null(height) && !is.null(width)) {
 
-    height <- paste0(
-      round(width_num / (icon_width / 512), 2),
-      attr(width_num, "unit")
-    )
-
+    height <-
+      paste0(
+        round(width_num / (icon_width / 512), 2),
+        attr(width_num, "unit")
+      )
   }
 
   # Generate accessibility attributes if either of
@@ -255,3 +217,109 @@ css_length_units <- c(
   "cm", "mm", "in", "px", "pt", "pc", "em", "ex",
   "ch", "rem", "vw", "vh", "vmin", "vmax", "%"
 )
+
+get_icon_idx <- function(
+    name,
+    prefer_type,
+    verify,
+    warning_or_message = c("warning", "message"),
+    fail_on_unknown_name = TRUE,
+    msg_on_unknown_name = TRUE
+) {
+
+  warning_or_message <- match.arg(warning_or_message)
+
+  # Attempt to match supplied `name` to short name in `fa_tbl$name`
+  idx <- which(fa_tbl$name == name)
+
+  # The possible use of a short name may result in a single match in the
+  # `name` column of `fa_tbl`, no match at all, or multiple matches (usually
+  # 2, but 3 in the case of `"font-awesome"`); resolve multiple matches with
+  # the `prefer_type` value
+  if (length(idx) > 1) {
+    idx <- which(fa_tbl$name == name & fa_tbl$style == prefer_type)
+  } else if (length(idx) < 1) {
+    idx <- NA
+  }
+
+  # An `NA` value means that no match was made so there will be
+  # another attempt to match against the full name in `fa_tbl$full_name`
+  if (is_na(idx)) {
+    idx <- match(name, fa_tbl$full_name)
+  }
+
+  # If yet another `NA` value is received then there will be a final
+  # attempt to match against an alias name in `alias_tbl$alias`; it's important
+  # to note that these alias names are all short names (e.g., "vcard" is an
+  # alias to the canonical name `address-card`);
+  if (is_na(idx)) {
+
+    alias_idx <- match(name, alias_tbl$alias)
+
+    if (is_na(alias_idx)) {
+
+      if (!fail_on_unknown_name) {
+
+        if (msg_on_unknown_name) {
+          message(
+            "The `name` provided ('", name, "') does not correspond to a known icon"
+          )
+        }
+
+        # This is only in the case of `fa_i()` where an unmatched name
+        # should generate an <i> tag anyway
+        return(NA)
+
+      } else {
+
+        stop(
+          "The `name` provided ('", name, "') does not correspond to a known icon",
+          call. = FALSE
+        )
+      }
+    }
+
+    old_name <- name
+    name <- alias_tbl[alias_idx, ][["name"]]
+
+    idx <- which(fa_tbl$name == name)
+
+    if (length(idx) > 1) {
+      idx <- which(fa_tbl$name == name & fa_tbl$style == prefer_type)
+    }
+
+    if (verify) {
+
+      notify_fn <- get_notifier_fn(warning_or_message = warning_or_message)
+
+      notify_fn(
+        "The `name` provided ('", old_name, "') is deprecated in Font Awesome v6:\n",
+        "* please consider using '", name,
+        "' or '", fa_tbl[idx, ][["full_name"]], "' instead",
+        call. = FALSE
+      )
+    }
+  }
+
+  idx
+}
+
+get_notifier_fn <- function(warning_or_message) {
+
+  if (warning_or_message == "warning") {
+    return(warning)
+  } else {
+    return(message)
+  }
+}
+
+check_name_vec <- function(name) {
+
+  if (!is.character(name)) {
+    stop("A character vector should be supplied for `name`.", call. = FALSE)
+  }
+
+  if (length(name) != 1) {
+    stop("The number of icons specified in `name` must be 1.", call. = FALSE)
+  }
+}
