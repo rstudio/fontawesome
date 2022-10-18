@@ -8,14 +8,13 @@
 #'
 #' @param name The name of the Font Awesome icon. This could be as a short name
 #'   (e.g., `"npm"`, `"drum"`, etc.), or, a full name (e.g., `"fab fa-npm"`,
-#'   `"fas fa-drum"`, etc.). The names should correspond to current Version 5
-#'   Font Awesome names. A list of short and full names can be accessed through
-#'   the [fa_metadata()] function with `fa_metadata()$icon_names` and
-#'   `fa_metadata()$icon_names_full`. If supplying a Version 4 icon name, it
-#'   will be internally translated to the Version 5 icon name and a Version 5
-#'   icon will be returned. A data frame containing the short names that changed
-#'   from version 4 (`v4_name`) to version 5 (`v5_name`) can be obtained by
-#'   using `fa_metadata()$v4_v5_name_tbl`.
+#'   `"fas fa-drum"`, etc.). The names should correspond to current Font Awesome
+#'   names. A list of short and full names can be accessed through the
+#'   [fa_metadata()] function with `fa_metadata()$icon_names` and
+#'   `fa_metadata()$icon_names_full`. If supplying a known alias to a short icon
+#'   name (e.g., `"vcard"`, which is now `"address-card"`), it will be
+#'   internally translated to the current icon name before returning the icon
+#'   tag.
 #' @param class Additional classes to customize the style of the icon.
 #' @param ... Arguments passed to the `<i>` tag of [htmltools::tags].
 #' @param prefer_type Chooses the type of icon returned if: (1) providing a
@@ -29,13 +28,13 @@
 #'   (which uses Font Awesome's free assets and are bundled in the package). A
 #'   custom `html_dependency` object is useful when you have paid icons from
 #'   Font Awesome or would otherwise like to customize exactly which icon assets
-#'   are used (e.g., woff, woff2, eot, etc.). By default, this is `NULL` where
-#'   the function internally generates an `html_dependency`.
+#'   are used (e.g., `woff`, `woff2`, `eot`, etc.). By default, this is `NULL`
+#'   where the function internally generates an `html_dependency`.
 #' @param verify_fa An option to verify the provided icon `name`. If `TRUE` (the
 #'   default), internal checks will take place and issue messages should the
-#'   `name` is a Font Awesome 4 icon name (the message will provide the Version
-#'   5 name), or, if the icon name cannot be found in either Font Awesome 4 or
-#'   5.
+#'   `name` correspond to a previously known icon name (i.e., an alias name).
+#'   The resulting message will either provide the current name or state that
+#'   the supplied value for `name` cannot be resolved.
 #'
 #' @return An icon element.
 #'
