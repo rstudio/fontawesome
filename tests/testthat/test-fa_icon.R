@@ -5,15 +5,24 @@ test_that("Getting a basic FA icon works", {
   # Emit a Font Awesome icon (`file`) as SVG within `svg` tags;
   # refer to the icon with the "short" name
   expect_equal(
-    as.character(fa(name = "file")),
-    '<svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M0 64C0 28.65 28.65 0 64 0H224V128C224 145.7 238.3 160 256 160H384V448C384 483.3 355.3 512 320 512H64C28.65 512 0 483.3 0 448V64zM256 128V0L384 128H256z"/></svg>'
+    as.character(fa(name = "file", prefer_type = "solid")),
+    '<svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128z"/></svg>'
+  )
+
+  expect_equal(
+    as.character(fa(name = "file", prefer_type = "regular")),
+    '<svg aria-hidden=\"true\" role=\"img\" viewBox=\"0 0 384 512\" style=\"height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;\"><path d=\"M0 64C0 28.65 28.65 0 64 0H229.5C246.5 0 262.7 6.743 274.7 18.75L365.3 109.3C377.3 121.3 384 137.5 384 154.5V448C384 483.3 355.3 512 320 512H64C28.65 512 0 483.3 0 448V64zM336 448V160H256C238.3 160 224 145.7 224 128V48H64C55.16 48 48 55.16 48 64V448C48 456.8 55.16 464 64 464H320C328.8 464 336 456.8 336 448z\"/></svg>'
   )
 
   # Emit a Font Awesome icon (`file`) as SVG within `<svg>` tags;
   # refer to the icon with the "long" name
   expect_equal(
     as.character(fa(name = "fas fa-file")),
-    '<svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M0 64C0 28.65 28.65 0 64 0H224V128C224 145.7 238.3 160 256 160H384V448C384 483.3 355.3 512 320 512H64C28.65 512 0 483.3 0 448V64zM256 128V0L384 128H256z"/></svg>'
+    as.character(fa(name = "file", prefer_type = "solid"))
+  )
+  expect_equal(
+    as.character(fa(name = "far fa-file")),
+    as.character(fa(name = "file", prefer_type = "regular"))
   )
 
   # Expect that every entry in the `fa_tbl` table will produce SVG text and,
@@ -159,7 +168,6 @@ test_that("Inserting attributes and styles works for FA icons", {
     "height:4em;"
   )
 
-
   # Expect that the `margin_left = "1em"` and `margin_right = "1em"`
   # CSS rules are rendered
   expect_match(
@@ -224,27 +232,44 @@ test_that("the `fa_i()` function returns an icon object", {
     as.character(icon),
     "<i class=\"fab fa-r-project\" role=\"presentation\" aria-label=\"r-project icon\"></i>"
   )
-})
 
-test_that("the user can quell messages in `fa_i()`", {
+  # Expect an error if providing invalid input (non-character, length not one)
+  # for `name`
+  expect_error(fa_i(1))
+  expect_error(fa_i(TRUE))
+  expect_error(fa_i(c("0", "1")))
+  expect_error(fa_i(character(0)))
 
-  # There are messages when using FA 4 short names or invalid names
-  expect_message(regexp = "deprecated in Font Awesome 6", fa_i("eur"))
-  expect_message(regexp = "does not exist", fa_i("euroz"))
-
-  # If using a FA 5 name then no message is seen
+  # There are *no* messages when using short name aliases or valid short
+  # or long names
+  expect_message(regexp = NA, fa_i("eur"))
+  expect_message(regexp = NA, fa_i("vcard"))
   expect_message(regexp = NA, fa_i("euro-sign"))
   expect_message(regexp = NA, fa_i("fas fa-euro-sign"))
 
-  # If using `verify_fontawesome = FALSE`, no messages will be shown
-  expect_message(regexp = NA, fa_i("eur", verify_fa = FALSE))
-  expect_message(regexp = NA, fa_i("euroz", verify_fa = FALSE))
+  # There is a message given when using an invalid name
+  expect_message(regexp = "does not correspond to a known icon", fa_i("euroz"))
 
   # Providing an `html_dependency` object will also avoid checks that
   # would otherwise yield messages
   fake_dep <- htmltools::htmlDependency("fa", "1.0", "")
   expect_message(regexp = NA, fa_i("eur", html_dependency = fake_dep))
   expect_message(regexp = NA, fa_i("euroz", html_dependency = fake_dep))
+})
+
+test_that("Known alias names (for short name) result in retrival of icons", {
+
+  # Get the complete set of known alias names for the included icons
+  alias_names <- alias_tbl$alias
+
+  # Expect that using each known alias with `fa()` will result in
+  # an SVG string returned
+  for (a_name in alias_names) {
+
+    expect_true(
+      grepl("^.svg.*svg.$", as.character(fa(name = a_name)))
+    )
+  }
 })
 
 test_that("The `fa_metadata()` function returns a list of metadata elements", {

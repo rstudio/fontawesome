@@ -2,7 +2,7 @@
 
 # fontawesome 0.3.0
 
-* Closed #80: Updated icon set to that of FontAwesome 6.1. (#85)
+* Closed #80: Updated icon set to that of Font Awesome 6.1. (#85)
 
 * Closed #68: full icon names (e.g., `"fab fa-r-project"`) are now properly parsed and verified in the `fa_i()` function. (#77) 
 

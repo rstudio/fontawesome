@@ -6,14 +6,12 @@
 #'
 #' @param name The name of the Font Awesome icon. This could be as a short name
 #'   (e.g., `"npm"`, `"drum"`, etc.), or, a full name (e.g., `"fab fa-npm"`,
-#'   `"fas fa-drum"`, etc.). The names should correspond to current Version 5
+#'   `"fas fa-drum"`, etc.). The names should correspond to current Version 6
 #'   Font Awesome names. A list of short and full names can be accessed through
 #'   the [fa_metadata()] function with `fa_metadata()$icon_names` and
-#'   `fa_metadata()$icon_names_full`. If supplying a Version 4 icon name, it
-#'   will be internally translated to the Version 5 icon name and a Version 5
-#'   icon will be returned. A data frame containing the short names that changed
-#'   from version 4 (`v4_name`) to version 5 (`v5_name`) can be obtained by
-#'   using `fa_metadata()$v4_v5_name_tbl`.
+#'   `fa_metadata()$icon_names_full`. If supplying a previous name associated
+#'   with the icon, it will be internally translated to the current name and a
+#'   Version 6 icon will be returned.
 #' @param fill,fill_opacity The fill color of the icon can be set with `fill`.
 #'   If not provided then the default value of `"currentColor"` is applied so
 #'   that the SVG fill matches the color of the parent HTML element's `color`
@@ -39,6 +37,11 @@
 #'   the icon. If `a11y == "semantic"` then title text will be
 #'   automatically given to the rendered icon, however, providing text here
 #'   will override that.
+#' @param prefer_type Chooses the type of icon returned if: (1) providing a
+#'   short name, and (2) that icon has both solid and regular types.
+#'   For example, using `name = "address-book"` will result in two types of
+#'   icons for an Address Book. By default, this preference is set to
+#'   `"regular"` and the other option is `"solid"`.
 #' @param a11y Cases that distinguish the role of the icon and inform which
 #'   accessibility attributes to be used. Icons can either be `"deco"`
 #'   (decorative, the default case) or `"sem"` (semantic). Using `"none"` will
@@ -56,41 +59,37 @@
 #'
 #' @import htmltools
 #' @export
-fa <- function(name,
-               fill = NULL,
-               fill_opacity = NULL,
-               stroke = NULL,
-               stroke_width = NULL,
-               stroke_opacity = NULL,
-               height = NULL,
-               width = NULL,
-               margin_left = NULL,
-               margin_right = NULL,
-               position = NULL,
-               title = NULL,
-               a11y = c("deco", "sem", "none")) {
+fa <- function(
+    name,
+    fill = NULL,
+    fill_opacity = NULL,
+    stroke = NULL,
+    stroke_width = NULL,
+    stroke_opacity = NULL,
+    height = NULL,
+    width = NULL,
+    margin_left = NULL,
+    margin_right = NULL,
+    position = NULL,
+    title = NULL,
+    prefer_type = c("regular", "solid"),
+    a11y = c("deco", "sem", "none")
+) {
 
-  if (length(name) != 1) {
-    stop("The number of icons specified in `name` must be 1.", call. = FALSE)
-  }
+  prefer_type <- match.arg(prefer_type)
+  a11y <- match.arg(a11y)
 
-  idx <- match(name, fa_tbl$name)
-  if (is_na(idx)) {
-    idx <- match(name, fa_tbl$full_name)
-  }
-  if (is_na(idx)) {
-    idx <- match(name, fa_tbl$v4_name)
-    if (is_na(idx)) {
-      stop("This Font Awesome icon ('", name, "') does not exist", call. = FALSE)
-    }
-    warning(
-      "The `name` provided ('", name, "') is deprecated in Font Awesome v5:\n",
-      "* please consider using '", fa_tbl[idx, "name"],
-      "' or '", fa_tbl[idx, "full_name"], "' instead",
-      call. = FALSE
+  # Ensure that the `name` value passes basic validation checks
+  check_name_vec(name = name)
+
+  # Get the icon index value in `fa_tbl`
+  idx <-
+    get_icon_idx(
+      name = name,
+      prefer_type = prefer_type
     )
-  }
 
+  # Extract the icon width, its label, and its path
   icon_width <- fa_tbl$width[idx]
   icon_label <- fa_tbl$label[idx]
   icon_path <- fa_tbl$path[idx]
@@ -114,18 +113,19 @@ fa <- function(name,
 
   } else if (!is.null(height) && is.null(width)) {
 
-    width <- paste0(
-      round((icon_width / 512) * height_num, 2),
-      attr(height_num, "unit")
-    )
+    width <-
+      paste0(
+        round((icon_width / 512) * height_num, 2),
+        attr(height_num, "unit")
+      )
 
   } else if (is.null(height) && !is.null(width)) {
 
-    height <- paste0(
-      round(width_num / (icon_width / 512), 2),
-      attr(width_num, "unit")
-    )
-
+    height <-
+      paste0(
+        round(width_num / (icon_width / 512), 2),
+        attr(width_num, "unit")
+      )
   }
 
   # Generate accessibility attributes if either of
@@ -215,3 +215,101 @@ css_length_units <- c(
   "cm", "mm", "in", "px", "pt", "pc", "em", "ex",
   "ch", "rem", "vw", "vh", "vmin", "vmax", "%"
 )
+
+# Retrieve the row indices within fa_tbl for all rows that match the icon name
+# "name", using a variety of interpretations of that name (match on fa_tbl$name,
+# match on fa_tbl$full_name, or using alias_tbl to translate the name).
+#
+# The returned value will be an integer vector, that may be:
+# * Length 0: No results found
+# * Length 1: Found exactly one type
+# * Length >1: This icon comes in multiple types
+get_icon_idx_all_types <- function(name) {
+
+  # Attempt to match supplied `name` to short name in `fa_tbl$name`
+  idx <- match(name, fa_tbl$full_name)
+  if (!is.na(idx)) {
+    return(idx)
+  }
+
+  # An `NA` value means that no match was made so there will be
+  # another attempt to match against the full name in `fa_tbl$full_name`
+  idx <- which(fa_tbl$name == name)
+  if (length(idx) > 0) {
+    return(idx)
+  }
+
+  # If still no match then there will be a final attempt to match against an
+  # alias name in `alias_tbl$alias`; it's important to note that these alias
+  # names are all short names (e.g., "vcard" is an alias to the canonical name
+  # `address-card`);
+  canonical_name <- alias_tbl[alias_tbl$alias == name, "name", drop = TRUE]
+  if (length(canonical_name) > 0) {
+    idx <- which(fa_tbl$name == canonical_name)
+    return(idx)
+  }
+
+  # Nothing was found
+  return(integer(0))
+}
+
+get_icon_idx <- function(
+    name,
+    prefer_type,
+    fail_on_unknown_name = TRUE,
+    msg_on_unknown_name = TRUE
+) {
+
+  # Get all fa_tbl indices that match--if any
+  idx <- get_icon_idx_all_types(name = name)
+
+  if (length(idx) == 0) {
+    if (!fail_on_unknown_name) {
+
+      if (msg_on_unknown_name) {
+        message(
+          "The `name` provided ('", name, "') does not correspond to a known icon"
+        )
+      }
+
+      # This is only in the case of `fa_i()` where an unmatched name
+      # should generate an <i> tag anyway
+      return(NA_integer_)
+
+    } else {
+
+      stop(
+        "The `name` provided ('", name, "') does not correspond to a known icon",
+        call. = FALSE
+      )
+    }
+  }
+
+  # The possible use of a short name may result in a single match in the
+  # `name` column of `fa_tbl`, no match at all, or multiple matches (usually
+  # 2, but 3 in the case of `"font-awesome"`); resolve multiple matches with
+  # the `prefer_type` value
+  if (length(idx) > 1) {
+    exact_match <- intersect(idx, which(fa_tbl$style == prefer_type))
+    if (length(exact_match) == 1) {
+      idx <- exact_match
+    } else {
+      # There were multiple icon types available, but not the one that was
+      # indicated by `prefer_type`. Just use the first one.
+      idx <- idx[1]
+    }
+  }
+
+  idx
+}
+
+check_name_vec <- function(name) {
+
+  if (!is.character(name)) {
+    stop("A character vector should be supplied for `name`.", call. = FALSE)
+  }
+
+  if (length(name) != 1) {
+    stop("The number of icons specified in `name` must be 1.", call. = FALSE)
+  }
+}

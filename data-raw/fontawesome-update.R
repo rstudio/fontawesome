@@ -2,7 +2,7 @@
 # file that exists in the `Font-Awesome` repo (address below) and that
 # also ships with the official releases.
 #
-# We assume that icons.json is relatively self-contained and stable.
+# We assume that `icons.json` is relatively self-contained and stable.
 # We cannot assume that any of SVG extracted from this file in this
 # location are considered final
 library(rprojroot)
@@ -12,7 +12,7 @@ library(purrr)
 library(tibble)
 library(withr)
 
-version_tag <- "6.1.1"
+version_tag <- "6.2.0"
 
 base_url <- file.path(
   "https://raw.githubusercontent.com/FortAwesome/Font-Awesome", version_tag
@@ -30,15 +30,15 @@ fa_version <-
     file.path(base_url, "js-packages/@fortawesome/fontawesome-free/package.json")
   )$version
 
-# Tidy the `shims` table
-fa_tbl_shims <-
-  shims %>%
-  tibble::enframe("v4_name", "current_name") %>%
-  dplyr::mutate(
-    v4_prefix = map_chr(current_name, function(x) x[["prefix"]] %||% NA),
-    current_name = map_chr(current_name, function(x) x[["name"]] %||% NA)
-  ) %>%
-  dplyr::select(current_name, v4_name, v4_prefix)
+# # Tidy the `shims` table
+# fa_tbl_shims <-
+#   shims %>%
+#   tibble::enframe("v4_name", "current_name") %>%
+#   dplyr::mutate(
+#     v4_prefix = map_chr(current_name, function(x) x[["prefix"]] %||% NA),
+#     current_name = map_chr(current_name, function(x) x[["name"]] %||% NA)
+#   ) %>%
+#   dplyr::select(current_name, v4_name, v4_prefix)
 
 
 # Tidy the `icons` table
@@ -63,14 +63,34 @@ fa_tbl <-
   dplyr::mutate(prefix = paste0("fa", substr(style, 1, 1))) %>%
   dplyr::select(name, prefix, full_name, everything())
 
+# # Add shim info to `icons` table
+# fa_tbl <-
+#   fa_tbl %>%
+#   dplyr::left_join(fa_tbl_shims, by = c("name" = "current_name")) %>%
+#   dplyr::mutate(v4_name = ifelse(is.na(v4_name), name, v4_name)) %>%
+#   dplyr::mutate(v4_prefix = ifelse(is.na(v4_prefix), name, v4_prefix)) %>%
+#   dplyr::as_tibble()
 
-# Add shim info to `icons` table
-fa_tbl <-
-  fa_tbl %>%
-  dplyr::left_join(fa_tbl_shims, by = c("name" = "current_name")) %>%
-  dplyr::mutate(v4_name = ifelse(is.na(v4_name), name, v4_name)) %>%
-  dplyr::mutate(v4_prefix = ifelse(is.na(v4_prefix), name, v4_prefix)) %>%
-  dplyr::as_tibble()
+# Create a table of alias names
+alias_tbl <-
+  dplyr::tibble(
+    alias = character(0),
+    name = character(0)
+  )
+
+for (ico in names(icons)) {
+
+  if (!is.null(icons[[ico]][["aliases"]][["names"]])) {
+
+    alias_tbl_i <-
+      dplyr::tibble(
+        alias = icons[[ico]][["aliases"]][["names"]],
+        name = ico
+      )
+
+    alias_tbl <- dplyr::bind_rows(alias_tbl, alias_tbl_i)
+  }
+}
 
 # Generate the `font_awesome_brands` vector for faster retrieval
 # in `fa_i()`
@@ -93,8 +113,8 @@ expect_col_vals_not_null(fa_tbl, "min_x")
 expect_col_vals_not_null(fa_tbl, "min_y")
 expect_col_vals_not_null(fa_tbl, "width")
 expect_col_vals_not_null(fa_tbl, "height")
-expect_col_vals_not_null(fa_tbl, "v4_name")
-expect_col_vals_not_null(fa_tbl, "v4_prefix")
+# expect_col_vals_not_null(fa_tbl, "v4_name")
+# expect_col_vals_not_null(fa_tbl, "v4_prefix")
 expect_col_vals_not_null(fa_tbl, "label")
 
 # Expect that the `style` column contains 3 types of values
@@ -111,12 +131,12 @@ expect_col_vals_regex(
   regex = "^[a-z0-9-]*?$"
 )
 
-# Expect that the `v4_name` column only has a certain character set
-expect_col_vals_regex(
-  fa_tbl,
-  columns = "v4_name",
-  regex = "^[a-z0-9-]*?$"
-)
+# # Expect that the `v4_name` column only has a certain character set
+# expect_col_vals_regex(
+#   fa_tbl,
+#   columns = "v4_name",
+#   regex = "^[a-z0-9-]*?$"
+# )
 
 # Expect values in the `full_name` column to adhere to a specific pattern
 expect_col_vals_regex(
@@ -149,12 +169,12 @@ expect_col_vals_gt(
 )
 
 # Expect these column names in the table
-expect_col_vals_in_set(
+expect_col_vals_make_set(
   tibble(col_names = colnames(fa_tbl)),
   columns = vars(col_names),
   set = c(
-    "name", "prefix", "full_name", "label", "style", "path", "min_x",
-    "min_y", "width", "height", "v4_name", "v4_prefix"
+    "name", "prefix", "full_name", "label", "style",
+    "path", "min_x", "min_y", "width", "height"
   )
 )
 
@@ -168,11 +188,16 @@ expect_col_vals_equal(fa_tbl, "height", 512)
 expect_col_is_integer(fa_tbl, vars(min_x, min_y, width, height))
 
 # ==============================================================================
-# Save the icon info to disk
+# Save the icon and alias info to disk
 # ==============================================================================
 
-# Write the `fa_tbl` table to internal data ('R/sysdata.rda')
-usethis::use_data(fa_tbl, overwrite = TRUE, internal = TRUE)
+# Write the `fa_tbl` and `alias_tbl` tables to internal
+# data ('R/sysdata.rda')
+usethis::use_data(
+  fa_tbl,
+  alias_tbl,
+  overwrite = TRUE, internal = TRUE
+)
 
 # Write a CSV to the `data-raw` folder for other projects to consume
 readr::write_csv(

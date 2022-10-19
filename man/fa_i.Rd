@@ -8,26 +8,30 @@ fa_i(
   name,
   class = NULL,
   ...,
-  html_dependency = fa_html_dependency(),
-  verify_fa = TRUE
+  prefer_type = c("regular", "solid"),
+  html_dependency = fa_html_dependency()
 )
 }
 \arguments{
 \item{name}{The name of the Font Awesome icon. This could be as a short name
 (e.g., \code{"npm"}, \code{"drum"}, etc.), or, a full name (e.g., \code{"fab fa-npm"},
-\code{"fas fa-drum"}, etc.). The names should correspond to current Version 5
-Font Awesome names. A list of short and full names can be accessed through
-the \code{\link[=fa_metadata]{fa_metadata()}} function with \code{fa_metadata()$icon_names} and
-\code{fa_metadata()$icon_names_full}. If supplying a Version 4 icon name, it
-will be internally translated to the Version 5 icon name and a Version 5
-icon will be returned. A data frame containing the short names that changed
-from version 4 (\code{v4_name}) to version 5 (\code{v5_name}) can be obtained by
-using \code{fa_metadata()$v4_v5_name_tbl}.}
+\code{"fas fa-drum"}, etc.). The names should correspond to current Font Awesome
+names. A list of short and full names can be accessed through the
+\code{\link[=fa_metadata]{fa_metadata()}} function with \code{fa_metadata()$icon_names} and
+\code{fa_metadata()$icon_names_full}. If supplying a known alias to a short icon
+name (e.g., \code{"vcard"}, which is now \code{"address-card"}), it will be
+internally translated to the current icon name before returning the icon
+tag.}
 
-\item{class}{Additional classes to customize the style of the icon (see the
-usage examples for details on supported styles).}
+\item{class}{Additional classes to customize the style of the icon.}
 
 \item{...}{Arguments passed to the \verb{<i>} tag of \link[htmltools:builder]{htmltools::tags}.}
+
+\item{prefer_type}{Chooses the type of icon returned if: (1) providing a
+short name, and (2) that icon has both solid and regular types.
+For example, using \code{name = "address-book"} will result in two types of
+icons for an Address Book. By default, this preference is set to
+\code{"regular"} and the other option is \code{"solid"}.}
 
 \item{html_dependency}{Provides an opportunity to use a custom
 \code{html_dependency} object (created via a call to
@@ -35,14 +39,8 @@ usage examples for details on supported styles).}
 (which uses Font Awesome's free assets and are bundled in the package). A
 custom \code{html_dependency} object is useful when you have paid icons from
 Font Awesome or would otherwise like to customize exactly which icon assets
-are used (e.g., woff, woff2, eot, etc.). By default, this is \code{NULL} where
-the function internally generates an \code{html_dependency}.}
-
-\item{verify_fa}{An option to verify the provided icon \code{name}. If \code{TRUE} (the
-default), internal checks will take place and issue messages should the
-\code{name} is a Font Awesome 4 icon name (the message will provide the Version
-5 name), or, if the icon name cannot be found in either Font Awesome 4 or
-5.}
+are used (e.g., \code{woff}, \code{woff2}, \code{eot}, etc.). By default, this is \code{NULL}
+where the function internally generates an \code{html_dependency}.}
 }
 \value{
 An icon element.

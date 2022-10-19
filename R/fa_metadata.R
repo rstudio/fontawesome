@@ -15,8 +15,6 @@
 #' solid (`"s"`), and brand (`"b"`) groups
 #' - `icon_names_full_fa(r|s|b)`: Vectors with the full names of icons within
 #' the regular (`"r"`), solid (`"s"`), and brand (`"b"`) groups
-#' - `v4_v5_name_tbl`: A data frame containing the short names that changed
-#' from version 4 (`v4_name`) to version 5 (`v5_name`) of Font Awesome
 #'
 #' @return A list with metadata for the included Font Awesome assets.
 #'
@@ -41,13 +39,6 @@ fa_metadata <- function() {
   icon_names_full_fas <- unique(fa_tbl$full_name[grepl("fas ", fa_tbl$full_name)])
   icon_names_full_fab <- unique(fa_tbl$full_name[grepl("fab ", fa_tbl$full_name)])
 
-  # Generate a table that has the changes in short names
-  # from version 4 to version 5 of FA
-  v4_v5 <- fa_tbl[, c("v4_name", "name")]
-  names(v4_v5) <- c("v4_name", "v5_name")
-  v4_v5 <- v4_v5[v4_v5$v4_name != v4_v5$v5_name, ]
-  v4_v5 <- v4_v5[!duplicated(v4_v5), ]
-
   list(
     version = fa_version,
     icon_count = length(icon_names),
@@ -58,7 +49,6 @@ fa_metadata <- function() {
     icon_names_fab = icon_names_fab,
     icon_names_full_far = icon_names_full_far,
     icon_names_full_fas = icon_names_full_fas,
-    icon_names_full_fab = icon_names_full_fab,
-    v4_v5_name_tbl = v4_v5
+    icon_names_full_fab = icon_names_full_fab
   )
 }
