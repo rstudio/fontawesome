@@ -70,6 +70,7 @@ used directly within inline evaluations of R code in R Markdown documents.</p>
 <span>  margin_right <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  position <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  title <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  prefer_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"regular"</span>, <span class="st">"solid"</span><span class="op">)</span>,</span>
 <span>  a11y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"deco"</span>, <span class="st">"sem"</span>, <span class="st">"none"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -79,14 +80,12 @@ used directly within inline evaluations of R code in R Markdown documents.</p>
     <dl><dt>name</dt>
 <dd><p>The name of the Font Awesome icon. This could be as a short name
 (e.g., <code>"npm"</code>, <code>"drum"</code>, etc.), or, a full name (e.g., <code>"fab fa-npm"</code>,
-<code>"fas fa-drum"</code>, etc.). The names should correspond to current Version 5
+<code>"fas fa-drum"</code>, etc.). The names should correspond to current Version 6
 Font Awesome names. A list of short and full names can be accessed through
 the <code><a href="fa_metadata.html">fa_metadata()</a></code> function with <code>fa_metadata()$icon_names</code> and
-<code>fa_metadata()$icon_names_full</code>. If supplying a Version 4 icon name, it
-will be internally translated to the Version 5 icon name and a Version 5
-icon will be returned. A data frame containing the short names that changed
-from version 4 (<code>v4_name</code>) to version 5 (<code>v5_name</code>) can be obtained by
-using <code>fa_metadata()$v4_v5_name_tbl</code>.</p></dd>
+<code>fa_metadata()$icon_names_full</code>. If supplying a previous name associated
+with the icon, it will be internally translated to the current name and a
+Version 6 icon will be returned.</p></dd>
 
 
 <dt>fill, fill_opacity</dt>
@@ -130,6 +129,14 @@ provides on-hover text for the icon. By default, no title text is given to
 the icon. If <code>a11y == "semantic"</code> then title text will be
 automatically given to the rendered icon, however, providing text here
 will override that.</p></dd>
+
+
+<dt>prefer_type</dt>
+<dd><p>Chooses the type of icon returned if: (1) providing a
+short name, and (2) that icon has both solid and regular types.
+For example, using <code>name = "address-book"</code> will result in two types of
+icons for an Address Book. By default, this preference is set to
+<code>"regular"</code> and the other option is <code>"solid"</code>.</p></dd>
 
 
 <dt>a11y</dt>

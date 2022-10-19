@@ -72,7 +72,8 @@ error message.</p>
 <span>  stroke_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  stroke_opacity <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  height <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  width <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  prefer_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"regular"</span>, <span class="st">"solid"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -106,6 +107,14 @@ decimal values between <code>0</code> and <code>1</code> (bounds included).</p><
 <dd><p>The output height and width of the rendered PNG. If
 nothing is provided then the output dimensions will match that of the input
 SVG viewBox.</p></dd>
+
+
+<dt>prefer_type</dt>
+<dd><p>Chooses the type of icon returned if: (1) providing a
+short name, and (2) that icon has both solid and regular types.
+For example, using <code>name = "address-book"</code> will result in two types of
+icons for an Address Book. By default, this preference is set to
+<code>"regular"</code> and the other option is <code>"solid"</code>.</p></dd>
 
 </dl></div>
     <div id="value">

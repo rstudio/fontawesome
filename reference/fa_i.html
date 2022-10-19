@@ -65,8 +65,8 @@ hosted in the <strong>fontawesome</strong> package.</p>
 <span>  <span class="va">name</span>,</span>
 <span>  class <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span>,</span>
-<span>  html_dependency <span class="op">=</span> <span class="fu"><a href="fa_html_dependency.html">fa_html_dependency</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  verify_fa <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  prefer_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"regular"</span>, <span class="st">"solid"</span><span class="op">)</span>,</span>
+<span>  html_dependency <span class="op">=</span> <span class="fu"><a href="fa_html_dependency.html">fa_html_dependency</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -75,23 +75,29 @@ hosted in the <strong>fontawesome</strong> package.</p>
     <dl><dt>name</dt>
 <dd><p>The name of the Font Awesome icon. This could be as a short name
 (e.g., <code>"npm"</code>, <code>"drum"</code>, etc.), or, a full name (e.g., <code>"fab fa-npm"</code>,
-<code>"fas fa-drum"</code>, etc.). The names should correspond to current Version 5
-Font Awesome names. A list of short and full names can be accessed through
-the <code><a href="fa_metadata.html">fa_metadata()</a></code> function with <code>fa_metadata()$icon_names</code> and
-<code>fa_metadata()$icon_names_full</code>. If supplying a Version 4 icon name, it
-will be internally translated to the Version 5 icon name and a Version 5
-icon will be returned. A data frame containing the short names that changed
-from version 4 (<code>v4_name</code>) to version 5 (<code>v5_name</code>) can be obtained by
-using <code>fa_metadata()$v4_v5_name_tbl</code>.</p></dd>
+<code>"fas fa-drum"</code>, etc.). The names should correspond to current Font Awesome
+names. A list of short and full names can be accessed through the
+<code><a href="fa_metadata.html">fa_metadata()</a></code> function with <code>fa_metadata()$icon_names</code> and
+<code>fa_metadata()$icon_names_full</code>. If supplying a known alias to a short icon
+name (e.g., <code>"vcard"</code>, which is now <code>"address-card"</code>), it will be
+internally translated to the current icon name before returning the icon
+tag.</p></dd>
 
 
 <dt>class</dt>
-<dd><p>Additional classes to customize the style of the icon (see the
-usage examples for details on supported styles).</p></dd>
+<dd><p>Additional classes to customize the style of the icon.</p></dd>
 
 
 <dt>...</dt>
 <dd><p>Arguments passed to the <code>&lt;i&gt;</code> tag of <a href="https://rdrr.io/pkg/htmltools/man/builder.html" class="external-link">htmltools::tags</a>.</p></dd>
+
+
+<dt>prefer_type</dt>
+<dd><p>Chooses the type of icon returned if: (1) providing a
+short name, and (2) that icon has both solid and regular types.
+For example, using <code>name = "address-book"</code> will result in two types of
+icons for an Address Book. By default, this preference is set to
+<code>"regular"</code> and the other option is <code>"solid"</code>.</p></dd>
 
 
 <dt>html_dependency</dt>
@@ -101,16 +107,8 @@ usage examples for details on supported styles).</p></dd>
 (which uses Font Awesome's free assets and are bundled in the package). A
 custom <code>html_dependency</code> object is useful when you have paid icons from
 Font Awesome or would otherwise like to customize exactly which icon assets
-are used (e.g., woff, woff2, eot, etc.). By default, this is <code>NULL</code> where
-the function internally generates an <code>html_dependency</code>.</p></dd>
-
-
-<dt>verify_fa</dt>
-<dd><p>An option to verify the provided icon <code>name</code>. If <code>TRUE</code> (the
-default), internal checks will take place and issue messages should the
-<code>name</code> is a Font Awesome 4 icon name (the message will provide the Version
-5 name), or, if the icon name cannot be found in either Font Awesome 4 or
-5.</p></dd>
+are used (e.g., <code>woff</code>, <code>woff2</code>, <code>eot</code>, etc.). By default, this is <code>NULL</code>
+where the function internally generates an <code>html_dependency</code>.</p></dd>
 
 </dl></div>
     <div id="value">
