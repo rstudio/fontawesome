@@ -30,6 +30,8 @@
 #'   left or right of the icon. By default, `"auto"` is used for both
 #'   properties. If space is needed on either side then a length of `"0.2em"` is
 #'   recommended as a starting point.
+#' @param vertical_align The vertical alignment of the icon. By default, a
+#'   length of `"-0.125em"` is used.
 #' @param position The value for the `position` style attribute. By default,
 #'   `"relative"` is used here.
 #' @param title An option for populating the SVG `'title'` attribute, which
@@ -70,6 +72,7 @@ fa <- function(
     width = NULL,
     margin_left = NULL,
     margin_right = NULL,
+    vertical_align = NULL,
     position = NULL,
     title = NULL,
     prefer_type = c("regular", "solid"),
@@ -144,21 +147,22 @@ fa <- function(
   # changing value: the width
   viewbox <- c(`min-x` = 0, `min-y` = 0, width = icon_width, height = 512)
 
-  style_attr <- paste0(
-    "height:", height, ";",
-    "width:", width, ";",
-    "vertical-align:-0.125em;",
-    "margin-left:", margin_left %||% "auto", ";",
-    "margin-right:", margin_right %||% "auto", ";",
-    "font-size:inherit;",
-    "fill:", fill %||% "currentColor", ";",
-    "overflow:visible;",
-    if (!is.null(fill_opacity)) paste0("fill-opacity:", fill_opacity, ";"),
-    if (!is.null(stroke)) paste0("stroke:", stroke, ";"),
-    if (!is.null(stroke_width)) paste0("stroke-width:", stroke_width, ";"),
-    if (!is.null(stroke_opacity)) paste0("stroke-opacity:", stroke_opacity, ";"),
-    "position:", position %||% "relative", ";"
-   )
+  style_attr <-
+    paste0(
+      "height:", height, ";",
+      "width:", width, ";",
+      "vertical-align:", vertical_align %||% "-0.125em", ";",
+      "margin-left:", margin_left %||% "auto", ";",
+      "margin-right:", margin_right %||% "auto", ";",
+      "font-size:inherit;",
+      "fill:", fill %||% "currentColor", ";",
+      "overflow:visible;",
+      if (!is.null(fill_opacity)) paste0("fill-opacity:", fill_opacity, ";"),
+      if (!is.null(stroke)) paste0("stroke:", stroke, ";"),
+      if (!is.null(stroke_width)) paste0("stroke-width:", stroke_width, ";"),
+      if (!is.null(stroke_opacity)) paste0("stroke-opacity:", stroke_opacity, ";"),
+      "position:", position %||% "relative", ";"
+    )
 
   svg_attrs <- paste0(
     svg_attrs, sprintf(
