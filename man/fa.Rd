@@ -15,6 +15,7 @@ fa(
   width = NULL,
   margin_left = NULL,
   margin_right = NULL,
+  vertical_align = NULL,
   position = NULL,
   title = NULL,
   prefer_type = c("regular", "solid"),
@@ -52,6 +53,9 @@ units of \code{"em"} on the basis of the icon's SVG \code{"viewBox"} dimensions.
 left or right of the icon. By default, \code{"auto"} is used for both
 properties. If space is needed on either side then a length of \code{"0.2em"} is
 recommended as a starting point.}
+
+\item{vertical_align}{The vertical alignment of the icon. By default, a
+length of \code{"-0.125em"} is used.}
 
 \item{position}{The value for the \code{position} style attribute. By default,
 \code{"relative"} is used here.}
