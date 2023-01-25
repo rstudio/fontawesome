@@ -15,7 +15,7 @@ Authors@R: c(
     person("Winston", "Chang", , "winston@rstudio.com", role = "ctb"),
     person("Dave", "Gandy", role = c("ctb", "cph"),
            comment = "Font-Awesome font"),
-    person("RStudio", role = c("cph", "fnd"))
+    person("Posit Software, PBC", role = c("cph", "fnd"))
     )
 License: MIT + file LICENSE
 URL: https://github.com/rstudio/fontawesome, https://rstudio.github.io/fontawesome/
