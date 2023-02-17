@@ -12,7 +12,7 @@ library(purrr)
 library(tibble)
 library(withr)
 
-version_tag <- "6.2.1"
+version_tag <- "6.3.0"
 
 base_url <- file.path(
   "https://raw.githubusercontent.com/FortAwesome/Font-Awesome", version_tag
@@ -42,10 +42,10 @@ fa_tbl <-
   tidyr::unnest(svg) %>%
   dplyr::mutate(
     path = map_chr(svg_info, "path"),
-    min_x = as.integer(purrr::map_chr(svg_info, ~.x$viewBox[1])),
-    min_y = as.integer(purrr::map_chr(svg_info, ~.x$viewBox[2])),
-    width = as.integer(purrr::map_chr(svg_info, ~.x$viewBox[3])),
-    height = as.integer(purrr::map_chr(svg_info, ~.x$viewBox[4]))
+    min_x =  purrr::map_int(svg_info, ~as.integer(.x$viewBox[1])),
+    min_y =  purrr::map_int(svg_info, ~as.integer(.x$viewBox[2])),
+    width =  purrr::map_int(svg_info, ~as.integer(.x$viewBox[3])),
+    height = purrr::map_int(svg_info, ~as.integer(.x$viewBox[4]))
   ) %>%
   dplyr::select(-svg_info) %>%
   dplyr::mutate(full_name = paste0("fa", substr(style, 1, 1), " fa-", name)) %>%
@@ -250,11 +250,12 @@ filenames <- c(
 # Copy the complete set of CSS and font files to `inst/fontawesome`
 copy_files(source_dir, dest_dir, filenames)
 
-# Remove font files that won't be supported in this package
-# Note: v6+ discontinues support for .woff in favor of .woff2
+# Remove some font files that won't be supported in this package
+# Note: v6+ discontinues support for .woff in favor of .woff2, ttf is retained
 withr::with_dir(dest_dir, {
 
-  # Patch the `all.css` file to remove entries for all but `woff` icon files
+  # Patch the `all.css` file to remove entries for all but `woff2`
+  # and `ttf` icon files
   readr::read_file(file = "css/all.css") %>%
     gsub(
       "src: url\\(.../webfonts/fa-([^.]+).*?}",
@@ -263,7 +264,8 @@ withr::with_dir(dest_dir, {
     ) %>%
     readr::write_file(file = "css/all.css")
 
- # Patch the `all.min.css` file to remove entries for all but `woff` icon files
+ # Patch the `all.min.css` file to remove entries for all but `woff2`
+  # and `ttf` icon files
  readr::read_file(file = "css/all.min.css") %>%
    gsub(
      "src:url\\(../webfonts/fa-([^.]+).*?}",
