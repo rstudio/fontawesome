@@ -12,11 +12,12 @@ library(purrr)
 library(tibble)
 library(withr)
 
-version_tag <- "6.3.0"
+version_tag <- "6.4.0"
 
-base_url <- file.path(
-  "https://raw.githubusercontent.com/FortAwesome/Font-Awesome", version_tag
-)
+base_url <-
+  file.path(
+    "https://raw.githubusercontent.com/FortAwesome/Font-Awesome", version_tag
+  )
 
 # FA4 -> FA6 shims
 shims <- yaml::read_yaml(file.path(base_url, "metadata/shims.yml"))
@@ -73,8 +74,7 @@ for (ico in names(icons)) {
   }
 }
 
-# Generate the `font_awesome_brands` vector for faster retrieval
-# in `fa_i()`
+# Generate the `font_awesome_brands` vector for faster retrieval in `fa_i()`
 font_awesome_brands <- unique(fa_tbl$name[grepl("fab ", fa_tbl$full_name)])
 
 # ==============================================================================
@@ -117,8 +117,7 @@ expect_col_vals_regex(
   regex = "^fa[brs] fa-[a-z0-9-]*?$"
 )
 
-# Expect that the prefix of `full_name` corresponds to the
-# `style` value
+# Expect that the prefix of `full_name` corresponds to the `style` value
 expect_col_vals_expr(fa_tbl, ~ case_when(
   style == "regular" ~ grepl("^far", full_name),
   style == "solid" ~ grepl("^fas", full_name),
@@ -163,8 +162,7 @@ expect_col_is_integer(fa_tbl, vars(min_x, min_y, width, height))
 # Save the icon and alias info to disk
 # ==============================================================================
 
-# Write the `fa_tbl` and `alias_tbl` tables to internal
-# data ('R/sysdata.rda')
+# Write the `fa_tbl` and `alias_tbl` tables to internal data ('R/sysdata.rda')
 usethis::use_data(
   fa_tbl,
   alias_tbl,
@@ -239,13 +237,14 @@ copy_files <- function(srcdir, destdir, filenames) {
   }
 }
 
-filenames <- c(
-  "css/all.css",
-  "css/all.min.css",
-  "css/v4-shims.css",
-  "css/v4-shims.min.css",
-  file.path("webfonts", dir(file.path(source_dir, "webfonts")))
-)
+filenames <-
+  c(
+    "css/all.css",
+    "css/all.min.css",
+    "css/v4-shims.css",
+    "css/v4-shims.min.css",
+    file.path("webfonts", dir(file.path(source_dir, "webfonts")))
+  )
 
 # Copy the complete set of CSS and font files to `inst/fontawesome`
 copy_files(source_dir, dest_dir, filenames)
