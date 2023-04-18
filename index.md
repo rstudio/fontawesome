@@ -4,8 +4,11 @@
 <a href="https://cran.r-project.org/package=fontawesome"><img src="https://www.r-pkg.org/badges/version/fontawesome" alt="CRAN status" /></a>
 <a href="https://github.com/rstudio/fontawesome/actions"><img src="https://github.com/rstudio/fontawesome/workflows/R-CMD-check/badge.svg" alt="R build status" /></a>
 <a href="https://github.com/rstudio/fontawesome/actions"><img src="https://github.com/rstudio/fontawesome/workflows/pkgdown/badge.svg" alt="Package Site" /></a>
-<a href="https://codecov.io/gh/rstudio/fontawesome?branch=main"><img src="https://codecov.io/gh/rstudio/fontawesome/branch/main/graph/badge.svg" alt="Coverage status" /></a>
-<a href="https://www.contributor-covenant.org/version/2/0/code_of_conduct/"><img src="https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg" alt="Contributor Covenant" /></a>
+<a href="https://app.codecov.io/gh/rstudio/fontawesome?branch=main"><img src="https://codecov.io/gh/rstudio/fontawesome/branch/main/graph/badge.svg" alt="Coverage status" /></a>
+<a href="https://www.repostatus.org/#active"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="The project has reached a stable, usable state and is being actively developed." /></a>
+<a href="https://CRAN.R-project.org/package=fontawesome"><img src="https://cranlogs.r-pkg.org/badges/fontawesome" alt="Monthly Downloads"></a>
+<a href="https://CRAN.R-project.org/package=fontawesome"><img src="https://cranlogs.r-pkg.org/badges/grand-total/fontawesome" alt="Total Downloads"></a>
+<a href="https://www.contributor-covenant.org/version/2/1/code_of_conduct.html"><img src="https://img.shields.io/badge/Contributor%20Covenant-v2.1%20adopted-ff69b4.svg" alt="Contributor Covenant" /></a>
 <!-- badges: end -->
 
 
@@ -33,7 +36,7 @@ Let's talk about this package in [**fontawesome** Discussions](https://github.co
 
 ### Code of Conduct
 
-Please note that the `rstudio/fontawesome` project is released with a [contributor code of conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct/).<br>By participating in this project you agree to abide by its terms.
+Please note that the `rstudio/fontawesome` project is released with a [contributor code of conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct.html).<br>By participating in this project you agree to abide by its terms.
 
 ### 🏛️ Governance
 
