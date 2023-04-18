@@ -1,5 +1,7 @@
 # fontawesome 0.5.1
 
+* Updated icon set to that of Font Awesome 6.4.0. (#109)
+
 # fontawesome 0.5.0
 
 * Updated icon set to that of Font Awesome 6.2.1. (#102)
