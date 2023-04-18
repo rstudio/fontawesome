@@ -1,6 +1,6 @@
 Type: Package
 Package: fontawesome
-Version: 0.5.0.9000
+Version: 0.5.1
 Title: Easily Work with 'Font Awesome' Icons
 Description: Easily and flexibly insert 'Font Awesome' icons into 'R Markdown'
     documents and 'Shiny' apps. These icons can be inserted into HTML content
@@ -8,11 +8,11 @@ Description: Easily and flexibly insert 'Font Awesome' icons into 'R Markdown'
     exporting 'Font Awesome' icons as 'PNG' images for those situations where
     raster graphics are needed.
 Authors@R: c(
-    person("Richard", "Iannone", , "rich@rstudio.com", c("aut", "cre"),
+    person("Richard", "Iannone", , "rich@posit.co", c("aut", "cre"),
            comment = c(ORCID = "0000-0003-3925-190X")),
-    person("Christophe", "Dervieux", , "cderv@rstudio.com", role = "ctb",
+    person("Christophe", "Dervieux", , "cderv@posit.co", role = "ctb",
            comment = c(ORCID = "0000-0003-4474-2498")),
-    person("Winston", "Chang", , "winston@rstudio.com", role = "ctb"),
+    person("Winston", "Chang", , "winston@posit.co", role = "ctb"),
     person("Dave", "Gandy", role = c("ctb", "cph"),
            comment = "Font-Awesome font"),
     person("Posit Software, PBC", role = c("cph", "fnd"))
