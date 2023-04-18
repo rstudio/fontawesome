@@ -9,7 +9,7 @@ packaged as .svg and .js file types).
 
 # MIT License
 
-Copyright (c) 2021 RStudio, PBC.
+Copyright (c) 2018-2023 fontawesome authors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
