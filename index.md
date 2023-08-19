@@ -1,4 +1,6 @@
-# fontawesome <img src="man/figures/logo.svg" align="right" alt="" width="120" />
+<div align="center">
+
+<a href="https://gt.rstudio.com/"><img src="man/figures/logo.svg" width="350px"/></a>
 
 <!-- badges: start -->
 <a href="https://cran.r-project.org/package=fontawesome"><img src="https://www.r-pkg.org/badges/version/fontawesome" alt="CRAN status" /></a>
@@ -10,7 +12,9 @@
 <a href="https://CRAN.R-project.org/package=fontawesome"><img src="https://cranlogs.r-pkg.org/badges/grand-total/fontawesome" alt="Total Downloads"></a>
 <a href="https://www.contributor-covenant.org/version/2/1/code_of_conduct.html"><img src="https://img.shields.io/badge/Contributor%20Covenant-v2.1%20adopted-ff69b4.svg" alt="Contributor Covenant" /></a>
 <!-- badges: end -->
-
+<hr style="color:transparent" />
+<br />
+</div>
 
 The **fontawesome** R package makes it very easy to insert **Font Awesome** icons into **R Markdown** documents and **Shiny** apps (or, anywhere else you need to put them).
 
