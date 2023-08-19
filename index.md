@@ -1,6 +1,6 @@
 <div align="center">
 
-<a href="https://gt.rstudio.com/"><img src="man/figures/logo.svg" width="350px"/></a>
+<a href="https://rstudio.github.io/fontawesome/"><img src="man/figures/logo.svg" width="350px"/></a>
 
 <!-- badges: start -->
 <a href="https://cran.r-project.org/package=fontawesome"><img src="https://www.r-pkg.org/badges/version/fontawesome" alt="CRAN status" /></a>
