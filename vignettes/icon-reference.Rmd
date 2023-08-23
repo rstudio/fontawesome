@@ -45,7 +45,6 @@ fontawesome_table <-
       cell_borders(
         sides = c("l", "r"),
         color = "lightblue",
-        style = "dotted",
         weight = px(1.5))
     ),
     locations = cells_body(columns = -icon)
