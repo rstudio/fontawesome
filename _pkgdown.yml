@@ -3,6 +3,9 @@ destination: docs
 home:
   strip_header: true
 
+template:
+  bootstrap: 5
+
 reference:
   - title: Font Awesome Icon Insertion
     desc: >
@@ -19,5 +22,10 @@ reference:
     - fa_html_dependency
     - fa_metadata
 
-development:
-  version_tooltip: "Development version"
+navbar:
+  structure:
+    left: [icons, reference, news]
+  components:
+    icons:
+      text: Icons
+      href: articles/icon-reference.html
