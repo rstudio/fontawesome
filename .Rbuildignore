@@ -9,3 +9,4 @@
 ^data-raw$
 ^tests/manual_tests$
 index.md
+vignettes
