@@ -8,7 +8,7 @@ vignette: >
 ---
 
 ```{r options, message=FALSE, warning=FALSE, include=FALSE}
-library(tidyverse)
+
 library(fontawesome)
 library(gt)
 ```
