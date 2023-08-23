@@ -1,0 +1,81 @@
+---
+title: "Icon Reference"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Icon Reference}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r options, message=FALSE, warning=FALSE, include=FALSE}
+library(tidyverse)
+library(fontawesome)
+library(gt)
+```
+
+The `fontawesome` package has `r vec_fmt_integer(length(fontawesome::fa_metadata()[["icon_names_full"]]))` icons. *That's a lot of icons!* This reference table lists them all in alphabetical order by the icon name. With a function like `fa()`, you can use **Icon Name**, and not the **Full Name**, for sake of simplicity. Not too many icons have variants (those that do have both the *Solid* and *Regular* forms) but if you prefer a specific form the **Full Name** can be used within `fa()`.
+
+<hr />
+
+```{r echo=FALSE}
+fa_icons_vec <- c()
+
+for (i in seq_len(nrow(fontawesome:::fa_tbl))) {
+
+  icon_svg_i <- as.character(fontawesome::fa(fontawesome:::fa_tbl[i, ][["full_name"]]))
+  fa_icons_vec <- c(fa_icons_vec, icon_svg_i)
+}
+
+fontawesome_table <-
+  fontawesome:::fa_tbl |>
+  dplyr::select(icon = name, label, icon_name = name, full_name) |>
+  dplyr::mutate(icon = fa_icons_vec) |>
+  gt() |>
+  fmt_markdown(columns = icon) |>
+  cols_label(
+    icon = ""
+  ) |>
+  cols_label_with(fn = function(x) gsub("_", " ", x)) |>
+  tab_style(
+    style = list(
+      cell_text(
+        font = system_fonts(name = "monospace-code"),
+        size = px(12)
+      ),
+      cell_borders(
+        sides = c("l", "r"),
+        color = "lightblue",
+        style = "dotted",
+        weight = px(1.5))
+    ),
+    locations = cells_body(columns = -icon)
+  ) |>
+  tab_style(
+    style = css(position = "sticky", top = "-1em", `z-index` = 10),
+    locations = cells_column_labels()
+  ) |>
+  tab_style(
+    style = cell_fill(color = "lightblue"),
+    locations = cells_body(columns = icon)
+  ) |>
+  cols_align(align = "center", columns = icon) |>
+  cols_width(
+    icon ~ px(50),
+    label ~ px(200),
+    icon_name ~ px(200),
+    full_name ~ px(230)
+  ) |>
+  opt_all_caps() |>
+  opt_stylize(style = 6) |>
+  tab_options(
+    table.border.top.style = "hidden",
+    column_labels.border.bottom.style = "hidden",
+    container.height = px(490)
+  )
+
+fontawesome_table
+```
+
+<hr />
+
+Data table published on `r gt::vec_fmt_datetime(Sys.time(), format = "EEEE, MMMM d, y 'at' h:mm a ('UTC')")`.
