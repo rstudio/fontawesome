@@ -5,6 +5,7 @@
 ^_pkgdown\.yml$
 ^LICENSE\.md$
 ^/tools$
+^docs$
 ^codecov\.yml$
 ^data-raw$
 ^tests/manual_tests$
