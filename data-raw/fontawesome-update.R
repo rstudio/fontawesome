@@ -12,7 +12,7 @@ library(purrr)
 library(tibble)
 library(withr)
 
-version_tag <- "6.4.2"
+version_tag <- "6.5.2"
 
 base_url <-
   file.path(
