@@ -60,7 +60,7 @@ fa_i <- function(
   if (grepl("^fa[a-z] fa-[a-z-]+$", name)) {
     # Case where fully-qualified icon name is provided
 
-    iconClass <- name
+    iconClass <- paste(c(name, class), collapse = " ")
 
   } else {
     # Case where short icon name is provided
