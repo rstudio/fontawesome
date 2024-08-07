@@ -1,7 +1,6 @@
 pandoc: 3.1.11
-pkgdown: 2.0.7
+pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
   icon-reference: icon-reference.html
-last_built: 2024-04-11T02:40Z
-
+last_built: 2024-08-07T14:54Z
