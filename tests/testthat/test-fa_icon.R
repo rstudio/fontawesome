@@ -257,6 +257,17 @@ test_that("the `fa_i()` function returns an icon object", {
   expect_message(regexp = NA, fa_i("euroz", html_dependency = fake_dep))
 })
 
+test_that("the `fa_i()` function combines fully qualified name and class", {
+  icon_no_class <- fa_i("fas fa-arrows-rotate", class = NULL)
+  expect_equal(icon_no_class$attribs$class, "fas fa-arrows-rotate")
+
+  icon <- fa_i("arrows-rotate", class = "fa-spin", prefer_type = "solid")
+  expect_equal(icon$attribs$class, "fas fa-arrows-rotate fa-spin")
+
+  icon_qualified <- fa_i("fas fa-arrows-rotate", class = "fa-spin")
+  expect_equal(icon_qualified$attribs$class, "fas fa-arrows-rotate fa-spin")
+})
+
 test_that("Known alias names (for short name) result in retrival of icons", {
 
   # Get the complete set of known alias names for the included icons
