@@ -257,7 +257,7 @@ test_that("the `fa_i()` function returns an icon object", {
   expect_message(regexp = NA, fa_i("euroz", html_dependency = fake_dep))
 })
 
-test_that("the `fa_i()` function combines fully qualified named and class", {
+test_that("the `fa_i()` function combines fully qualified name and class", {
   icon_no_class <- fa_i("fas fa-arrows-rotate", class = NULL)
   expect_equal(icon_no_class$attribs$class, "fas fa-arrows-rotate")
 
