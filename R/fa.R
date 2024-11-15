@@ -211,7 +211,7 @@ parse_length_unit <- function(css_length) {
     return(NULL)
   }
 
-  if (!grepl("^^[0-9]*\\.?[0-9]+[a-z]+$", css_length)) {
+  if (!grepl("^^[0-9]*\\.?[0-9]+[a-z%]+$", css_length)) {
 
     stop(
       "Values provided to `height` and `width` must have a numerical value ",
@@ -229,7 +229,7 @@ parse_length_unit <- function(css_length) {
     )
   }
 
-  value <- as.numeric(gsub("[a-z]+$", "", css_length))
+  value <- as.numeric(gsub("[a-z%]+$", "", css_length))
   attr(value, "unit") <- unit
   value
 }
