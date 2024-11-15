@@ -108,8 +108,9 @@ fa <- function(
   height_num <- parse_length_unit(height)
   width_num <- parse_length_unit(width)
 
-  # Fill in height/width defaults
   if (is.null(height) && is.null(width)) {
+
+    # Fill in height/width defaults where `width` and `height` not provided
 
     height <- "1em"
     width <- paste0(round(icon_width / 512, 2), "em")
