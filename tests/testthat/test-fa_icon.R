@@ -137,19 +137,18 @@ test_that("Inserting attributes and styles works for FA icons", {
   # Expect that fractional width values are rendered properly
   expect_match(
     as.character(fa(name = "file", width = "0.75em")),
-    "width:0.75em;"
+    "height:1em;width:0.75em;"
   )
   expect_match(
-    as.character(fa(name = "file", width = ".75em")),
-    "width:.75em;"
+    as.character(fa(name = "file", height = ".75em")),
+    "height:.75em;width:0.56em;"
   )
-
   expect_match(
     as.character(fa(name = "file", width = ".756789em")),
     "width:.756789em;"
   )
 
-  # Expect that not supplying a width value will result in an error
+  # Expect that not supplying a value width value will result in an error
   expect_error(
     as.character(fa(name = "file", width = "em"))
   )
