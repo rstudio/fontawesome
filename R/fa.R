@@ -117,19 +117,37 @@ fa <- function(
 
   } else if (!is.null(height) && is.null(width)) {
 
-    width <-
-      paste0(
-        round((icon_width / 512) * height_num, 2),
-        attr(height_num, "unit")
-      )
+    # Case where `height` is provided but not `width`
+
+    if (grepl("%$", height)) {
+
+      width <- height
+
+    } else {
+
+      width <-
+        paste0(
+          round((icon_width / 512) * height_num, 2),
+          attr(height_num, "unit")
+        )
+    }
 
   } else if (is.null(height) && !is.null(width)) {
 
-    height <-
-      paste0(
-        round(width_num / (icon_width / 512), 2),
-        attr(width_num, "unit")
-      )
+    # Case where `width` is provided but not `height`
+
+    if (grepl("%$", width)) {
+
+      height <- width
+
+    } else {
+
+      height <-
+        paste0(
+          round(width_num / (icon_width / 512), 2),
+          attr(width_num, "unit")
+        )
+    }
   }
 
   # Generate accessibility attributes if either of
