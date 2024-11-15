@@ -1,5 +1,13 @@
 # fontawesome 0.5.3
 
+* Updated icon set to that of Font Awesome 6.5.2. (#119)
+
+* Added page on pkgdown site that contains a table showing all of the icons available in the package. (#113)
+
+* The `fa()` function now allows percentage values to be used as `height` and `width` args (#117). (#125)
+
+* When using `fa_i()`, the `class` value is appended when a fully-qualified `name` is used (#122. (#123, thanks @averissimo !)
+
 # fontawesome 0.5.2
 
 * Updated icon set to that of Font Awesome 6.4.2. (#111)
