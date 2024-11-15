@@ -91,6 +91,12 @@ test_that("Inserting attributes and styles works for FA icons", {
     "stroke:blue;stroke-width:2px;stroke-opacity:0.5;"
   )
 
+  # Expect that not providing width or height results in default values
+  expect_match(
+    as.character(fa(name = "file", height = "30em")),
+    "height:1em;width:0.75em;"
+  )
+
   # Expect that the `height = "30em"` CSS rule is rendered
   expect_match(
     as.character(fa(name = "file", height = "30em")),
