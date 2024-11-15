@@ -91,40 +91,64 @@ test_that("Inserting attributes and styles works for FA icons", {
     "stroke:blue;stroke-width:2px;stroke-opacity:0.5;"
   )
 
+  # Expect that not providing width or height results in default values
+  expect_match(
+    as.character(fa(name = "file")),
+    "height:1em;width:0.75em;"
+  )
+
   # Expect that the `height = "30em"` CSS rule is rendered
   expect_match(
     as.character(fa(name = "file", height = "30em")),
     "height:30em;"
   )
 
-  # Expect a default height of 1em
-  expect_match(
-    as.character(fa(name = "file")),
-    "height:1em;"
-  )
-
-  # Expect that the `width = "1em"` CSS rule is rendered
+  # Expect that the `width = "1em"` CSS rule is rendered and the
+  # default height of 1em is adjusted
   expect_match(
     as.character(fa(name = "file", width = "1em")),
-    "width:1em;"
+    "height:1.33em;width:1em;"
+  )
+
+  # Expect that width and height values as percentages are rendered
+  expect_match(
+    as.character(fa(name = "file", width = "53%")),
+    "height:53%;width:53%;"
+  )
+  expect_match(
+    as.character(fa(name = "file", width = "62%")),
+    "height:62%;width:62%;"
+  )
+  expect_match(
+    as.character(fa(name = "file", height = "53%", width = "62%")),
+    "height:53%;width:62%;"
+  )
+
+  # Expect that mixed CSS lengths and percentages will be passed through
+  expect_match(
+    as.character(fa(name = "file", height = "2em", width = "62%")),
+    "height:2em;width:62%;"
+  )
+  expect_match(
+    as.character(fa(name = "file", height = "53%", width = "14px")),
+    "height:53%;width:14px;"
   )
 
   # Expect that fractional width values are rendered properly
   expect_match(
     as.character(fa(name = "file", width = "0.75em")),
-    "width:0.75em;"
+    "height:1em;width:0.75em;"
   )
   expect_match(
-    as.character(fa(name = "file", width = ".75em")),
-    "width:.75em;"
+    as.character(fa(name = "file", height = ".75em")),
+    "height:.75em;width:0.56em;"
   )
-
   expect_match(
     as.character(fa(name = "file", width = ".756789em")),
     "width:.756789em;"
   )
 
-  # Expect that not supplying a width value will result in an error
+  # Expect that not supplying a value width value will result in an error
   expect_error(
     as.character(fa(name = "file", width = "em"))
   )

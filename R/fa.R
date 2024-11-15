@@ -108,27 +108,46 @@ fa <- function(
   height_num <- parse_length_unit(height)
   width_num <- parse_length_unit(width)
 
-  # Fill in height/width defaults
   if (is.null(height) && is.null(width)) {
+
+    # Fill in height/width defaults where `width` and `height` not provided
 
     height <- "1em"
     width <- paste0(round(icon_width / 512, 2), "em")
 
   } else if (!is.null(height) && is.null(width)) {
 
-    width <-
-      paste0(
-        round((icon_width / 512) * height_num, 2),
-        attr(height_num, "unit")
-      )
+    # Case where `height` is provided but not `width`
+
+    if (grepl("%$", height)) {
+
+      width <- height
+
+    } else {
+
+      width <-
+        paste0(
+          round((icon_width / 512) * height_num, 2),
+          attr(height_num, "unit")
+        )
+    }
 
   } else if (is.null(height) && !is.null(width)) {
 
-    height <-
-      paste0(
-        round(width_num / (icon_width / 512), 2),
-        attr(width_num, "unit")
-      )
+    # Case where `width` is provided but not `height`
+
+    if (grepl("%$", width)) {
+
+      height <- width
+
+    } else {
+
+      height <-
+        paste0(
+          round(width_num / (icon_width / 512), 2),
+          attr(width_num, "unit")
+        )
+    }
   }
 
   # Generate accessibility attributes if either of
@@ -192,7 +211,7 @@ parse_length_unit <- function(css_length) {
     return(NULL)
   }
 
-  if (!grepl("^^[0-9]*\\.?[0-9]+[a-z]+$", css_length)) {
+  if (!grepl("^^[0-9]*\\.?[0-9]+[a-z%]+$", css_length)) {
 
     stop(
       "Values provided to `height` and `width` must have a numerical value ",
@@ -210,7 +229,7 @@ parse_length_unit <- function(css_length) {
     )
   }
 
-  value <- as.numeric(gsub("[a-z]+$", "", css_length))
+  value <- as.numeric(gsub("[a-z%]+$", "", css_length))
   attr(value, "unit") <- unit
   value
 }
