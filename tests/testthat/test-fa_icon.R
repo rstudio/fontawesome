@@ -93,7 +93,7 @@ test_that("Inserting attributes and styles works for FA icons", {
 
   # Expect that not providing width or height results in default values
   expect_match(
-    as.character(fa(name = "file", height = "30em")),
+    as.character(fa(name = "file")),
     "height:1em;width:0.75em;"
   )
 
