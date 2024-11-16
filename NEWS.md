@@ -1,3 +1,5 @@
+# fontawesome (development version)
+
 # fontawesome 0.5.3
 
 * Updated icon set to that of Font Awesome 6.5.2. (#119)
