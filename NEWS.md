@@ -6,7 +6,7 @@
 
 * The `fa()` function now allows percentage values to be used as `height` and `width` args (#117). (#125)
 
-* When using `fa_i()`, the `class` value is appended when a fully-qualified `name` is used (#122. (#123, thanks @averissimo !)
+* When using `fa_i()`, the `class` value is appended when a fully-qualified `name` is used (#122. (#123, thanks @averissimo!)
 
 # fontawesome 0.5.2
 
