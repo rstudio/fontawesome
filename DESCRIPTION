@@ -1,6 +1,6 @@
 Type: Package
 Package: fontawesome
-Version: 0.5.2.9000
+Version: 0.5.3
 Title: Easily Work with 'Font Awesome' Icons
 Description: Easily and flexibly insert 'Font Awesome' icons into 'R Markdown'
     documents and 'Shiny' apps. These icons can be inserted into HTML content
@@ -22,7 +22,7 @@ URL: https://github.com/rstudio/fontawesome, https://rstudio.github.io/fontaweso
 BugReports: https://github.com/rstudio/fontawesome/issues
 Encoding: UTF-8
 ByteCompile: true
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Depends:
     R (>= 3.3.0)
 Imports:
