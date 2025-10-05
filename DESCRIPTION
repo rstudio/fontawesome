@@ -24,7 +24,7 @@ Encoding: UTF-8
 ByteCompile: true
 RoxygenNote: 7.3.2
 Depends:
-    R (>= 3.3.0)
+    R (>= 3.5)
 Imports:
     rlang (>= 1.0.6),
     htmltools (>= 0.5.1.1)
